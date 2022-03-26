@@ -24,7 +24,7 @@ export function Login(props) {
   const navigate = useNavigate();
 
   function autenticarCliente() {
-    let cliente = { email: "joaozinho@gmai.com", palavraPasse: "1234palavra" };
+    let cliente = { email: "joaozinho@gmail.com", palavraPasse: "1234palavra" };
 
     fetch(API_URL + "/autenticacaoCliente", {
       method: "POST",
@@ -34,16 +34,21 @@ export function Login(props) {
       body: JSON.stringify(cliente),
     })
       .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          throw new Error(response.message);
-        }
+       
+        
 
         console.log(response);
 
         return response.json();
       })
       .then((parsedResponse) => {
+         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (parsedResponse.status !== 200) {
+
+          throw new Error(parsedResponse);
+          
+        }
+       
         console.log(parsedResponse);
       })
       .catch((error) => {
@@ -93,8 +98,7 @@ export function Login(props) {
               id="ButtonLogin"
               onClick={() => {
                 autenticarCliente();
-                navigate("/home");
-                props.doLogin("David");
+             /*   props.doLogin("David");*/
               }}
               fullWidth
               variant="contained"
