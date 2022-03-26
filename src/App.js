@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Contacts } from "./Components/Contacts";
 import { Info } from "./Components/Info";
-import { HomePage } from "./Components/HomePage";
+import { PaginaPrincipal } from "./Components/PaginaPrincipal";
 import { Menu } from "./Components/Menu";
 import { Login } from "./Components/Login";
 import { Navigate } from "react-router-dom";
@@ -22,7 +22,7 @@ function App() {
             path="/home"
             element={
               <VerificaUser user={user}>
-                <HomePage></HomePage>
+                <PaginaPrincipal></PaginaPrincipal>
               </VerificaUser>
             }
           />

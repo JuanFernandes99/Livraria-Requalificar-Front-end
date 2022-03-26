@@ -4,7 +4,7 @@ export function Menu() {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div>
       <button
         onClick={() => {
           navigate("/home");
@@ -26,6 +26,6 @@ export function Menu() {
       >
         Info
       </button>
-    </>
+    </div>
   );
 }
