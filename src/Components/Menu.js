@@ -58,7 +58,13 @@ export function BasicMenu() {
         >
           Adicionar Editora
         </MenuItem>
-        <MenuItem onClick={handleClose}>Adicionar Autor</MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate("/registarAutor");
+          }}
+        >
+          Adicionar Autor
+        </MenuItem>
         <MenuItem onClick={handleClose}>Adicionar Livro</MenuItem>
       </Menu>
       <button

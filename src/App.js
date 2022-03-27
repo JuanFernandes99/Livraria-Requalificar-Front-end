@@ -7,7 +7,8 @@ import { Login } from "./Components/Login";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
-import { Editora } from "./Components/PaginaFuncionario";
+import { Editora } from "./Components/AdicionarEditora";
+import { Autor } from "./Components/AdicionarAutor";
 
 const API_URL = "http://localhost:8080";
 
@@ -32,6 +33,14 @@ function App() {
             element={
               <VerificaUser user={user}>
                 <Editora></Editora>
+              </VerificaUser>
+            }
+          />
+          <Route
+            path="/registarAutor"
+            element={
+              <VerificaUser user={user}>
+                <Autor></Autor>
               </VerificaUser>
             }
           />

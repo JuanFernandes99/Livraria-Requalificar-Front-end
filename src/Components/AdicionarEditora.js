@@ -14,14 +14,13 @@ export function Editora() {
     //fetchEditora();
   }, []);
 
-  function fetchEditora() {
+  function FetchEditora() {
     fetch(
       API_URL +
         "/getAllEditoras" /*defino aqui o @pathvariable exemple getPessoasbyid --- "/getPessoa" + id*/,
       {
         mode: "cors",
-        method:
-          "GET" /*quando se trata de um pedido get pode-se não colocar o method:"GET"*/,
+        method: "GET",
         headers: {
           "Content-type": "application/json",
         },
@@ -29,28 +28,22 @@ export function Editora() {
     )
       .then((response) => {
         console.log(response);
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+
         if (response.status !== 200) {
-          throw new Error("There was an error finding editoras");
+          throw new Error("Ocorreu um erro, nenhuma Editora disponível");
         }
 
         return response.json();
       })
       .then((parsedResponse) => {
-        console.log(parsedResponse); //isto é para verificar o que está a acontecer através do devTools
-        setListasEditora(parsedResponse);
-        //  Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas;
-        //  setPessoasList(parsedResponse);
-        //  console.log(parsedResponse);
-        //  fetch na ficha 10 ta comentado para evitar fazer novamente um pedido get;
-        //  aqui tou usando getPessoas em vez de fetchPessoas;
+        console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
       });
   }
 
-  function addEditora() {
+  function AdicionarEditora() {
     if (
       novaEditora.nome.trim().length !== 0 &&
       novaEditora.morada.trim().length !== 0
@@ -60,13 +53,9 @@ export function Editora() {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(
-          novaEditora
-        ) /*Tratando-se de um post é necessário colocar um body! */,
+        body: JSON.stringify(novaEditora),
       })
         .then((response) => {
-          // Validar se o pedido foi feito com sucesso.
-          // Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
           if (response.status !== 200) {
             throw new Error("There was an error finding pessoas");
           }
@@ -80,7 +69,7 @@ export function Editora() {
             return;
           }
 
-          fetchEditora();
+          FetchEditora();
         })
         .catch((error) => {
           alert(error);
@@ -108,6 +97,7 @@ export function Editora() {
             setNovaEditora({ ...novaEditora, nome: e.target.value });
           }}
         />
+        <br></br>
         <TextField
           id="filled-basic"
           label="Morada da Editora"
@@ -120,7 +110,7 @@ export function Editora() {
         />
       </Box>
       <div>
-        <button className="btn-editora" onClick={addEditora}>
+        <button className="btn-editora" onClick={AdicionarEditora}>
           Adicionar Editora
         </button>
       </div>
