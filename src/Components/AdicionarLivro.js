@@ -75,8 +75,8 @@ export function NovoLivro() {
 
   function AdicionarLivro() {
     if (
-      novoAutor.nome.trim().length !== 0 &&
-      novoAutor.email.trim().length !== 0
+      novoLivro.nome.trim().length !== 0 &&
+      novoLivro.email.trim().length !== 0
     ) {
       fetch(API_URL + "/addLivro", {
         method: "POST",
