@@ -53,11 +53,14 @@ export function Login(props) {
         return response.json();
       })
       .then((parsedResponse) => {
+        props.doLogin("David");
+        navigate("/home");
         console.log(parsedResponse);
         setPalavraPasse("");
         setEmail("");
       })
       .catch((error) => {
+        <p>error</p>
         alert(error);
       });
   }
@@ -106,7 +109,8 @@ export function Login(props) {
               id="ButtonLogin"
               onClick={() => {
                 autenticarCliente();
-                /*   props.doLogin("David");*/
+                 
+                
               }}
               fullWidth
               variant="contained"

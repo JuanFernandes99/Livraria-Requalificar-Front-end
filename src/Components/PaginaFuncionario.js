@@ -51,10 +51,7 @@ export function Editora() {
   }
 
   function addEditora() {
-    if (
-      novaEditora.nome.trim().length !== 0 &&
-      novaEditora.morada.trim().length !== 0
-    ) {
+ 
       fetch(API_URL + "/addEditora", {
         method: "POST",
         headers: {
@@ -68,7 +65,10 @@ export function Editora() {
           // Validar se o pedido foi feito com sucesso.
           // Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
           if (response.status !== 200) {
-            throw new Error("There was an error finding pessoas");
+            return response.json().then((parsedResponse) => {
+              console.log(parsedResponse.message);
+              throw new Error(parsedResponse.message);
+            });
           }
 
           return response.json();
@@ -85,7 +85,7 @@ export function Editora() {
         .catch((error) => {
           alert(error);
         });
-    }
+    
   }
 
   return (
