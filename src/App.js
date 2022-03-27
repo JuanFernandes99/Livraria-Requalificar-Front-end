@@ -9,6 +9,7 @@ import { useState } from "react";
 import "./App.css";
 import { Editora } from "./Components/AdicionarEditora";
 import { Autor } from "./Components/AdicionarAutor";
+import { Registo } from "./Components/Registo";
 
 const API_URL = "http://localhost:8080";
 

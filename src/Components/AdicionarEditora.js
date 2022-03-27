@@ -9,11 +9,11 @@ export function Editora() {
   const [listaEditoras, setListasEditora] = useState([]);
   const [novaEditora, setNovaEditora] = useState({ nome: "", morada: "" });
   //const [editoraSelecionada, setEditoraSelecionada] = useState({});
-
+/*
   useEffect(() => {
     //fetchEditora();
   }, []);
-
+*/
   function FetchEditora() {
     fetch(
       API_URL +

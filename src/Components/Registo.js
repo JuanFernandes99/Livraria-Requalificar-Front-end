@@ -22,21 +22,21 @@ const API_URL = "http://localhost:8080";
 
 export function Registo(props) {
   const navigate = useNavigate();
-  const [novoCliente, setNovoCliente] = useState({ nome: "", morada: "" ,dataNascimento: "", palavraPasse: "" ,email: ""});
+  const [novoCliente, setnovoCliente] = useState({
+    nome: "",
+    morada: "",
+    dataNascimento: "",
+    palavraPasse: "",
+    email: "",
+  });
+
   function registoCliente() {
     fetch(API_URL + "/addCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({
-        email: "joaozinho@gmail.com",
-        palavraPasse: "1234palavra",
-        /*
-        email: email,
-        palavraPasse: palavraPasse,
-        */
-      }),
+      body: JSON.stringify(novoCliente),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -52,11 +52,9 @@ export function Registo(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        props.doLogin("David");
+        alert(parsedResponse.message);
         navigate("/home");
-        console.log(parsedResponse);
-        setPalavraPasse("");
-        setEmail("");
+       
       })
       .catch((error) => {
         alert(error);
@@ -77,7 +75,7 @@ export function Registo(props) {
           <Typography component="h1" variant="h5">
             <img id="image" src={livraryimage} alt="Logo" />
             <br></br>
-            Registo 
+            Registo
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
@@ -88,9 +86,55 @@ export function Registo(props) {
               name="nome"
               label="nome"
               id="nome"
-              value={nome}
-              placeholder="Nome"
-              onChange={(e) => setEmail(e.target.value)}
+              value={novoCliente.nome}
+              onChange={(e) => {
+                setnovoCliente({ ...novoCliente, nome: e.target.value });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="morada"
+              label="morada"
+              type="text"
+              id="morada"
+              value={novoCliente.morada}
+              onChange={(e) => {
+                setnovoCliente({ ...novoCliente, morada: e.target.value });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="dataNascimento"
+              label="dataNascimento"
+              type="text"
+              id="dataNascimento"
+              value={novoCliente.dataNascimento}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  dataNascimento: e.target.value,
+                });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="email"
+              label="email"
+              type="text"
+              id="email"
+              value={novoCliente.email}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  email: e.target.value,
+                });
+              }}
             />
             <TextField
               margin="normal"
@@ -100,13 +144,18 @@ export function Registo(props) {
               label="Password"
               type="password"
               id="password"
-              value={palavraPasse}
-              onChange={(e) => setPalavraPasse(e.target.value)}
+              value={novoCliente.palavraPasse}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  palavraPasse: e.target.value,
+                });
+              }}
             />
             <Button
               id="ButtonLogin"
               onClick={() => {
-                autenticarCliente();
+                registoCliente();
               }}
               fullWidth
               variant="contained"
