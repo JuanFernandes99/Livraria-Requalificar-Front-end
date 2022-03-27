@@ -1,30 +1,29 @@
 #welcomeQuestion {
-    line-height: 1;
-    font-size: 12px;
-    color: #767676;
-    font-weight: 400;
-    z-index: 2;
-    position: relative;
-    display: inline-block;
-    background-color: #fff;
-    padding: 0 8px 0 7px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+  line-height: 1;
+  font-size: 12px;
+  color: #767676;
+  font-weight: 400;
+  z-index: 2;
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  padding: 0 8px 0 7px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 #image {
-    height: 100px;
+  height: 200px;
 }
 
-#ButtonLogin{
-    margin-top: 0px !important;
-    background: green !important;
-    text-transform: none !important;
+#ButtonLogin {
+  margin-top: 0px !important;
+  background: green !important;
+  text-transform: none !important;
 }
 
-#ButtonRegisto{
-    margin-top: 0px !important;
-    
-    text-transform: none !important;
-}
+#ButtonRegisto {
+  margin-top: 0px !important;
 
+  text-transform: none !important;
+}

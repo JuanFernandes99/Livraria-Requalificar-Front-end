@@ -2,11 +2,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Contacts } from "./Components/Contacts";
 import { Info } from "./Components/Info";
 import { PaginaPrincipal } from "./Components/PaginaPrincipal";
-import { Menu } from "./Components/Menu";
+import { BasicMenu } from "./Components/Menu";
 import { Login } from "./Components/Login";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
+import { Editora } from "./Components/PaginaFuncionario";
 
 const API_URL = "http://localhost:8080";
 
@@ -16,13 +17,21 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {user && <Menu></Menu>}
+        {user && <BasicMenu></BasicMenu>}
         <Routes>
           <Route
             path="/home"
             element={
               <VerificaUser user={user}>
                 <PaginaPrincipal></PaginaPrincipal>
+              </VerificaUser>
+            }
+          />
+          <Route
+            path="/registarEditora"
+            element={
+              <VerificaUser user={user}>
+                <Editora></Editora>
               </VerificaUser>
             }
           />

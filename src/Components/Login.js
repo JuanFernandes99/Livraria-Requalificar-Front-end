@@ -48,7 +48,6 @@ export function Login(props) {
       })
       .catch((error) => {
         alert(error);
-        
       });
   }
   return (

@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:8080";
+//const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal() {
-  const [listaLivros, setListaLivros] = useState([]);
-  const [novoLivro, setNovoLivro] = useState({ titulo: "" });
+  return <h1>Sem livros disponíveis</h1>;
+  /*const [listaLivros, setListasLivros] = useState([]);
+  const [novoLivro, setNovoLivro] = useState({ titulo: "", sinopse: "" });
   const [livroSelecionado, setLivroSelecionado] = useState({});
 
   useEffect(() => {
-    FetchLivro();
+    fetchLivro();
   }, []);
 
-  function FetchLivro() {
+  function fetchLivro() {
     fetch(API_URL + "/getAllLivros", {
+      mode: "cors",
+      method: "GET",
       headers: {
         "Content-type": "application/json",
       },
     })
       .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        console.log(response);
+
         if (response.status !== 200) {
           throw new Error("There was an error finding livros");
         }
@@ -26,13 +30,46 @@ export function PaginaPrincipal() {
         return response.json();
       })
       .then((parsedResponse) => {
-        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
-        setListaLivros(parsedResponse);
-        //console.log(parsedResponse);
+        console.log(parsedResponse);
+        setListasLivros(parsedResponse);
       })
       .catch((error) => {
         alert(error);
       });
+  }
+
+  function addLivro() {
+    if (
+      novoLivro.titulo.trim().length !== 0 &&
+      novoLivro.sinopse.trim().length !== 0
+    ) {
+      fetch(API_URL + "/addLivro", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(novoLivro),
+      })
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error("There was an error finding livros");
+          }
+
+          return response.json();
+        })
+        .then((parsedResponse) => {
+          if (!parsedResponse.status) {
+            alert(parsedResponse.message);
+
+            return;
+          }
+
+          fetchLivro();
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   }
 
   return (
@@ -45,12 +82,33 @@ export function PaginaPrincipal() {
                 className="todo-text"
                 onClick={() => setLivroSelecionado(element)}
               >
-                {"Nome: " + element.titulo}
+                {"titulo: " + element.titulo + ", sinopse: " + element.sinopse}
               </p>
             </div>
           );
         })}
       </section>
+
+      <div>
+        <p>titulo do livro</p>
+        <input
+          type="text"
+          value={novoLivro.titulo}
+          onChange={(e) => {
+            setNovoLivro({ ...novoLivro, titulo: e.target.value });
+          }}
+        />
+        <p>Sinopse:</p>
+        <input
+          type="text"
+          value={novoLivro.sinopse}
+          onChange={(e) => {
+            setNovoLivro({ ...novoLivro, sinopse: e.target.value });
+          }}
+        />
+        <br></br>
+        <button onClick={addLivro}>Adicionar Livro</button>
+      </div>
     </>
-  );
+  );*/
 }
