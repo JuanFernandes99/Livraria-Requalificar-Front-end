@@ -22,23 +22,30 @@ const API_URL = "http://localhost:8080";
 
 export function Login(props) {
   const navigate = useNavigate();
-
+  const [palavraPasse, setPalavraPasse] = useState("");
+  const [email, setEmail] = useState("");
   function autenticarCliente() {
-    let cliente = { email: "joaozinho@gmail.com", palavraPasse: "1234palavra" };
-
     fetch(API_URL + "/autenticacaoCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(cliente),
+      body: JSON.stringify({
+        email:"joaozinho@gmail.com",
+        palavraPasse: "1234palavra",
+        /*
+        email: email,
+        palavraPasse: palavraPasse,
+        */
+      }),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-
-          return response.json().then(parsedResponse => { console.log(parsedResponse.message);throw new Error(parsedResponse.message)})
-          
+          return response.json().then((parsedResponse) => {
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
+          });
         }
 
         console.log(response);
@@ -46,13 +53,12 @@ export function Login(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        
-       
         console.log(parsedResponse);
+        setPalavraPasse("");
+        setEmail("");
       })
       .catch((error) => {
         alert(error);
-        
       });
   }
   return (
@@ -77,12 +83,13 @@ export function Login(props) {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
+              type="text"
               name="email"
-              autoComplete="email"
-              autoFocus
-              input type="text" 
+              label="Email"
+              id="email"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -92,14 +99,14 @@ export function Login(props) {
               label="Password"
               type="password"
               id="password"
-              
-              autoComplete="current-password"
+              value={palavraPasse}
+              onChange={(e) => setPalavraPasse(e.target.value)}
             />
             <Button
               id="ButtonLogin"
               onClick={() => {
                 autenticarCliente();
-             /*   props.doLogin("David");*/
+                /*   props.doLogin("David");*/
               }}
               fullWidth
               variant="contained"
