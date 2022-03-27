@@ -29,6 +29,12 @@ function App() {
             }
           />
           <Route
+            path="/registo"
+            element={
+               <Registo></Registo>
+            }
+          />
+          <Route
             path="/registarEditora"
             element={
               <VerificaUser user={user}>

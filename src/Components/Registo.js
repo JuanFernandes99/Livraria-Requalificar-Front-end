@@ -20,12 +20,11 @@ import "./Login.css";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
-export function Login(props) {
+export function Registo(props) {
   const navigate = useNavigate();
-  const [palavraPasse, setPalavraPasse] = useState("");
-  const [email, setEmail] = useState("");
-  function autenticarCliente() {
-    fetch(API_URL + "/autenticacaoCliente", {
+  const [novoCliente, setNovoCliente] = useState({ nome: "", morada: "" ,dataNascimento: "", palavraPasse: "" ,email: ""});
+  function registoCliente() {
+    fetch(API_URL + "/addCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -78,7 +77,7 @@ export function Login(props) {
           <Typography component="h1" variant="h5">
             <img id="image" src={livraryimage} alt="Logo" />
             <br></br>
-            Iniciar sessão
+            Registo 
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
@@ -86,11 +85,11 @@ export function Login(props) {
               required
               fullWidth
               type="text"
-              name="email"
-              label="Email"
-              id="email"
-              value={email}
-              placeholder="Email"
+              name="nome"
+              label="nome"
+              id="nome"
+              value={nome}
+              placeholder="Nome"
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
@@ -113,20 +112,7 @@ export function Login(props) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Iniciar sessão
-            </Button>
-            <h5 id="welcomeQuestion">É a sua primeira vez na livraria?</h5>
-            <br></br>
-            <Button
-              id="ButtonRegisto"
-              onClick={() => {
-                navigate("/registo");
-              }}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Criar a conta da livraria
+              Criar conta
             </Button>
           </Box>
         </Box>
