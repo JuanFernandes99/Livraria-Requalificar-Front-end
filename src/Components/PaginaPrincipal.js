@@ -1,12 +1,22 @@
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import Paper from '@mui/material/Paper';
 import { useEffect, useState } from "react";
-
-//const API_URL = "http://localhost:8080";
+import livraryimage from "./livraria.png";
+const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal() {
-  return <h1>Sem livros disponíveis</h1>;
-  /*const [listaLivros, setListasLivros] = useState([]);
-  const [novoLivro, setNovoLivro] = useState({ titulo: "", sinopse: "" });
-  const [livroSelecionado, setLivroSelecionado] = useState({});
+ // return <h1>Sem livros disponíveis</h1>;
+  const [listaLivros, setListasLivros] = useState([]);
+
 
   useEffect(() => {
     fetchLivro();
@@ -30,85 +40,21 @@ export function PaginaPrincipal() {
         return response.json();
       })
       .then((parsedResponse) => {
-        console.log(parsedResponse);
-        setListasLivros(parsedResponse);
+        console.log(parsedResponse.livros);
+        setListasLivros(parsedResponse.livros);
       })
       .catch((error) => {
         alert(error);
       });
   }
 
-  function addLivro() {
-    if (
-      novoLivro.titulo.trim().length !== 0 &&
-      novoLivro.sinopse.trim().length !== 0
-    ) {
-      fetch(API_URL + "/addLivro", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(novoLivro),
-      })
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error("There was an error finding livros");
-          }
-
-          return response.json();
-        })
-        .then((parsedResponse) => {
-          if (!parsedResponse.status) {
-            alert(parsedResponse.message);
-
-            return;
-          }
-
-          fetchLivro();
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    }
-  }
 
   return (
-    <>
-      <section className="list-container">
-        {listaLivros.map(function (element, index) {
-          return (
-            <div key={index} className="todo-card">
-              <p
-                className="todo-text"
-                onClick={() => setLivroSelecionado(element)}
-              >
-                {"titulo: " + element.titulo + ", sinopse: " + element.sinopse}
-              </p>
-            </div>
-          );
-        })}
-      </section>
-
-      <div>
-        <p>titulo do livro</p>
-        <input
-          type="text"
-          value={novoLivro.titulo}
-          onChange={(e) => {
-            setNovoLivro({ ...novoLivro, titulo: e.target.value });
-          }}
-        />
-        <p>Sinopse:</p>
-        <input
-          type="text"
-          value={novoLivro.sinopse}
-          onChange={(e) => {
-            setNovoLivro({ ...novoLivro, sinopse: e.target.value });
-          }}
-        />
-        <br></br>
-        <button onClick={addLivro}>Adicionar Livro</button>
-      </div>
-    </>
-  );*/
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
+      </Container>
+    </React.Fragment>
+  );
 }
