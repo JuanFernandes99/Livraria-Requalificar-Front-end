@@ -1,8 +1,5 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -50,11 +47,21 @@ export function PaginaPrincipal() {
 
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="sm">
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
-      </Container>
-    </React.Fragment>
+    <>
+      <section className="list-container">
+        {listaLivros.map(function (element, index) {
+          return (
+            <div key={index} className="todo-card">
+             <img id="image" src={livraryimage} alt="Logo" />
+             <br></br>
+                { element.titulo} <br></br> {"" + element.preco + "$"}
+              
+            </div>
+          );
+        })}
+      </section>
+
+
+    </>
   );
 }
