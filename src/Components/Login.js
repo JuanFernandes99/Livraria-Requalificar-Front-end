@@ -34,20 +34,19 @@ export function Login(props) {
       body: JSON.stringify(cliente),
     })
       .then((response) => {
-       
-        
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+
+          return response.json().then(parsedResponse => { console.log(parsedResponse.message);throw new Error(parsedResponse.message)})
+          
+        }
 
         console.log(response);
 
         return response.json();
       })
       .then((parsedResponse) => {
-         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (parsedResponse.status !== 200) {
-
-          throw new Error(parsedResponse);
-          
-        }
+        
        
         console.log(parsedResponse);
       })
@@ -83,6 +82,7 @@ export function Login(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              input type="text" 
             />
             <TextField
               margin="normal"
@@ -92,6 +92,7 @@ export function Login(props) {
               label="Password"
               type="password"
               id="password"
+              
               autoComplete="current-password"
             />
             <Button
