@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 const API_URL = "http://localhost:8080";
-
+/*
 export function NovoLivro() {
     const navigate = useNavigate();
   const [listaAutores, setListaAutores] = useState([]);
@@ -18,7 +18,7 @@ export function NovoLivro() {
   function getEditoras() {
     fetch(
       API_URL +
-        "/getAllEditoras" /*defino aqui o @pathvariable exemple getPessoasbyid --- "/getPessoa" + id*/,
+        "/getAllEditoras",
       {
         mode: "cors",
         method: "GET",
@@ -47,7 +47,7 @@ export function NovoLivro() {
   function getAutores() {
     fetch(
       API_URL +
-        "/getAllAutores" /*defino aqui o @pathvariable exemple getPessoasbyid --- "/getPessoa" + id*/,
+        "/getAllAutores" ,
       {
         mode: "cors",
         method: "GET",
@@ -179,3 +179,4 @@ export function NovoLivro() {
     </>
   );
 }
+*/
