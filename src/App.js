@@ -29,12 +29,7 @@ function App() {
               </VerificaUser>
             }
           />
-          <Route
-            path="/registo"
-            element={
-               <Registo></Registo>
-            }
-          />
+          <Route path="/registo" element={<Registo></Registo>} />
           <Route
             path="/registarEditora"
             element={
@@ -47,15 +42,15 @@ function App() {
             path="/registarAutor"
             element={
               <VerificaUser user={user}>
-                <NovoLivro></NovoLivro>
+                <Autor></Autor>
               </VerificaUser>
             }
           />
-              <Route
+          <Route
             path="/registarLivro"
             element={
               <VerificaUser user={user}>
-                <Autor></Autor>
+                <NovoLivro></NovoLivro>
               </VerificaUser>
             }
           />
