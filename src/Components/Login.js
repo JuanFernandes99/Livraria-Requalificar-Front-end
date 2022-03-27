@@ -60,6 +60,8 @@ export function Login(props) {
         setEmail("");
       })
       .catch((error) => {
+        <p>error</p>;
+
         alert(error);
       });
   }
