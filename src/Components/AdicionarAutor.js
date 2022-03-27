@@ -1,36 +1,47 @@
 import { useEffect, useState } from "react";
+import "../Components/Adicionar.css";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
+  const [listaEditoras, setListasEditora] = useState([]);
+  const [novaEditora, setNovaEditora] = useState({ nome: "", morada: "" });
   const [listaAutores, setListaAutores] = useState([]);
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
     email: "",
     dataNascimento: "",
-    editora: "",
+    editora: [""],
   });
-  //const [editoraSelecionada, setEditoraSelecionada] = useState({});
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  //const [editoraSelecionada, setEditoraSelecionada] = useState({});
+  //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
   useEffect(() => {
-    //FetchEditora();
+    GetAllEditoras();
   }, []);
 
   function FetchAutor() {
-    fetch(
-      API_URL +
-        "/getAllAutores" /*defino aqui o @pathvariable exemple getPessoasbyid --- "/getPessoa" + id*/,
-      {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    )
+    fetch(API_URL + "/getAllAutores", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
       .then((response) => {
         console.log(response);
 
@@ -82,12 +93,38 @@ export function Autor() {
     }
   }
 
+  function GetAllEditoras() {
+    fetch(API_URL + "/getAllEditoras", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("Ocorreu um erro, nenhuma Editora disponível");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        setListasEditora(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   return (
-    <>
+    <div>
       <Box
-        component="form"
+        className="formularioAutor"
         sx={{
-          "& > :not(style)": { m: 1, width: "20em" },
+          "& > :not(style)": { m: 1, width: "80%" },
         }}
         noValidate
         autoComplete="off"
@@ -115,7 +152,7 @@ export function Autor() {
         />
         <TextField
           id="filled-basic"
-          label="Email "
+          label="Data de Nascimento "
           variant="filled"
           type="text"
           value={novoAutor.dataNascimento}
@@ -125,20 +162,48 @@ export function Autor() {
         />
         <TextField
           id="filled-basic"
-          label="Email "
+          label="Editora "
           variant="filled"
           type="text"
-          value={novoAutor.editora}
-          onChange={(e) => {
-            setNovoAutor({ ...novoAutor, editora: e.target.value });
-          }}
         />
+
+        <div>
+          <Button
+            id="basic-button-autor"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            Adicionar editora
+          </Button>
+          <Button
+            id="basic-button-autor"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={AdicionarAutor}
+          >
+            Adicionar Autor
+          </Button>
+
+          <br></br>
+        </div>
+
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          {listaEditoras.map((element, index) => (
+            <MenuItem>{index + "." + element.nome}</MenuItem>
+          ))}
+        </Menu>
       </Box>
-      <div>
-        <button className="btn-editora" onClick={AdicionarAutor}>
-          Adicionar Autor
-        </button>
-      </div>
 
       <section className="list-container">
         {listaAutores.map(function (element, index) {
@@ -151,6 +216,6 @@ export function Autor() {
           );
         })}
       </section>
-    </>
+    </div>
   );
 }

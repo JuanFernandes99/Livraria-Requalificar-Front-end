@@ -9,39 +9,11 @@ export function Editora() {
   const [listaEditoras, setListasEditora] = useState([]);
   const [novaEditora, setNovaEditora] = useState({ nome: "", morada: "" });
   //const [editoraSelecionada, setEditoraSelecionada] = useState({});
-/*
+  /*
   useEffect(() => {
     //fetchEditora();
   }, []);
 */
-  function FetchEditora() {
-    fetch(
-      API_URL +
-        "/getAllEditoras" /*defino aqui o @pathvariable exemple getPessoasbyid --- "/getPessoa" + id*/,
-      {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    )
-      .then((response) => {
-        console.log(response);
-
-        if (response.status !== 200) {
-          throw new Error("Ocorreu um erro, nenhuma Editora disponível");
-        }
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
 
   function AdicionarEditora() {
     if (
@@ -68,8 +40,6 @@ export function Editora() {
 
             return;
           }
-
-          FetchEditora();
         })
         .catch((error) => {
           alert(error);
@@ -114,18 +84,6 @@ export function Editora() {
           Adicionar Editora
         </button>
       </div>
-
-      <section className="list-container">
-        {listaEditoras.map(function (element, index) {
-          return (
-            <div key={index} className="todo-card">
-              <p className="todo-text" onClick={() => setNovaEditora(element)}>
-                {"Nome: " + element.nome + ", morada: " + element.morada}
-              </p>
-            </div>
-          );
-        })}
-      </section>
     </>
   );
 }
