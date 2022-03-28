@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../Components/Adicionar.css";
+import "../Geral/Adicionar.css";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";

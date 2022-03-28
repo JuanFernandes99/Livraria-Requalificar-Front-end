@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Contacts } from "./Components/Contacts";
-import { Info } from "./Components/Info";
-import { PaginaPrincipal } from "./Components/PaginaPrincipal";
-import { BasicMenu } from "./Components/Menu";
-import { Login } from "./Components/Login";
+import { Contacts } from "./Components/Geral/Contacts";
+import { Info } from "./Components/Geral/Info";
+import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
+import { BasicMenu } from "./Components/Geral/Menu";
+import { LoginCliente } from "./Components/Cliente/LoginCliente";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import { Editora } from "./Components/Funcionario/AdicionarEditora";
+import { Autor } from "./Components/Funcionario/AdicionarAutor";
+import { Registo } from "./Components/Cliente/RegistoCliente";
+import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
 import "./App.css";
-import { Editora } from "./Components/AdicionarEditora";
-import { Autor } from "./Components/AdicionarAutor";
-import { Registo } from "./Components/Registo";
-import { NovoLivro } from "./Components/AdicionarLivro";
 
 const API_URL = "http://localhost:8080";
 
@@ -47,7 +47,7 @@ function App() {
               </VerificaUser>
             }
           />
-           <Route
+          <Route
             path="/registarLivro"
             element={
               <VerificaUser user={user}>
@@ -64,6 +64,10 @@ function App() {
             }
           />
           <Route
+            path="/loginFuncionario"
+            element={<Contacts /*user={user}*/></Contacts>}
+          />
+          <Route
             path="/info/:id"
             element={
               <VerificaUser user={user}>
@@ -71,7 +75,10 @@ function App() {
               </VerificaUser>
             }
           />
-          <Route path="/*" element={<Login doLogin={setUser}></Login>} />
+          <Route
+            path="/*"
+            element={<LoginCliente doLogin={setUser}></LoginCliente>}
+          />
         </Routes>
       </BrowserRouter>
     </div>
