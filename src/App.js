@@ -47,6 +47,14 @@ function App() {
               </VerificaUser>
             }
           />
+           <Route
+            path="/registarLivro"
+            element={
+              <VerificaUser user={user}>
+                <NovoLivro></NovoLivro>
+              </VerificaUser>
+            }
+          />
           <Route
             path="/contacts"
             element={

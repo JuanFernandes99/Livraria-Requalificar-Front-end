@@ -77,7 +77,10 @@ export function PaginaPrincipal() {
                   row
                 >
                   {listaLivros.map((element, index) => (
-                    <Card sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}>
+                    <Card
+                      key={index}
+                      sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
+                    >
                       <CardActionArea>
                         <CardMedia
                           component="img"

@@ -116,9 +116,7 @@ export function Editora() {
         </button>
       </div>
       {listaEditoras.map((element) => (
-        <p value={element} key={element.id}>
-          {element.nome}
-        </p>
+        <p key={element.id}>{element.nome}</p>
       ))}
     </>
   );

@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
-  const [listaEditoras, setListasEditora] = useState([]);
+  const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListasAutor] = useState([]);
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
@@ -81,7 +81,7 @@ export function Autor() {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse);
-        setListasEditora(parsedResponse);
+        setListaEditoras(parsedResponse);
       })
       .catch((error) => {
         alert(error);
