@@ -16,13 +16,11 @@ const API_URL = "http://localhost:8080";
 
 export function Autor() {
   const [listaEditoras, setListasEditora] = useState([]);
-  const [novaEditora, setNovaEditora] = useState({ nome: "", morada: "" });
-  const [listaAutores, setListaAutores] = useState([]);
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
     email: "",
     dataNascimento: "",
-    editora: [""],
+    editora: { id: "1" },
   });
 
   const [editoraSelecionada, setEditoraSelecionada] = React.useState("");
@@ -44,31 +42,6 @@ export function Autor() {
   useEffect(() => {
     GetAllEditoras();
   }, []);
-
-  function FetchAutor() {
-    fetch(API_URL + "/getAllAutores", {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-
-        if (response.status !== 200) {
-          throw new Error("Ocorreu um erro, nenhum Autor disponível");
-        }
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
 
   function AdicionarAutor() {
     if (
@@ -231,18 +204,6 @@ export function Autor() {
           </FormControl>
         </Menu>
       </Box>
-
-      <section className="list-container">
-        {listaAutores.map(function (element, index) {
-          return (
-            <div key={index} className="todo-card">
-              <p className="todo-text" onClick={() => setNovoAutor(element)}>
-                {"Nome: " + element.nome + ", Editora: " + element.editora}
-              </p>
-            </div>
-          );
-        })}
-      </section>
     </div>
   );
 }
