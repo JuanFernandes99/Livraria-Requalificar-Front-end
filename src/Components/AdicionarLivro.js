@@ -14,19 +14,14 @@ export function NovoLivro() {
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
   const [listaLivros, setListaLivros] = useState([]);
-  let listaAutoresAux = [];
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     sinopse: "",
     edicao: "",
-    //preço
-    dataLancamento: "",
-    editora: "",
     dataLancamento: "",
     preco: 0.0,
     quantidadeStock: 0,
     numeroPaginas: 0,
-    dataLancamento: "",
     isbn: "",
     editora: {
       id: "",
@@ -119,39 +114,37 @@ export function NovoLivro() {
   }
 
   function AdicionarLivro() {
-    {
-      fetch(API_URL + "/addLivro", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(novoLivro),
+    fetch(API_URL + "/addLivro", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(novoLivro),
+    })
+      .then(async (response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          const parsedResponse = await response.json();
+          console.log(parsedResponse.message);
+          throw new Error(parsedResponse.message);
+        }
+
+        console.log(response);
+
+        return response.json();
       })
-        .then(async (response) => {
-          // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-          if (response.status !== 200) {
-            const parsedResponse = await response.json();
-            console.log(parsedResponse.message);
-            throw new Error(parsedResponse.message);
-          }
+      .then((parsedResponse) => {
+        if (!parsedResponse.status) {
+          alert(parsedResponse.message);
 
-          console.log(response);
+          return;
+        }
 
-          return response.json();
-        })
-        .then((parsedResponse) => {
-          if (!parsedResponse.status) {
-            alert(parsedResponse.message);
-
-            return;
-          }
-
-          GetAllLivros();
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    }
+        GetAllLivros();
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   return (
@@ -159,7 +152,7 @@ export function NovoLivro() {
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "20em" },
+          "& > :not(style)": { m: 1, width: "20em", float: "left" },
         }}
         noValidate
         autoComplete="off"
@@ -261,12 +254,6 @@ export function NovoLivro() {
             setNovoLivro({ ...novoLivro, isbn: e.target.value });
           }}
         />
-      </Box>
-      <Box
-        sx={{
-          "& > :not(style)": { m: 1, width: "80%" },
-        }}
-      >
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Editora</InputLabel>
           <Select
@@ -285,12 +272,6 @@ export function NovoLivro() {
             ))}
           </Select>
         </FormControl>
-      </Box>
-      <Box
-        sx={{
-          "& > :not(style)": { m: 1, width: "80%" },
-        }}
-      >
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Autores</InputLabel>
           <Select
@@ -311,6 +292,7 @@ export function NovoLivro() {
           </Select>
         </FormControl>
       </Box>
+
       <div>
         <button className="btn-Livro" onClick={AdicionarLivro}>
           Adicionar Livro

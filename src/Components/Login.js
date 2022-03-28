@@ -33,7 +33,7 @@ export function Login(props) {
       headers: {
         "Content-type": "application/json",
       },
-      
+
       body: JSON.stringify({
         email: "joaozinho@gmail.com",
         palavraPasse: "1234palavra",
@@ -92,7 +92,10 @@ export function Login(props) {
               value={autenticacaoCliente.email}
               placeholder="Email"
               onChange={(e) => {
-                setAutenticacaoCliente({ ...autenticacaoCliente, email: e.target.value });
+                setAutenticacaoCliente({
+                  ...autenticacaoCliente,
+                  email: e.target.value,
+                });
               }}
             />
             <TextField
@@ -106,7 +109,10 @@ export function Login(props) {
               autoComplete="current-password"
               value={autenticacaoCliente.palavraPasse}
               onChange={(e) => {
-                setAutenticacaoCliente({ ...autenticacaoCliente, palavraPasse: e.target.value });
+                setAutenticacaoCliente({
+                  ...autenticacaoCliente,
+                  palavraPasse: e.target.value,
+                });
               }}
             />
             <Button
