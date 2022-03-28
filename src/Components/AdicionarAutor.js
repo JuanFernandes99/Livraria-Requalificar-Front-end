@@ -52,11 +52,7 @@ export function Autor() {
           return response.json();
         })
         .then((parsedResponse) => {
-          if (!parsedResponse.status) {
-            alert(parsedResponse.message);
-
-            return;
-          }
+          console.log(parsedResponse);
         })
         .catch((error) => {
           alert(error);

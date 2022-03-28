@@ -29,17 +29,16 @@ export function Editora() {
       })
         .then((response) => {
           if (response.status !== 200) {
-            throw new Error("There was an error finding pessoas");
+            return response.json().then((parsedResponse) => {
+              console.log(parsedResponse.message);
+              throw new Error(parsedResponse.message);
+            });
           }
-
+          console.log(response);
           return response.json();
         })
         .then((parsedResponse) => {
-          if (!parsedResponse.status) {
-            alert(parsedResponse.message);
-
-            return;
-          }
+          console.log(parsedResponse);
         })
         .catch((error) => {
           alert(error);
