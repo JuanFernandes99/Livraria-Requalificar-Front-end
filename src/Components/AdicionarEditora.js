@@ -86,7 +86,7 @@ export function Editora() {
         <TextField
           margin="normal"
           required
-        //falta o width
+          //falta o width
           id="filled-basic"
           label="Nome da Editora"
           variant="filled"
@@ -100,7 +100,6 @@ export function Editora() {
         <TextField
           margin="normal"
           required
-          
           id="filled-basic"
           label="Morada da Editora"
           variant="filled"

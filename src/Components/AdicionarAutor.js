@@ -54,7 +54,7 @@ export function Autor() {
         })
         .then((parsedResponse) => {
           console.log(parsedResponse);
-          alert(parsedResponse.message)
+          alert(parsedResponse.message);
         })
         .catch((error) => {
           alert(error);
@@ -160,11 +160,11 @@ export function Autor() {
             "& > :not(style)": { m: 1, width: "80%" },
           }}
         >
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Editora</InputLabel>
+          <FormControl>
+            <InputLabel id="filled-basic">Editora</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="editora"
+              id="filled-basic"
               label="Editora"
               value={novoAutor.editora}
               onChange={(e) => {
@@ -181,12 +181,24 @@ export function Autor() {
         </Box>
         <Button onClick={AdicionarAutor}>Adicionar Autor</Button>
       </Box>
-      {listaAutores.map((element) => (
-        <p value={element} key={element.id}>
-          {element.nome + " " + element.email}
-        </p>
-      ))}
+
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Data Nascimento</th>
+          <th>Editora</th>
+        </tr>
+
+        {listaAutores.map((element) => (
+          <tr key={element.id}>
+            <td>{element.nome}</td>
+            <td>{element.email}</td>
+            <td>{element.dataNascimento}</td>
+            <td>{element.editora.nome}</td>
+          </tr>
+        ))}
+      </table>
     </div>
-      
   );
 }
