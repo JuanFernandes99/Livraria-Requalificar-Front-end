@@ -12,6 +12,7 @@ const API_URL = "http://localhost:8080";
 
 export function Autor() {
   const [listaEditoras, setListasEditora] = useState([]);
+  const [listaAutores, setListasAutor] = useState([]);
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
     email: "",
@@ -24,6 +25,7 @@ export function Autor() {
   //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
   useEffect(() => {
     GetAllEditoras();
+    GetAllAutores();
   }, []);
 
   function AdicionarAutor() {
@@ -38,13 +40,12 @@ export function Autor() {
         },
         body: JSON.stringify(novoAutor),
       })
-        .then((response) => {
+        .then(async (response) => {
           // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
           if (response.status !== 200) {
-            return response.json().then((parsedResponse) => {
-              console.log(parsedResponse.message);
-              throw new Error(parsedResponse.message);
-            });
+            const parsedResponse = await response.json();
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
           }
 
           console.log(response);
@@ -81,6 +82,32 @@ export function Autor() {
       .then((parsedResponse) => {
         console.log(parsedResponse);
         setListasEditora(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  function GetAllAutores() {
+    fetch(API_URL + "/getAllAutores", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("Ocorreu um erro, nenhum Autor disponível");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        setListasAutor(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -154,6 +181,12 @@ export function Autor() {
         </Box>
         <Button onClick={AdicionarAutor}>Adicionar Autor</Button>
       </Box>
+      {listaAutores.map((element) => (
+        <p value={element} key={element.id}>
+          {element.nome + " " + element.email}
+        </p>
+      ))}
     </div>
+      
   );
 }

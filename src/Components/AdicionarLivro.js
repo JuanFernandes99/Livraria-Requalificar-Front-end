@@ -1,32 +1,33 @@
-/*import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
 const API_URL = "http://localhost:8080";
 
 export function NovoLivro() {
-    const navigate = useNavigate();
-  const [listaAutores, setListaAutores] = useState([]);
+  const [listaEditoras, setListasEditora] = useState([]);
+  const [listaAutores, setListasAutores] = useState([]);
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     sinopse: "",
+    edicao: "",
     dataLancamento: "",
     editora: "",
+    dataLancamento: "",
+    preco: 0.0,
+    quantidadeStock: 0,
+    numeroPaginas: 0,
+    dataLancamento: "",
   });
 
   function getEditoras() {
-    fetch(
-      API_URL +
-        "/getAllEditoras",
-      {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    )
+    fetch(API_URL + "/getAllEditoras", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
       .then((response) => {
         console.log(response);
 
@@ -45,17 +46,13 @@ export function NovoLivro() {
   }
 
   function getAutores() {
-    fetch(
-      API_URL +
-        "/getAllAutores",
-      {
-        mode: "cors",
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    )
+    fetch(API_URL + "/getAllAutores", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
       .then((response) => {
         console.log(response);
 
@@ -179,4 +176,3 @@ export function NovoLivro() {
     </>
   );
 }
-*/
