@@ -6,14 +6,7 @@ import TextField from "@mui/material/TextField";
 const API_URL = "http://localhost:8080";
 
 export function Editora() {
-  const [listaEditoras, setListasEditora] = useState([]);
   const [novaEditora, setNovaEditora] = useState({ nome: "", morada: "" });
-  //const [editoraSelecionada, setEditoraSelecionada] = useState({});
-  /*
-  useEffect(() => {
-    //fetchEditora();
-  }, []);
-*/
 
   function AdicionarEditora() {
     if (
