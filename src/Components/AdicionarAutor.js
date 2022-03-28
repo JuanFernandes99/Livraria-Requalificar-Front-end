@@ -11,17 +11,14 @@ import Button from "@mui/material/Button";
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
-  const handleChange = (event) => {
-    setEditoraSelecionada(event.target.value);
-  };
-
   const [listaEditoras, setListasEditora] = useState([]);
-  const [editoraSelecionada, setEditoraSelecionada] = useState({});
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
     email: "",
     dataNascimento: "",
-    editora: { id: "" },
+    editora: {
+      id: "",
+    },
   });
 
   //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
@@ -144,13 +141,15 @@ export function Autor() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={editoraSelecionada}
               label="Editora"
-              onChange={handleChange}
+              value={novoAutor.editora}
+              onChange={(e) => {
+                setNovoAutor({ ...novoAutor, editora: e.target.value });
+              }}
             >
-              {listaEditoras.map((element, index) => (
-                <MenuItem value={index} key={index}>
-                  {index + " " + element.nome}
+              {listaEditoras.map((element) => (
+                <MenuItem value={element} key={element.id}>
+                  {element.nome}
                 </MenuItem>
               ))}
             </Select>
