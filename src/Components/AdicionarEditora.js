@@ -20,12 +20,11 @@ export function Editora() {
         },
         body: JSON.stringify(novaEditora),
       })
-        .then((response) => {
+        .then(async (response) => {
           if (response.status !== 200) {
-            return response.json().then((parsedResponse) => {
-              console.log(parsedResponse.message);
-              throw new Error(parsedResponse.message);
-            });
+            const parsedResponse = await response.json();
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
           }
           console.log(response);
           return response.json();

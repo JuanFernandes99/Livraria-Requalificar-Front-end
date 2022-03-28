@@ -38,13 +38,12 @@ export function Autor() {
         },
         body: JSON.stringify(novoAutor),
       })
-        .then((response) => {
+        .then(async (response) => {
           // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
           if (response.status !== 200) {
-            return response.json().then((parsedResponse) => {
-              console.log(parsedResponse.message);
-              throw new Error(parsedResponse.message);
-            });
+            const parsedResponse = await response.json();
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
           }
 
           console.log(response);
