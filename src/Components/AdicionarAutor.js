@@ -53,6 +53,7 @@ export function Autor() {
         })
         .then((parsedResponse) => {
           console.log(parsedResponse);
+          alert(parsedResponse.message)
         })
         .catch((error) => {
           alert(error);
