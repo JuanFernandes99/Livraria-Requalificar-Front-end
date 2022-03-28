@@ -1,21 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Contacts } from "./Components/Geral/Contacts";
 import { Info } from "./Components/Geral/Info";
 import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
 import { BasicMenu } from "./Components/Geral/Menu";
+import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import { LoginCliente } from "./Components/Cliente/LoginCliente";
+import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
 import { LoginFuncionario } from "./Components/Funcionario/LoginFuncionario";
-import { Navigate } from "react-router-dom";
-import { useState } from "react";
+import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
 import { Editora } from "./Components/Funcionario/AdicionarEditora";
 import { Autor } from "./Components/Funcionario/AdicionarAutor";
-import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
-import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
 import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
-import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-
-const API_URL = "http://localhost:8080";
 
 function App() {
   const [user, setUser] = useState();
@@ -34,20 +32,29 @@ function App() {
             }
           />
           <Route
-            path="/home"
-            element={
-              <VerificaUser user={user}>
-                <PaginaPrincipal></PaginaPrincipal>
-              </VerificaUser>
-            }
-          />
-          <Route
             path="/registoCliente"
             element={<RegistoCliente></RegistoCliente>}
           />
           <Route
             path="/registoFuncionario"
             element={<RegistoFuncionario></RegistoFuncionario>}
+          />
+          <Route
+            path="/loginFuncionario"
+            element={<LoginFuncionario /*user={user}*/></LoginFuncionario>}
+          />
+
+          <Route
+            path="/loginCliente"
+            element={<LoginCliente /*user={user}*/></LoginCliente>}
+          />
+          <Route
+            path="/home"
+            element={
+              <VerificaUser user={user}>
+                <PaginaPrincipal></PaginaPrincipal>
+              </VerificaUser>
+            }
           />
           <Route
             path="/registarEditora"
@@ -80,15 +87,6 @@ function App() {
                 <Contacts /*user={user}*/></Contacts>
               </VerificaUser>
             }
-          />
-          <Route
-            path="/loginFuncionario"
-            element={<LoginFuncionario /*user={user}*/></LoginFuncionario>}
-          />
-
-          <Route
-            path="/loginCliente"
-            element={<LoginCliente /*user={user}*/></LoginCliente>}
           />
           <Route
             path="/info/:id"
