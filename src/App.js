@@ -41,12 +41,20 @@ function App() {
           />
           <Route
             path="/loginFuncionario"
-            element={<LoginFuncionario /*user={user}*/></LoginFuncionario>}
+            element={
+              <VerificaUser user={user}>
+                <LoginFuncionario></LoginFuncionario>
+              </VerificaUser>
+            }
           />
 
           <Route
             path="/loginCliente"
-            element={<LoginCliente /*user={user}*/></LoginCliente>}
+            element={
+              <VerificaUser user={user}>
+                <LoginCliente></LoginCliente>
+              </VerificaUser>
+            }
           />
           <Route
             path="/home"
