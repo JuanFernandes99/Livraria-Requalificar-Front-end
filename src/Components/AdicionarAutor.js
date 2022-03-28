@@ -3,40 +3,26 @@ import "../Components/Adicionar.css";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-
 import InputLabel from "@mui/material/InputLabel";
-
+import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import Button from "@mui/material/Button";
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
+  const handleChange = (event) => {
+    setEditoraSelecionada(event.target.value);
+  };
+
   const [listaEditoras, setListasEditora] = useState([]);
+  const [editoraSelecionada, setEditoraSelecionada] = useState({});
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
     email: "",
     dataNascimento: "",
-    editora: { id: "1" },
+    editora: {},
   });
-
-  const [editoraSelecionada, setEditoraSelecionada] = React.useState("");
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleChange = (event) => {
-    setEditoraSelecionada(event.target.value);
-  };
 
   //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
   useEffect(() => {
@@ -148,44 +134,9 @@ export function Autor() {
             setNovoAutor({ ...novoAutor, dataNascimento: e.target.value });
           }}
         />
-        <TextField
-          id="filled-basic"
-          label="Editora "
-          variant="filled"
-          type="text"
-          value={editoraSelecionada}
-        />
-
-        <div>
-          <Button
-            id="basic-button-autor"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
-            Adicionar editora
-          </Button>
-          <Button
-            id="basic-button-autor"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={AdicionarAutor}
-          >
-            Adicionar Autor
-          </Button>
-
-          <br></br>
-        </div>
-
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
+        <Box
+          sx={{
+            "& > :not(style)": { m: 1, width: "80%" },
           }}
         >
           <FormControl fullWidth>
@@ -194,15 +145,16 @@ export function Autor() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={editoraSelecionada}
-              label="editora"
+              label="Editora"
               onChange={handleChange}
             >
               {listaEditoras.map((element, index) => (
-                <MenuItem key={index}>{index + element.nome}</MenuItem>
+                <MenuItem key={index}>{index + " " + element.nome}</MenuItem>
               ))}
             </Select>
           </FormControl>
-        </Menu>
+        </Box>
+        <Button onClick={AdicionarAutor}>Adicionar Autor</Button>
       </Box>
     </div>
   );
