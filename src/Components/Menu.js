@@ -65,10 +65,11 @@ export function BasicMenu() {
         >
           Adicionar Autor
         </MenuItem>
-        <MenuItem onClick={() => {
-           navigate("/registarLivro");
-        }}>
-          
+        <MenuItem
+          onClick={() => {
+            navigate("/registarLivro");
+          }}
+        >
           Adicionar Livro
         </MenuItem>
       </Menu>

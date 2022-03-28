@@ -7,6 +7,11 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 
+import InputLabel from "@mui/material/InputLabel";
+
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
@@ -20,6 +25,8 @@ export function Autor() {
     editora: [""],
   });
 
+  const [editoraSelecionada, setEditoraSelecionada] = React.useState("");
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -28,7 +35,11 @@ export function Autor() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  //const [editoraSelecionada, setEditoraSelecionada] = useState({});
+
+  const handleChange = (event) => {
+    setEditoraSelecionada(event.target.value);
+  };
+
   //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
   useEffect(() => {
     GetAllEditoras();
@@ -72,9 +83,15 @@ export function Autor() {
         body: JSON.stringify(novoAutor),
       })
         .then((response) => {
+          // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
           if (response.status !== 200) {
-            throw new Error("There was an error finding autores");
+            return response.json().then((parsedResponse) => {
+              console.log(parsedResponse.message);
+              throw new Error(parsedResponse.message);
+            });
           }
+
+          console.log(response);
 
           return response.json();
         })
@@ -84,8 +101,6 @@ export function Autor() {
 
             return;
           }
-
-          FetchAutor();
         })
         .catch((error) => {
           alert(error);
@@ -165,6 +180,7 @@ export function Autor() {
           label="Editora "
           variant="filled"
           type="text"
+          value={editoraSelecionada}
         />
 
         <div>
@@ -199,9 +215,20 @@ export function Autor() {
             "aria-labelledby": "basic-button",
           }}
         >
-          {listaEditoras.map((element, index) => (
-            <MenuItem>{index + "." + element.nome}</MenuItem>
-          ))}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Editora</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={editoraSelecionada}
+              label="editora"
+              onChange={handleChange}
+            >
+              {listaEditoras.map((element, index) => (
+                <MenuItem key={index}>{index + element.nome}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Menu>
       </Box>
 

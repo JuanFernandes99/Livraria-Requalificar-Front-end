@@ -10,7 +10,8 @@ import "./App.css";
 import { Editora } from "./Components/AdicionarEditora";
 import { Autor } from "./Components/AdicionarAutor";
 import { Registo } from "./Components/Registo";
-import { NovoLivro} from "./Components/AdicionarLivro";
+import { NovoLivro } from "./Components/AdicionarLivro";
+
 const API_URL = "http://localhost:8080";
 
 function App() {
@@ -43,14 +44,6 @@ function App() {
             element={
               <VerificaUser user={user}>
                 <Autor></Autor>
-              </VerificaUser>
-            }
-          />
-          <Route
-            path="/registarLivro"
-            element={
-              <VerificaUser user={user}>
-                <NovoLivro></NovoLivro>
               </VerificaUser>
             }
           />

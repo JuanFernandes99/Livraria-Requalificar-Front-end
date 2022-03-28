@@ -11,7 +11,7 @@ export function NovoLivro() {
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     sinopse: "",
-    dataNascimento: "",
+    dataLancamento: "",
     editora: "",
   });
 

@@ -7,18 +7,25 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import livraryimage from "./livraria.png";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
+import narnia from "../images/narnia.jpg";
 
 const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal() {
   // return <h1>Sem livros disponíveis</h1>;
   const [listaLivros, setListasLivros] = useState([]);
+  const [novoLivro, setNovoLivro] = useState({
+    titulo: "",
+    sinopse: "",
+    dataLancamento: "",
+    editora: "",
+  });
 
   useEffect(() => {
     fetchLivro();
@@ -51,32 +58,38 @@ export function PaginaPrincipal() {
   }
 
   return (
-    <>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-        </CardActions>
-      </Card>
-      ); }
-    </>
+    <div>
+      {listaLivros.map((element, index) => (
+        <Card sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="140"
+              image={narnia}
+              alt="narnia"
+            />
+
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {element.titulo}
+              </Typography>
+
+              <Typography variant="body2" color="text.secondary">
+                {element.preco + "€"}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+
+          <CardActions>
+            <Button size="small" color="primary">
+              Mais Informações
+            </Button>
+            <Button size="small" color="primary">
+              Comprar
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
+    </div>
   );
 }
