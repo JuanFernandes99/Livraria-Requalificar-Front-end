@@ -10,6 +10,7 @@ import { Editora } from "./Components/Funcionario/AdicionarEditora";
 import { Autor } from "./Components/Funcionario/AdicionarAutor";
 import { Registo } from "./Components/Cliente/RegistoCliente";
 import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
+import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import "./App.css";
 
 const API_URL = "http://localhost:8080";
@@ -22,6 +23,14 @@ function App() {
       <BrowserRouter>
         {user && <BasicMenu></BasicMenu>}
         <Routes>
+          <Route
+            path="/selecaoUtilizador"
+            element={
+              <VerificaUser user={user}>
+                <PaginaPrincipal></PaginaPrincipal>
+              </VerificaUser>
+            }
+          />
           <Route
             path="/home"
             element={
@@ -67,6 +76,11 @@ function App() {
             path="/loginFuncionario"
             element={<Contacts /*user={user}*/></Contacts>}
           />
+
+          <Route
+            path="/loginCliente"
+            element={<LoginCliente /*user={user}*/></LoginCliente>}
+          />
           <Route
             path="/info/:id"
             element={
@@ -77,7 +91,7 @@ function App() {
           />
           <Route
             path="/*"
-            element={<LoginCliente doLogin={setUser}></LoginCliente>}
+            element={<SelecaoUtilizador doLogin={setUser}></SelecaoUtilizador>}
           />
         </Routes>
       </BrowserRouter>

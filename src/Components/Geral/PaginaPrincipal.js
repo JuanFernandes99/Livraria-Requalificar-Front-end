@@ -1,13 +1,9 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-
 import FormControl from "@mui/material/FormControl";
-
 import RadioGroup from "@mui/material/RadioGroup";
-
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
