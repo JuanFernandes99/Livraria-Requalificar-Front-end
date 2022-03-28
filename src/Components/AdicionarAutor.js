@@ -20,7 +20,7 @@ export function Autor() {
     nome: "",
     email: "",
     dataNascimento: "",
-    editora: { id: "1" },
+    editora: { id: " " },
   });
 
   const [editoraSelecionada, setEditoraSelecionada] = React.useState("");
@@ -153,7 +153,7 @@ export function Autor() {
           label="Editora "
           variant="filled"
           type="text"
-          value={editoraSelecionada}
+          value={editoraSelecionada.id}
         />
 
         <div>
