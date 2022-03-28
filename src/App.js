@@ -98,7 +98,11 @@ function App() {
           />
           <Route
             path="/*"
-            element={<SelecaoUtilizador doLogin={setUser}></SelecaoUtilizador>}
+            element={<LoginCliente doLogin={setUser}></LoginCliente>}
+          />
+          <Route
+            path="/*"
+            element={<LoginFuncionario doLogin={setUser}></LoginFuncionario>}
           />
         </Routes>
       </BrowserRouter>
