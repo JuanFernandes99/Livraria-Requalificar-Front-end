@@ -13,7 +13,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
-import narnia from "../images/narnia.jpg";
+import livro from "../images/livro.jpeg";
 
 const API_URL = "http://localhost:8080";
 
@@ -65,7 +65,7 @@ export function PaginaPrincipal() {
             <CardMedia
               component="img"
               height="140"
-              image={narnia}
+              image={livro}
               alt="narnia"
             />
 
