@@ -20,25 +20,25 @@ import "./LoginFuncionario.css";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
-export function loginFuncionario(props) {
+export function LoginFuncionario(props) {
   const navigate = useNavigate();
   const [autenticacaoFuncionario, setAutenticacaoFuncionario] = useState({
-    email: "",
+    nickName: "",
     palavraPasse: "",
   });
 
-  function autenticarCliente() {
-    fetch(API_URL + "/autenticacaoCliente", {
+  function autenticarFuncionario() {
+    fetch(API_URL + "/autenticacaoFuncionario", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
 
       body: JSON.stringify({
-        email: "joaozinho@gmail.com",
-        palavraPasse: "1234palavra",
+        nickName: "Frederica1",
+        palavraPasse: "345passe",
       }),
-      //body: JSON.stringify(autenticacaoCliente),
+      //body: JSON.stringify(autenticacaoFuncionario),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -67,12 +67,12 @@ export function loginFuncionario(props) {
       <Button
         id="ButtonLogin"
         onClick={() => {
-          navigate("/loginFuncionario");
+          navigate("/loginCliente");
         }}
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
-        Login Funcionario
+        Login Cliente
       </Button>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -95,16 +95,16 @@ export function loginFuncionario(props) {
               required
               fullWidth
               type="text"
-              name="email"
-              label="Email"
-              id="email"
-              autoComplete="email"
-              value={autenticacaoCliente.email}
-              placeholder="Email"
+              name="nickName"
+              label="Nick name"
+              id="nickName"
+              autoComplete="nickName"
+              value={autenticacaoFuncionario.nickName}
+              placeholder="Nickname"
               onChange={(e) => {
-                setAutenticacaoCliente({
-                  ...autenticacaoCliente,
-                  email: e.target.value,
+                setAutenticacaoFuncionario({
+                  ...autenticacaoFuncionario,
+                  nickName: e.target.value,
                 });
               }}
             />
@@ -117,10 +117,10 @@ export function loginFuncionario(props) {
               type="password"
               id="password"
               autoComplete="current-password"
-              value={autenticacaoCliente.palavraPasse}
+              value={autenticacaoFuncionario.palavraPasse}
               onChange={(e) => {
-                setAutenticacaoCliente({
-                  ...autenticacaoCliente,
+                setAutenticacaoFuncionario({
+                  ...autenticacaoFuncionario,
                   palavraPasse: e.target.value,
                 });
               }}
@@ -128,7 +128,7 @@ export function loginFuncionario(props) {
             <Button
               id="ButtonLogin"
               onClick={() => {
-                autenticarCliente();
+                autenticarFuncionario();
               }}
               fullWidth
               variant="contained"
@@ -136,18 +136,20 @@ export function loginFuncionario(props) {
             >
               Iniciar sessão
             </Button>
-            <h5 id="welcomeQuestion">É a sua primeira vez na livraria?</h5>
+            <h5 id="welcomeQuestion">
+              É a sua primeira vez na livraria (Funcionario)?
+            </h5>
             <br></br>
             <Button
               id="ButtonRegisto"
               onClick={() => {
-                navigate("/registo");
+                navigate("/registoFuncionario");
               }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Criar a conta da livraria
+              Criar a conta da livraria (Funcionario)
             </Button>
           </Box>
         </Box>

@@ -4,11 +4,13 @@ import { Info } from "./Components/Geral/Info";
 import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
 import { BasicMenu } from "./Components/Geral/Menu";
 import { LoginCliente } from "./Components/Cliente/LoginCliente";
+import { LoginFuncionario } from "./Components/Funcionario/LoginFuncionario";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { Editora } from "./Components/Funcionario/AdicionarEditora";
 import { Autor } from "./Components/Funcionario/AdicionarAutor";
-import { Registo } from "./Components/Cliente/RegistoCliente";
+import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
+import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
 import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
 import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import "./App.css";
@@ -39,7 +41,14 @@ function App() {
               </VerificaUser>
             }
           />
-          <Route path="/registo" element={<Registo></Registo>} />
+          <Route
+            path="/registoCliente"
+            element={<RegistoCliente></RegistoCliente>}
+          />
+          <Route
+            path="/registoFuncionario"
+            element={<RegistoFuncionario></RegistoFuncionario>}
+          />
           <Route
             path="/registarEditora"
             element={
@@ -74,7 +83,7 @@ function App() {
           />
           <Route
             path="/loginFuncionario"
-            element={<Contacts /*user={user}*/></Contacts>}
+            element={<LoginFuncionario /*user={user}*/></LoginFuncionario>}
           />
 
           <Route

@@ -141,7 +141,7 @@ export function LoginCliente(props) {
             <Button
               id="ButtonRegisto"
               onClick={() => {
-                navigate("/registo");
+                navigate("/registoCliente");
               }}
               fullWidth
               variant="contained"
