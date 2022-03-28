@@ -22,22 +22,23 @@ const API_URL = "http://localhost:8080";
 
 export function Login(props) {
   const navigate = useNavigate();
-  const [palavraPasse, setPalavraPasse] = useState("");
-  const [email, setEmail] = useState("");
+  const [autenticacaoCliente, setAutenticacaoCliente] = useState({
+    email: "",
+    palavraPasse: "",
+  });
+
   function autenticarCliente() {
     fetch(API_URL + "/autenticacaoCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
+      
       body: JSON.stringify({
         email: "joaozinho@gmail.com",
         palavraPasse: "1234palavra",
-        /*
-        email: email,
-        palavraPasse: palavraPasse,
-        */
       }),
+      //body: JSON.stringify(autenticacaoCliente),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -56,12 +57,8 @@ export function Login(props) {
         props.doLogin("David");
         navigate("/home");
         console.log(parsedResponse);
-        setPalavraPasse("");
-        setEmail("");
       })
       .catch((error) => {
-        <p>error</p>;
-
         alert(error);
       });
   }
@@ -91,9 +88,11 @@ export function Login(props) {
               name="email"
               label="Email"
               id="email"
-              value={email}
+              value={autenticacaoCliente.email}
               placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setAutenticacaoCliente({ ...autenticacaoCliente, email: e.target.value });
+              }}
             />
             <TextField
               margin="normal"
@@ -103,8 +102,10 @@ export function Login(props) {
               label="Password"
               type="password"
               id="password"
-              value={palavraPasse}
-              onChange={(e) => setPalavraPasse(e.target.value)}
+              value={autenticacaoCliente.palavraPasse}
+              onChange={(e) => {
+                setAutenticacaoCliente({ ...autenticacaoCliente, palavraPasse: e.target.value });
+              }}
             />
             <Button
               id="ButtonLogin"
