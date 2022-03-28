@@ -3,13 +3,13 @@ import { Contacts } from "./Components/Contacts";
 import { Info } from "./Components/Info";
 import { PaginaPrincipal } from "./Components/PaginaPrincipal";
 import { BasicMenu } from "./Components/Menu";
-import { Login } from "./Components/Login";
+import { LoginCliente } from "./Components/LoginCliente";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import { Editora } from "./Components/AdicionarEditora";
 import { Autor } from "./Components/AdicionarAutor";
-import { Registo } from "./Components/Registo";
+import { Registo } from "./Components/RegistoCliente";
 import { NovoLivro } from "./Components/AdicionarLivro";
 
 const API_URL = "http://localhost:8080";
@@ -47,7 +47,7 @@ function App() {
               </VerificaUser>
             }
           />
-           <Route
+          <Route
             path="/registarLivro"
             element={
               <VerificaUser user={user}>
@@ -64,6 +64,10 @@ function App() {
             }
           />
           <Route
+            path="/loginFuncionario"
+            element={<Contacts /*user={user}*/></Contacts>}
+          />
+          <Route
             path="/info/:id"
             element={
               <VerificaUser user={user}>
@@ -71,7 +75,10 @@ function App() {
               </VerificaUser>
             }
           />
-          <Route path="/*" element={<Login doLogin={setUser}></Login>} />
+          <Route
+            path="/*"
+            element={<LoginCliente doLogin={setUser}></LoginCliente>}
+          />
         </Routes>
       </BrowserRouter>
     </div>

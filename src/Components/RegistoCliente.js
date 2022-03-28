@@ -15,30 +15,28 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import livraryimage from "../images/livraria.png";
 import { useState } from "react";
-import "./Login.css";
+import "./LoginCliente.css";
 
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
-export function Login(props) {
+export function Registo(props) {
   const navigate = useNavigate();
-  const [autenticacaoCliente, setAutenticacaoCliente] = useState({
-    email: "",
+  const [novoCliente, setnovoCliente] = useState({
+    nome: "",
+    morada: "",
+    dataNascimento: "",
     palavraPasse: "",
+    email: "",
   });
 
-  function autenticarCliente() {
-    fetch(API_URL + "/autenticacaoCliente", {
+  function registoCliente() {
+    fetch(API_URL + "/addCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      
-      body: JSON.stringify({
-        email: "joaozinho@gmail.com",
-        palavraPasse: "1234palavra",
-      }),
-      //body: JSON.stringify(autenticacaoCliente),
+      body: JSON.stringify(novoCliente),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -54,9 +52,8 @@ export function Login(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        props.doLogin("David");
+        alert(parsedResponse.message);
         navigate("/home");
-        console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -77,7 +74,7 @@ export function Login(props) {
           <Typography component="h1" variant="h5">
             <img id="image" src={livraryimage} alt="Logo" />
             <br></br>
-            Iniciar sessão
+            Registo
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
@@ -85,14 +82,57 @@ export function Login(props) {
               required
               fullWidth
               type="text"
-              name="email"
-              label="Email"
-              id="email"
-              autoComplete="email"
-              value={autenticacaoCliente.email}
-              placeholder="Email"
+              name="nome"
+              label="nome"
+              id="nome"
+              value={novoCliente.nome}
               onChange={(e) => {
-                setAutenticacaoCliente({ ...autenticacaoCliente, email: e.target.value });
+                setnovoCliente({ ...novoCliente, nome: e.target.value });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="morada"
+              label="morada"
+              type="text"
+              id="morada"
+              value={novoCliente.morada}
+              onChange={(e) => {
+                setnovoCliente({ ...novoCliente, morada: e.target.value });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="dataNascimento"
+              label="dataNascimento"
+              type="text"
+              id="dataNascimento"
+              value={novoCliente.dataNascimento}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  dataNascimento: e.target.value,
+                });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="email"
+              label="email"
+              type="text"
+              id="email"
+              value={novoCliente.email}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  email: e.target.value,
+                });
               }}
             />
             <TextField
@@ -103,35 +143,24 @@ export function Login(props) {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
-              value={autenticacaoCliente.palavraPasse}
+              value={novoCliente.palavraPasse}
               onChange={(e) => {
-                setAutenticacaoCliente({ ...autenticacaoCliente, palavraPasse: e.target.value });
+                setnovoCliente({
+                  ...novoCliente,
+                  palavraPasse: e.target.value,
+                });
               }}
             />
             <Button
               id="ButtonLogin"
               onClick={() => {
-                autenticarCliente();
+                registoCliente();
               }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Iniciar sessão
-            </Button>
-            <h5 id="welcomeQuestion">É a sua primeira vez na livraria?</h5>
-            <br></br>
-            <Button
-              id="ButtonRegisto"
-              onClick={() => {
-                navigate("/registo");
-              }}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Criar a conta da livraria
+              Criar conta
             </Button>
           </Box>
         </Box>

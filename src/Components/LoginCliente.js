@@ -15,28 +15,30 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import livraryimage from "../images/livraria.png";
 import { useState } from "react";
-import "./Login.css";
+import "./LoginCliente.css";
 
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
-export function Registo(props) {
+export function LoginCliente(props) {
   const navigate = useNavigate();
-  const [novoCliente, setnovoCliente] = useState({
-    nome: "",
-    morada: "",
-    dataNascimento: "",
-    palavraPasse: "",
+  const [autenticacaoCliente, setAutenticacaoCliente] = useState({
     email: "",
+    palavraPasse: "",
   });
 
-  function registoCliente() {
-    fetch(API_URL + "/addCliente", {
+  function autenticarCliente() {
+    fetch(API_URL + "/autenticacaoCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(novoCliente),
+
+      body: JSON.stringify({
+        email: "joaozinho@gmail.com",
+        palavraPasse: "1234palavra",
+      }),
+      //body: JSON.stringify(autenticacaoCliente),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -52,9 +54,9 @@ export function Registo(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        alert(parsedResponse.message);
+        props.doLogin("David");
         navigate("/home");
-       
+        console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -62,6 +64,16 @@ export function Registo(props) {
   }
   return (
     <ThemeProvider theme={theme}>
+      <Button
+        id="ButtonLogin"
+        onClick={() => {
+          navigate("/loginFuncionario");
+        }}
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
+        Login Funcionario
+      </Button>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -75,7 +87,7 @@ export function Registo(props) {
           <Typography component="h1" variant="h5">
             <img id="image" src={livraryimage} alt="Logo" />
             <br></br>
-            Registo
+            Iniciar sessão
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
@@ -83,55 +95,15 @@ export function Registo(props) {
               required
               fullWidth
               type="text"
-              name="nome"
-              label="nome"
-              id="nome"
-              value={novoCliente.nome}
-              onChange={(e) => {
-                setnovoCliente({ ...novoCliente, nome: e.target.value });
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="morada"
-              label="morada"
-              type="text"
-              id="morada"
-              value={novoCliente.morada}
-              onChange={(e) => {
-                setnovoCliente({ ...novoCliente, morada: e.target.value });
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="dataNascimento"
-              label="dataNascimento"
-              type="text"
-              id="dataNascimento"
-              value={novoCliente.dataNascimento}
-              onChange={(e) => {
-                setnovoCliente({
-                  ...novoCliente,
-                  dataNascimento: e.target.value,
-                });
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
               name="email"
-              label="email"
-              type="text"
+              label="Email"
               id="email"
-              value={novoCliente.email}
+              autoComplete="email"
+              value={autenticacaoCliente.email}
+              placeholder="Email"
               onChange={(e) => {
-                setnovoCliente({
-                  ...novoCliente,
+                setAutenticacaoCliente({
+                  ...autenticacaoCliente,
                   email: e.target.value,
                 });
               }}
@@ -144,10 +116,11 @@ export function Registo(props) {
               label="Password"
               type="password"
               id="password"
-              value={novoCliente.palavraPasse}
+              autoComplete="current-password"
+              value={autenticacaoCliente.palavraPasse}
               onChange={(e) => {
-                setnovoCliente({
-                  ...novoCliente,
+                setAutenticacaoCliente({
+                  ...autenticacaoCliente,
                   palavraPasse: e.target.value,
                 });
               }}
@@ -155,13 +128,26 @@ export function Registo(props) {
             <Button
               id="ButtonLogin"
               onClick={() => {
-                registoCliente();
+                autenticarCliente();
               }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Criar conta
+              Iniciar sessão
+            </Button>
+            <h5 id="welcomeQuestion">É a sua primeira vez na livraria?</h5>
+            <br></br>
+            <Button
+              id="ButtonRegisto"
+              onClick={() => {
+                navigate("/registo");
+              }}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Criar a conta da livraria
             </Button>
           </Box>
         </Box>
