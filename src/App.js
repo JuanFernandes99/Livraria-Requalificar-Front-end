@@ -25,11 +25,7 @@ function App() {
         <Routes>
           <Route
             path="/selecaoUtilizador"
-            element={
-              <VerificaUser user={user}>
-                <PaginaPrincipal></PaginaPrincipal>
-              </VerificaUser>
-            }
+            element={<PaginaPrincipal></PaginaPrincipal>}
           />
           <Route
             path="/registoCliente"
@@ -107,10 +103,6 @@ function App() {
           <Route
             path="/*"
             element={<LoginCliente doLogin={setUser}></LoginCliente>}
-          />
-          <Route
-            path="/*"
-            element={<LoginFuncionario doLogin={setUser}></LoginFuncionario>}
           />
         </Routes>
       </BrowserRouter>
