@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route
             path="/selecaoUtilizador"
-            element={<PaginaPrincipal></PaginaPrincipal>}
+            element={<SelecaoUtilizador></SelecaoUtilizador>}
           />
           <Route
             path="/registoCliente"
@@ -35,6 +35,7 @@ function App() {
             path="/registoFuncionario"
             element={<RegistoFuncionario></RegistoFuncionario>}
           />
+
           <Route
             path="/loginFuncionario"
             element={
@@ -88,7 +89,7 @@ function App() {
             path="/contacts"
             element={
               <VerificaUser user={user}>
-                <Contacts /*user={user}*/></Contacts>
+                <Contacts></Contacts>
               </VerificaUser>
             }
           />
@@ -96,7 +97,7 @@ function App() {
             path="/info/:id"
             element={
               <VerificaUser user={user}>
-                <Info user={user}></Info>
+                <Info></Info>
               </VerificaUser>
             }
           />

@@ -13,7 +13,7 @@ import "./LoginCliente.css";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
-export function RegistoCliente(props) {
+export function RegistoCliente() {
   const navigate = useNavigate();
   const [novoCliente, setnovoCliente] = useState({
     nome: "",
@@ -23,7 +23,7 @@ export function RegistoCliente(props) {
     email: "",
   });
 
-  function registo() {
+  function Registo() {
     fetch(API_URL + "/addCliente", {
       method: "POST",
       headers: {
@@ -147,7 +147,7 @@ export function RegistoCliente(props) {
             <Button
               id="ButtonLogin"
               onClick={() => {
-                RegistoCliente();
+                Registo();
               }}
               fullWidth
               variant="contained"

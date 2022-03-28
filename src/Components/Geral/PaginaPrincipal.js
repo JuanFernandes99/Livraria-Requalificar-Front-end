@@ -74,7 +74,7 @@ export function PaginaPrincipal() {
                 >
                   {listaLivros.map((element, index) => (
                     <Card
-                      key={index}filled-basic
+                      key={index}
                       sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
                     >
                       <CardActionArea>

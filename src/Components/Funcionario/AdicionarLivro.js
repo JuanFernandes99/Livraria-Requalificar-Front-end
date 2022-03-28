@@ -259,7 +259,7 @@ export function NovoLivro() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Editora"
-            value={novoLivro.editora}
+            value={novoLivro.editora.id}
             onChange={(e) => {
               setNovoLivro({ ...novoLivro, editora: e.target.value });
             }}
@@ -278,7 +278,7 @@ export function NovoLivro() {
             id="demo-simple-select"
             label="Autor(es)"
             multiple
-            value={novoLivro.autores}
+            value={[novoLivro.autores.id]}
             onChange={(e) => {
               setNovoLivro({ ...novoLivro, autores: e.target.value });
             }}

@@ -161,7 +161,7 @@ export function Autor() {
             labelId="editora"
             id="filled-basic"
             label="Editora"
-            value={novoAutor.editora}
+            value={novoAutor.editora.id}
             onChange={(e) => {
               setNovoAutor({ ...novoAutor, editora: e.target.value });
             }}
@@ -179,21 +179,23 @@ export function Autor() {
       <br></br>
 
       <table>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Data Nascimento</th>
-          <th>Editora</th>
-        </tr>
-
-        {listaAutores.map((element) => (
-          <tr key={element.id}>
-            <td>{element.nome}</td>
-            <td>{element.email}</td>
-            <td>{element.dataNascimento}</td>
-            <td>{element.editora.nome}</td>
+        <tbody>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data Nascimento</th>
+            <th>Editora</th>
           </tr>
-        ))}
+
+          {listaAutores.map((element) => (
+            <tr key={element.id}>
+              <td>{element.nome}</td>
+              <td>{element.email}</td>
+              <td>{element.dataNascimento}</td>
+              <td>{element.editora.nome}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
