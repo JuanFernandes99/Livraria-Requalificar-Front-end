@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
-  const [listaEditoras, setListaEditoras] = useState([]);
+  const [listaEditoras, setListasEditora] = useState([]);
   const [listaAutores, setListasAutor] = useState([]);
   const [novoAutor, setNovoAutor] = useState({
     nome: "",
@@ -81,7 +81,7 @@ export function Autor() {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse);
-        setListaEditoras(parsedResponse);
+        setListasEditora(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -155,32 +155,28 @@ export function Autor() {
             setNovoAutor({ ...novoAutor, dataNascimento: e.target.value });
           }}
         />
-        <Box
-          sx={{
-            "& > :not(style)": { m: 1, width: "80%" },
-          }}
-        >
-          <FormControl>
-            <InputLabel id="filled-basic">Editora</InputLabel>
-            <Select
-              labelId="editora"
-              id="filled-basic"
-              label="Editora"
-              value={novoAutor.editora}
-              onChange={(e) => {
-                setNovoAutor({ ...novoAutor, editora: e.target.value });
-              }}
-            >
-              {listaEditoras.map((element) => (
-                <MenuItem value={element} key={element.id}>
-                  {element.nome}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-        <Button onClick={AdicionarAutor}>Adicionar Autor</Button>
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">Editora</InputLabel>
+          <Select
+            labelId="editora"
+            id="filled-basic"
+            label="Editora"
+            value={novoAutor.editora}
+            onChange={(e) => {
+              setNovoAutor({ ...novoAutor, editora: e.target.value });
+            }}
+          >
+            {listaEditoras.map((element) => (
+              <MenuItem value={element} key={element.id}>
+                {element.nome}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
+
+      <Button onClick={AdicionarAutor}>Adicionar Autor</Button>
+      <br></br>
 
       <table>
         <tr>
