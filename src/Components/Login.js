@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import livraryimage from "./livraria.png";
+import livraryimage from "../images/livraria.png";
 import { useState } from "react";
 import "./Login.css";
 
@@ -88,6 +88,7 @@ export function Login(props) {
               name="email"
               label="Email"
               id="email"
+              autoComplete="email"
               value={autenticacaoCliente.email}
               placeholder="Email"
               onChange={(e) => {
@@ -102,6 +103,7 @@ export function Login(props) {
               label="Password"
               type="password"
               id="password"
+              autoComplete="current-password"
               value={autenticacaoCliente.palavraPasse}
               onChange={(e) => {
                 setAutenticacaoCliente({ ...autenticacaoCliente, palavraPasse: e.target.value });
