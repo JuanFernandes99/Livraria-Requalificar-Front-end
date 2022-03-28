@@ -13,7 +13,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
-import livroimagem from "../images/livro.jpeg";
+import livroimagem from "../Images/livro.jpeg";
 
 const API_URL = "http://localhost:8080";
 
