@@ -21,7 +21,7 @@ export function Autor() {
     nome: "",
     email: "",
     dataNascimento: "",
-    editora: {},
+    editora: { id: "" },
   });
 
   //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
@@ -149,7 +149,9 @@ export function Autor() {
               onChange={handleChange}
             >
               {listaEditoras.map((element, index) => (
-                <MenuItem key={index}>{index + " " + element.nome}</MenuItem>
+                <MenuItem value={index} key={index}>
+                  {index + " " + element.nome}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
