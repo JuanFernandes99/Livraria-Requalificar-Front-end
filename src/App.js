@@ -119,7 +119,7 @@ function App() {
               </VerificaCliente>
             }
           />
-          <Route path="/" element={<SelecaoUtilizador></SelecaoUtilizador>} />
+          <Route path="/*" element={<SelecaoUtilizador></SelecaoUtilizador>} />
         </Routes>
       </BrowserRouter>
     </div>
