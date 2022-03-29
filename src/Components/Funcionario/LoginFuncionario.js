@@ -47,8 +47,8 @@ export function LoginFuncionario(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        props.doLogin("David");
-        navigate("/home");
+        props.doLoginFuncionario(parsedResponse.funcionario);
+        navigate("/homeFuncionario");
         console.log(parsedResponse);
       })
       .catch((error) => {

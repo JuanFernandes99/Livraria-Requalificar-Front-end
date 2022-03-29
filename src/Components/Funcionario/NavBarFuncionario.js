@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import "./Menu.css";
+import "./NavBarFuncionario.css";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-export function BasicMenu() {
+export function NavBarFuncionario() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

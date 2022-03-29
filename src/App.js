@@ -1,7 +1,8 @@
 import { Contacts } from "./Components/Geral/Contacts";
 import { Info } from "./Components/Geral/Info";
 import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
-import { BasicMenu } from "./Components/Geral/Menu";
+import { NavBarFuncionario } from "./Components/Funcionario/NavBarFuncionario";
+import { NavBarCliente } from "./Components/Cliente/NavBarCliente";
 import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import { LoginCliente } from "./Components/Cliente/LoginCliente";
 import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
@@ -16,17 +17,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState();
-
+  const [cliente, setCliente] = useState();
+  const [funcionario, setFuncionario] = useState();
   return (
     <div className="App">
       <BrowserRouter>
-        {user && <BasicMenu></BasicMenu>}
         <Routes>
-          <Route
-            path="/selecaoUtilizador"
-            element={<SelecaoUtilizador></SelecaoUtilizador>}
-          />
           <Route
             path="/registoCliente"
             element={<RegistoCliente></RegistoCliente>}
@@ -35,75 +31,98 @@ function App() {
             path="/registoFuncionario"
             element={<RegistoFuncionario></RegistoFuncionario>}
           />
-
           <Route
             path="/loginFuncionario"
             element={
-              <VerificaUser user={user}>
-                <LoginFuncionario></LoginFuncionario>
-              </VerificaUser>
+              <LoginFuncionario
+                doLoginFuncionario={setFuncionario}
+              ></LoginFuncionario>
             }
           />
-
           <Route
             path="/loginCliente"
-            element={
-              <VerificaUser user={user}>
-                <LoginCliente></LoginCliente>
-              </VerificaUser>
-            }
+            element={<LoginCliente doLoginCliente={setCliente}></LoginCliente>}
           />
-          <Route
-            path="/home"
-            element={
-              <VerificaUser user={user}>
-                <PaginaPrincipal></PaginaPrincipal>
-              </VerificaUser>
-            }
-          />
+          <Route path="/*" element={<SelecaoUtilizador></SelecaoUtilizador>} />
+        </Routes>
+
+        {funcionario && <NavBarFuncionario></NavBarFuncionario>}
+        <Routes>
           <Route
             path="/registarEditora"
             element={
-              <VerificaUser user={user}>
+              <VerificaFuncionario funcionario={funcionario}>
                 <Editora></Editora>
-              </VerificaUser>
+              </VerificaFuncionario>
             }
           />
           <Route
             path="/registarAutor"
             element={
-              <VerificaUser user={user}>
+              <VerificaFuncionario funcionario={funcionario}>
                 <Autor></Autor>
-              </VerificaUser>
+              </VerificaFuncionario>
             }
           />
           <Route
             path="/registarLivro"
             element={
-              <VerificaUser user={user}>
+              <VerificaFuncionario funcionario={funcionario}>
                 <NovoLivro></NovoLivro>
-              </VerificaUser>
+              </VerificaFuncionario>
             }
           />
           <Route
-            path="/contacts"
+            path="/homeFuncionario"
             element={
-              <VerificaUser user={user}>
+              <VerificaFuncionario funcionario={funcionario}>
+                <PaginaPrincipal></PaginaPrincipal>
+              </VerificaFuncionario>
+            }
+          />
+          <Route
+            path="/contactsFuncionario"
+            element={
+              <VerificaFuncionario funcionario={funcionario}>
                 <Contacts></Contacts>
-              </VerificaUser>
+              </VerificaFuncionario>
             }
           />
           <Route
-            path="/info/:id"
+            path="/infoFuncionario"
             element={
-              <VerificaUser user={user}>
+              <VerificaFuncionario funcionario={funcionario}>
                 <Info></Info>
-              </VerificaUser>
+              </VerificaFuncionario>
+            }
+          />
+        </Routes>
+
+        {cliente && <NavBarCliente></NavBarCliente>}
+        <Routes>
+          <Route
+            path="/homeCliente"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <PaginaPrincipal></PaginaPrincipal>
+              </VerificaCliente>
             }
           />
           <Route
-            path="/*"
-            element={<LoginCliente doLogin={setUser}></LoginCliente>}
+            path="/contactsCliente"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <Contacts></Contacts>
+              </VerificaCliente>
+            }
+          />
+          <Route
+            path="/infoCliente"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <Info></Info>
+              </VerificaCliente>
+            }
           />
         </Routes>
       </BrowserRouter>
@@ -112,8 +131,15 @@ function App() {
 }
 
 // Forma + correta em vez de passar o utilizador para cada componente
-function VerificaUser({ user, children }) {
-  if (!user) {
+function VerificaCliente({ cliente, children }) {
+  if (!cliente) {
+    return <Navigate to="/" replace={true} />;
+  }
+  return children;
+}
+
+function VerificaFuncionario({ funcionario, children }) {
+  if (!funcionario) {
     return <Navigate to="/" replace={true} />;
   }
   return children;

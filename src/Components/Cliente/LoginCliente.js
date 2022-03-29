@@ -47,8 +47,8 @@ export function LoginCliente(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        props.doLogin(parsedResponse.cliente);
-        navigate("/home");
+        props.doLoginCliente(parsedResponse.cliente);
+        navigate("/homeCliente");
         console.log(parsedResponse.cliente);
       })
       .catch((error) => {
