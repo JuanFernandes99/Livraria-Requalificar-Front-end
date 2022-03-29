@@ -22,6 +22,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        {cliente && <NavBarCliente></NavBarCliente>}
+        {funcionario && <NavBarFuncionario></NavBarFuncionario>}
         <Routes>
           <Route
             path="/registoCliente"
@@ -32,6 +34,10 @@ function App() {
             element={<RegistoFuncionario></RegistoFuncionario>}
           />
           <Route
+            path="/loginCliente"
+            element={<LoginCliente doLoginCliente={setCliente}></LoginCliente>}
+          />
+          <Route
             path="/loginFuncionario"
             element={
               <LoginFuncionario
@@ -39,15 +45,7 @@ function App() {
               ></LoginFuncionario>
             }
           />
-          <Route
-            path="/loginCliente"
-            element={<LoginCliente doLoginCliente={setCliente}></LoginCliente>}
-          />
-          <Route path="/*" element={<SelecaoUtilizador></SelecaoUtilizador>} />
-        </Routes>
 
-        {funcionario && <NavBarFuncionario></NavBarFuncionario>}
-        <Routes>
           <Route
             path="/registarEditora"
             element={
@@ -96,10 +94,7 @@ function App() {
               </VerificaFuncionario>
             }
           />
-        </Routes>
 
-        {cliente && <NavBarCliente></NavBarCliente>}
-        <Routes>
           <Route
             path="/homeCliente"
             element={
@@ -124,6 +119,7 @@ function App() {
               </VerificaCliente>
             }
           />
+          <Route path="/" element={<SelecaoUtilizador></SelecaoUtilizador>} />
         </Routes>
       </BrowserRouter>
     </div>

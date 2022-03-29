@@ -20,7 +20,7 @@ export function NavBarFuncionario() {
     <div className="menu">
       <button
         onClick={() => {
-          navigate("/home");
+          navigate("/homeFuncionario");
         }}
       >
         Home
