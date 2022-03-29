@@ -5,16 +5,16 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Button, CardActionArea } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import clienteImg from "../Images/cliente.jpeg";
-import funcionarioImg from "../Images/funcionario.png";
+import funcionarioImg from "../Images/funcionario.jpeg";
 import "../Geral/Adicionar.css";
 
 export function SelecaoUtilizador() {
   const [spacing, setSpacing] = React.useState(2);
   const navigate = useNavigate();
   return (
-    <div>
+    <div id="background">
       <Grid sx={{ flexGrow: 1, marginTop: 20 }} container spacing={2}>
         <Grid container>
           <Grid container justifyContent="center" spacing={spacing}>
@@ -26,12 +26,12 @@ export function SelecaoUtilizador() {
               >
                 <CardMedia
                   component="img"
-                  height="140"
+                  height="200"
                   image={clienteImg}
                   alt="clienteIMG"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     Sou Cliente da Livraria
                   </Typography>
                 </CardContent>
@@ -42,7 +42,7 @@ export function SelecaoUtilizador() {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="140"
+                  height="200"
                   image={funcionarioImg}
                   alt="funcionarioIMG"
                 />
@@ -51,7 +51,7 @@ export function SelecaoUtilizador() {
                     navigate("/loginCliente");
                   }}
                 >
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h6" component="div">
                     Funcionário da Livraria
                   </Typography>
                 </CardContent>

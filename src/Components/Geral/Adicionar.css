@@ -22,3 +22,13 @@ td {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+#background {
+  background-image: url(../Images/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-position: center;
+}
