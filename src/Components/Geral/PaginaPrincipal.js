@@ -70,7 +70,7 @@ export function PaginaPrincipal() {
   }
 
   function getLivroById() {
-    fetch(API_URL + "/getLivroById/" + livroSelecionado, {
+    fetch(API_URL + "/getLivroById/" + livro.id, {
       mode: "cors",
       method: "GET",
       headers: {
@@ -156,13 +156,10 @@ export function PaginaPrincipal() {
                               id="modal-modal-description"
                               sx={{ mt: 2 }}
                             >
-                              {getLivroById}
+                              {}
                             </Typography>
                           </Box>
                         </Modal>
-                        <Button size="small" color="primary">
-                          +
-                        </Button>
                       </CardActions>
                     </Card>
                   ))}
