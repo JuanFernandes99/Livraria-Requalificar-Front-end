@@ -143,10 +143,6 @@ export function PaginaPrincipal() {
                         <Button size="small" color="primary">
                           +
                         </Button>
-
-                        <Button size="small" color="primary">
-                          Comprar
-                        </Button>
                       </CardActions>
                     </Card>
                   ))}

@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
 import "./LoginFuncionario";
+import "../Geral/Adicionar.css";
 
 const theme = createTheme();
 const API_URL = "http://localhost:8080";

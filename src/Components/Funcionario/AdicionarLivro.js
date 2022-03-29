@@ -14,12 +14,11 @@ export function NovoLivro() {
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
   const [listaLivros, setListaLivros] = useState([]);
-  let listaAutoresAux = [];
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     sinopse: "",
     edicao: "",
-    //preço
+    //imagem
     dataLancamento: "",
     editora: "",
     dataLancamento: "",
@@ -119,39 +118,37 @@ export function NovoLivro() {
   }
 
   function AdicionarLivro() {
-    {
-      fetch(API_URL + "/addLivro", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(novoLivro),
+    fetch(API_URL + "/addLivro", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(novoLivro),
+    })
+      .then(async (response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          const parsedResponse = await response.json();
+          console.log(parsedResponse.message);
+          throw new Error(parsedResponse.message);
+        }
+
+        console.log(response);
+
+        return response.json();
       })
-        .then(async (response) => {
-          // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-          if (response.status !== 200) {
-            const parsedResponse = await response.json();
-            console.log(parsedResponse.message);
-            throw new Error(parsedResponse.message);
-          }
+      .then((parsedResponse) => {
+        if (!parsedResponse.status) {
+          alert(parsedResponse.message);
 
-          console.log(response);
+          return;
+        }
 
-          return response.json();
-        })
-        .then((parsedResponse) => {
-          if (!parsedResponse.status) {
-            alert(parsedResponse.message);
-
-            return;
-          }
-
-          GetAllLivros();
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    }
+        GetAllLivros();
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   return (
