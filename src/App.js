@@ -6,6 +6,7 @@ import { NavBarCliente } from "./Components/Cliente/NavBarCliente";
 import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import { LoginCliente } from "./Components/Cliente/LoginCliente";
 import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
+import { Carrinho } from "./Components/Cliente/Carrinho";
 import { LoginFuncionario } from "./Components/Funcionario/LoginFuncionario";
 import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
 import { Editora } from "./Components/Funcionario/AdicionarEditora";
@@ -116,6 +117,15 @@ function App() {
             element={
               <VerificaCliente cliente={cliente}>
                 <Info></Info>
+              </VerificaCliente>
+            }
+          />
+
+          <Route
+            path="/carrinho"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <Carrinho></Carrinho>
               </VerificaCliente>
             }
           />

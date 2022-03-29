@@ -10,15 +10,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, CardActions } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
+import Carrinho from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-
+import Button from "@mui/material/Button";
 const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal() {
   const [listaLivros, setListasLivros] = useState([]);
   const [livro, setLivro] = useState({});
   const [livroSelecionado, setLivroSelecionado] = useState({});
+  const [carrinho, setCarrinho] = useState([]);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -43,6 +46,31 @@ export function PaginaPrincipal() {
   }, []);
 
   function fetchLivro() {
+    fetch(API_URL + "/getAllLivros", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("There was an error finding livros");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse.livros);
+        setListasLivros(parsedResponse.livros);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+  function LivroId() {
     fetch(API_URL + "/getAllLivros", {
       mode: "cors",
       method: "GET",
@@ -95,7 +123,7 @@ export function PaginaPrincipal() {
                         <CardMedia
                           component="img"
                           height="140"
-                          image={livroimagem}
+                          image={element.imagem}
                           alt="livro"
                         />
 
@@ -131,7 +159,14 @@ export function PaginaPrincipal() {
                             >
                               {livroSelecionado.titulo}
                               <br></br>
-                              <Button>Adicionar ao carrinho</Button>
+                              <Button
+                                onClick={() => {
+                                  setCarrinho([...carrinho, livroSelecionado]);
+                                  console.log(carrinho);
+                                }}
+                              >
+                                Adicionar ao carrinho
+                              </Button>
                             </Typography>
                           </Box>
                         </Modal>

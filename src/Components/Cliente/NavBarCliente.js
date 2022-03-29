@@ -29,6 +29,13 @@ export function NavBarCliente() {
       >
         Info
       </button>
+      <button
+        onClick={() => {
+          navigate("/carrinho");
+        }}
+      >
+        Carrinho
+      </button>
     </div>
   );
 }
