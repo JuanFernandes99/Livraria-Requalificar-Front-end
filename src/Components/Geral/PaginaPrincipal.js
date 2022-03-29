@@ -69,32 +69,6 @@ export function PaginaPrincipal() {
       });
   }
 
-  function getLivroById() {
-    fetch(API_URL + "/getLivroById/" + livroSelecionado, {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-
-        if (response.status !== 200) {
-          throw new Error("There was an error finding livros");
-        }
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse.livros);
-        // setListasLivros(parsedResponse.livros);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
   return (
     <div>
       <Grid item xs={12}>
@@ -112,8 +86,8 @@ export function PaginaPrincipal() {
                   {listaLivros.map((element) => (
                     <Card
                       onClick={() => {
-                        setLivroSelecionado(element.id);
-                        console.log(livroSelecionado);
+                        setLivroSelecionado(element);
+                        console.log(element);
                       }}
                       key={element.id}
                       sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
@@ -156,13 +130,10 @@ export function PaginaPrincipal() {
                               id="modal-modal-description"
                               sx={{ mt: 2 }}
                             >
-                              {getLivroById}
+                              {livroSelecionado.titulo}
                             </Typography>
                           </Box>
                         </Modal>
-                        <Button size="small" color="primary">
-                          +
-                        </Button>
                       </CardActions>
                     </Card>
                   ))}
