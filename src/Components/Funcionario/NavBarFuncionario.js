@@ -27,10 +27,10 @@ export function NavBarFuncionario() {
       </button>
       <button
         onClick={() => {
-          navigate("/contacts");
+          navigate("/infoCliente");
         }}
       >
-        Contacts
+        InformacaoCliente
       </button>
 
       <Button
@@ -73,13 +73,6 @@ export function NavBarFuncionario() {
           Adicionar Livro
         </MenuItem>
       </Menu>
-      <button
-        onClick={() => {
-          navigate("/info/2");
-        }}
-      >
-        Info
-      </button>
     </div>
   );
 }

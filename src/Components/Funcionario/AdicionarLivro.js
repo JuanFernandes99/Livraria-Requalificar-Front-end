@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 const API_URL = "http://localhost:8080";
@@ -13,14 +14,19 @@ export function NovoLivro() {
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
   const [listaLivros, setListaLivros] = useState([]);
+  let listaAutoresAux = [];
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     sinopse: "",
     edicao: "",
+    //preço
+    dataLancamento: "",
+    editora: "",
     dataLancamento: "",
     preco: 0.0,
     quantidadeStock: 0,
     numeroPaginas: 0,
+    dataLancamento: "",
     isbn: "",
     editora: {
       id: "",
@@ -113,37 +119,39 @@ export function NovoLivro() {
   }
 
   function AdicionarLivro() {
-    fetch(API_URL + "/addLivro", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(novoLivro),
-    })
-      .then(async (response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          const parsedResponse = await response.json();
-          console.log(parsedResponse.message);
-          throw new Error(parsedResponse.message);
-        }
-
-        console.log(response);
-
-        return response.json();
+    {
+      fetch(API_URL + "/addLivro", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(novoLivro),
       })
-      .then((parsedResponse) => {
-        if (!parsedResponse.status) {
-          alert(parsedResponse.message);
+        .then(async (response) => {
+          // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+          if (response.status !== 200) {
+            const parsedResponse = await response.json();
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
+          }
 
-          return;
-        }
+          console.log(response);
 
-        GetAllLivros();
-      })
-      .catch((error) => {
-        alert(error);
-      });
+          return response.json();
+        })
+        .then((parsedResponse) => {
+          if (!parsedResponse.status) {
+            alert(parsedResponse.message);
+
+            return;
+          }
+
+          GetAllLivros();
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   }
 
   return (
@@ -151,7 +159,7 @@ export function NovoLivro() {
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "20em", float: "left" },
+          "& > :not(style)": { m: 1, width: "20em" },
         }}
         noValidate
         autoComplete="off"
@@ -253,13 +261,19 @@ export function NovoLivro() {
             setNovoLivro({ ...novoLivro, isbn: e.target.value });
           }}
         />
+      </Box>
+      <Box
+        sx={{
+          "& > :not(style)": { m: 1, width: "80%" },
+        }}
+      >
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Editora</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Editora"
-            value={novoLivro.editora.id}
+            value={novoLivro.editora}
             onChange={(e) => {
               setNovoLivro({ ...novoLivro, editora: e.target.value });
             }}
@@ -271,6 +285,12 @@ export function NovoLivro() {
             ))}
           </Select>
         </FormControl>
+      </Box>
+      <Box
+        sx={{
+          "& > :not(style)": { m: 1, width: "80%" },
+        }}
+      >
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Autores</InputLabel>
           <Select
@@ -278,7 +298,7 @@ export function NovoLivro() {
             id="demo-simple-select"
             label="Autor(es)"
             multiple
-            value={[novoLivro.autores.id]}
+            value={novoLivro.autores}
             onChange={(e) => {
               setNovoLivro({ ...novoLivro, autores: e.target.value });
             }}
@@ -291,7 +311,6 @@ export function NovoLivro() {
           </Select>
         </FormControl>
       </Box>
-
       <div>
         <button className="btn-Livro" onClick={AdicionarLivro}>
           Adicionar Livro
