@@ -130,7 +130,7 @@ export function PaginaPrincipal() {
                               id="modal-modal-description"
                               sx={{ mt: 2 }}
                             >
-                              {livroSelecionado.titulo}
+                              {livroSelecionado.titulo} m
                             </Typography>
                           </Box>
                         </Modal>

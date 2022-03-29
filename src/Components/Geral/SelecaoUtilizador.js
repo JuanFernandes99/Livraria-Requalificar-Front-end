@@ -19,7 +19,11 @@ export function SelecaoUtilizador() {
         <Grid container>
           <Grid container justifyContent="center" spacing={spacing}>
             <Card sx={{ maxWidth: 345, margin: 2 }}>
-              <CardActionArea>
+              <CardActionArea
+                onClick={() => {
+                  navigate("/loginCliente");
+                }}
+              >
                 <CardMedia
                   component="img"
                   height="140"
@@ -30,13 +34,6 @@ export function SelecaoUtilizador() {
                   <Typography gutterBottom variant="h5" component="div">
                     Sou Cliente da Livraria
                   </Typography>
-                  <Button
-                    onClick={() => {
-                      navigate("/loginCliente");
-                    }}
-                  >
-                    Área de Login
-                  </Button>
                 </CardContent>
               </CardActionArea>
             </Card>
@@ -49,17 +46,14 @@ export function SelecaoUtilizador() {
                   image={funcionarioImg}
                   alt="funcionarioIMG"
                 />
-                <CardContent>
+                <CardContent
+                  onClick={() => {
+                    navigate("/loginCliente");
+                  }}
+                >
                   <Typography gutterBottom variant="h5" component="div">
                     Funcionário da Livraria
                   </Typography>
-                  <Button
-                    onClick={() => {
-                      navigate("/loginCliente");
-                    }}
-                  >
-                    Área de Login
-                  </Button>
                 </CardContent>
               </CardActionArea>
             </Card>
