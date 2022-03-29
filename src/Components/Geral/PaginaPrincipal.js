@@ -130,6 +130,8 @@ export function PaginaPrincipal() {
                               sx={{ mt: 2 }}
                             >
                               {livroSelecionado.titulo}
+                              <br></br>
+                              <Button>Adicionar ao carrinho</Button>
                             </Typography>
                           </Box>
                         </Modal>
