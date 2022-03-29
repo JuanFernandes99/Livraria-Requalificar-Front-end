@@ -69,32 +69,6 @@ export function PaginaPrincipal() {
       });
   }
 
-  function getLivroById() {
-    fetch(API_URL + "/getLivroById/" + livro.id, {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-
-        if (response.status !== 200) {
-          throw new Error("There was an error finding livros");
-        }
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse.livros);
-        // setListasLivros(parsedResponse.livros);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
   return (
     <div>
       <Grid item xs={12}>
