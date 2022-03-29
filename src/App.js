@@ -20,6 +20,7 @@ import "./App.css";
 function App() {
   const [cliente, setCliente] = useState();
   const [funcionario, setFuncionario] = useState();
+  const [carrinho, setCarrinho] = useState([]);
   return (
     <div className="App">
       <BrowserRouter>
@@ -125,7 +126,7 @@ function App() {
             path="/carrinho"
             element={
               <VerificaCliente cliente={cliente}>
-                <Carrinho></Carrinho>
+                <Carrinho doLoginCarrinho={setCarrinho}></Carrinho>
               </VerificaCliente>
             }
           />
