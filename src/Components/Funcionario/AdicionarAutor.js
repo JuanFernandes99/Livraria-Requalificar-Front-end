@@ -162,7 +162,7 @@ export function Autor() {
             labelId="editora"
             id="filled-basic"
             label="Editora"
-            value={novoAutor.editora.id}
+            value={novoAutor.editora}
             onChange={(e) => {
               setNovoAutor({ ...novoAutor, editora: e.target.value });
             }}

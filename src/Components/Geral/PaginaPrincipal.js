@@ -17,6 +17,9 @@ import Modal from "@mui/material/Modal";
 const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal() {
+  const [listaLivros, setListasLivros] = useState([]);
+  const [livro, setLivro] = useState({});
+  const [livroSelecionado, setLivroSelecionado] = useState({});
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -31,20 +34,10 @@ export function PaginaPrincipal() {
     boxShadow: 24,
     p: 4,
   };
-  // return <h1>Sem livros disponíveis</h1>;
-  const [listaLivros, setListasLivros] = useState([]);
-  const [novoLivro, setNovoLivro] = useState({
-    titulo: "",
-    sinopse: "",
-    dataLancamento: "",
-    editora: "",
-  });
 
-  const [livro, setLivro] = useState({});
   const handleChange = (event) => {
     setLivro(Number(event.target.value));
   };
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchLivro();
@@ -76,6 +69,32 @@ export function PaginaPrincipal() {
       });
   }
 
+  function getLivroById() {
+    fetch(API_URL + "/getLivroById/" + livroSelecionado, {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("There was an error finding livros");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse.livros);
+        // setListasLivros(parsedResponse.livros);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   return (
     <div>
       <Grid item xs={12}>
@@ -86,16 +105,20 @@ export function PaginaPrincipal() {
                 <RadioGroup
                   name="spacing"
                   aria-label="spacing"
-                  value={livro.toString()}
+                  value={livro}
                   onChange={handleChange}
                   row
                 >
-                  {listaLivros.map((element, index) => (
+                  {listaLivros.map((element) => (
                     <Card
-                      key={index}
+                      onClick={() => {
+                        setLivroSelecionado(element.id);
+                        console.log(livroSelecionado);
+                      }}
+                      key={element.id}
                       sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
                     >
-                      <CardActionArea>
+                      <CardActionArea onClick={handleOpen}>
                         <CardMedia
                           component="img"
                           height="140"
@@ -115,8 +138,6 @@ export function PaginaPrincipal() {
                       </CardActionArea>
 
                       <CardActions>
-                        <Button onClick={handleOpen}>modal</Button>
-
                         <Modal
                           open={open}
                           onClose={handleClose}
@@ -135,8 +156,7 @@ export function PaginaPrincipal() {
                               id="modal-modal-description"
                               sx={{ mt: 2 }}
                             >
-                              Duis mollis, est non commodo luctus, nisi erat
-                              porttitor ligula.
+                              {getLivroById}
                             </Typography>
                           </Box>
                         </Modal>
