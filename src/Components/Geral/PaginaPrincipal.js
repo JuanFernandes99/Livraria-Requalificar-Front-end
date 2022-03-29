@@ -10,7 +10,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, CardActions } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
-import { Carrinho } from "../Cliente/Carrinho";
+import Carrinho from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -95,10 +95,7 @@ export function PaginaPrincipal() {
         alert(error);
       });
   }
-  const parentToChild = () => {
-    <Carrinho />;
-    setCarrinho([...carrinho, livroSelecionado]);
-  };
+
   return (
     <div>
       <Grid item xs={12}>
@@ -164,7 +161,7 @@ export function PaginaPrincipal() {
                               <br></br>
                               <Button
                                 onClick={() => {
-                                  parentToChild();
+                                  setCarrinho([...carrinho, livroSelecionado]);
                                   console.log(carrinho);
                                 }}
                               >
