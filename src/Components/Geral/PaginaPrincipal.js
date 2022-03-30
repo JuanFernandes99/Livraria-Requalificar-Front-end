@@ -22,6 +22,7 @@ export function PaginaPrincipal(props) {
   const [livro, setLivro] = useState({});
   const [livroSelecionado, setLivroSelecionado] = useState({});
   const [open, setOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -163,21 +164,33 @@ export function PaginaPrincipal(props) {
 
                               <Button
                                 onClick={() => {
-                                  props.shoppingCart.forEach((element) => {
-                                    if (
-                                      element.item.id === livroSelecionado.id
-                                    ) {
-                                      if (
-                                        livroSelecionado.quantidadeStock >
-                                        element.quantity
-                                      ) {
-                                        props.cartControls.increaseQuantity(
-                                          element
-                                        );
-                                      }
+                                  if (isLoading === true) {
+                                    {
+                                      props.addItem(livroSelecionado);
+
+                                      console.log(element);
+                                      setIsLoading(false);
+                                      console.log(isLoading);
                                     }
-                                  });
+                                  } else {
+                                    props.shoppingCart.forEach((element) => {
+                                      if (
+                                        element.item.id === livroSelecionado.id
+                                      ) {
+                                        if (
+                                          livroSelecionado.quantidadeStock >
+                                          element.quantity
+                                        ) {
+                                          props.addItem(livroSelecionado);
+                                          console.log(element);
+                                        }
+                                      }
+                                    });
+                                  }
+
+                                  console.log(isLoading);
                                   console.log(livroSelecionado);
+                                  console.log(element.item);
                                   console.log(props.shoppingCart);
                                 }}
                               >
