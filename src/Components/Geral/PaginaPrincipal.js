@@ -109,7 +109,7 @@ export function PaginaPrincipal(props) {
                             <CardActions>
                               <button
                                 onClick={() => {
-                                  navigate("/LivroID/:id");
+                                  navigate("/LivroID/:id" + element.id);
                                 }}
                               >
                                 +
