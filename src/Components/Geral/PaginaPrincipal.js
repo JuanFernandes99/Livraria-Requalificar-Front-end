@@ -12,8 +12,9 @@ import { CardActionArea, CardActions } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
 import { Carrinho } from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+
 const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal() {
@@ -30,10 +31,11 @@ export function PaginaPrincipal() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 600,
+    height: 400,
     bgcolor: "background.paper",
     border: "2px solid #000",
-    boxShadow: 24,
+    boxShadow: 10,
     p: 4,
   };
 
