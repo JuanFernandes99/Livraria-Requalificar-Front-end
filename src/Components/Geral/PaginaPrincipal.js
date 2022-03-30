@@ -10,18 +10,17 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, CardActions } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
-import { Carrinho } from "../Cliente/Carrinho";
+import Carrinho from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 const API_URL = "http://localhost:8080";
 
-export function PaginaPrincipal() {
+export function PaginaPrincipal(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [livro, setLivro] = useState({});
   const [livroSelecionado, setLivroSelecionado] = useState({});
-  const [carrinho, setCarrinho] = useState([]);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -97,10 +96,7 @@ export function PaginaPrincipal() {
         alert(error);
       });
   }
-  const parentToChild = () => {
-    <Carrinho />;
-    setCarrinho([...carrinho, livroSelecionado]);
-  };
+
   return (
     <div>
       <Grid item xs={12}>
@@ -166,7 +162,7 @@ export function PaginaPrincipal() {
                               <br></br>
                               <Button
                                 onClick={() => {
-                                  parentToChild();
+                                  props.cartControls.increaseQuantity(e.item);
                                   console.log(carrinho);
                                 }}
                               >

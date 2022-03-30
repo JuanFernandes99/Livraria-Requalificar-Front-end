@@ -20,6 +20,48 @@ import "./App.css";
 function App() {
   const [cliente, setCliente] = useState();
   const [funcionario, setFuncionario] = useState();
+  const [shoppingCart, setShoppingCart] = useState([]);
+
+  //Inicio das operações para fazer um shopping cart local
+  function addQuantity(item) {
+    let oldShoppingCart = shoppingCart;
+
+    //verificar se um item já existe
+    if (oldShoppingCart.some((e) => e.item.id === item.id)) {
+      oldShoppingCart = oldShoppingCart.map((e) => {
+        if (e.item.id === item.id) {
+          e.quantity++;
+        }
+        return e;
+      });
+    } else {
+      let myItem = {
+        quantity: 1,
+        item: item,
+      };
+      oldShoppingCart = [myItem, ...oldShoppingCart];
+    }
+
+    setShoppingCart(oldShoppingCart);
+  }
+
+  function removeQuanitty(item) {
+    let oldShoppingCart = shoppingCart;
+
+    //verificar se um item já existe
+    if (oldShoppingCart.some((e) => e.item.id === item.id)) {
+      oldShoppingCart = oldShoppingCart.map((e) => {
+        if (e.item.id === item.id) {
+          e.quantity--;
+        }
+        return e;
+      });
+
+      oldShoppingCart = oldShoppingCart.filter((e) => e.quantity > 0);
+
+      setShoppingCart(oldShoppingCart);
+    }
+  }
   return (
     <div className="App">
       <BrowserRouter>
@@ -100,7 +142,7 @@ function App() {
             path="/homeCliente"
             element={
               <VerificaCliente cliente={cliente}>
-                <PaginaPrincipal></PaginaPrincipal>
+                <PaginaPrincipal shoppingCart={shoppingCart}></PaginaPrincipal>
               </VerificaCliente>
             }
           />
@@ -125,7 +167,13 @@ function App() {
             path="/carrinho"
             element={
               <VerificaCliente cliente={cliente}>
-                <Carrinho></Carrinho>
+                <Carrinho
+                  shoppingCart={shoppingCart}
+                  cartControls={{
+                    increaseQuantity: addQuantity,
+                    decreaseQuantity: removeQuanitty,
+                  }}
+                ></Carrinho>
               </VerificaCliente>
             }
           />
