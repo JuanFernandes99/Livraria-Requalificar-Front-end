@@ -60,68 +60,51 @@ export function PaginaPrincipal(props) {
       <Grid item xs={12}>
         <Paper sx={{ p: 2 }}>
           <Grid container>
-            {props.livros &&
-              props.livros.map((e) => {
-                return (
-                  <Grid key={e.titulo} item>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        titulo="spacing"
-                        aria-label="spacing"
-                        value={livro}
-                        row
-                      >
-                        {listaLivros.map((element) => (
-                          <Card
-                            onClick={() => {
-                              setLivroSelecionado(element);
-                              console.log(element);
-                            }}
-                            key={element.id}
-                            sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
-                          >
-                            <CardActionArea>
-                              <CardMedia
-                                component="img"
-                                height="140"
-                                image={element.imagem}
-                                alt="livro"
-                              />
+            <Grid item>
+              <FormControl component="fieldset">
+                <RadioGroup titulo="spacing" aria-label="spacing" row>
+                  {listaLivros.map((element) => (
+                    <Card
+                      onClick={() => {
+                        props.GetLivroInfo(element);
+                        navigate("/livroID/" + element.id);
+                      }}
+                      key={element.id}
+                      sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
+                    >
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          height="140"
+                          image={element.imagem}
+                          alt="livro"
+                        />
 
-                              <CardContent>
-                                <Typography
-                                  gutterBottom
-                                  variant="h5"
-                                  component="div"
-                                >
-                                  {element.titulo}
-                                </Typography>
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                            {element.titulo}
+                          </Typography>
 
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  {element.preco + "€"}
-                                </Typography>
-                              </CardContent>
-                            </CardActionArea>
+                          <Typography variant="body2" color="text.secondary">
+                            {element.preco + "€"}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
 
-                            <CardActions>
-                              <button
-                                onClick={() => {
-                                  navigate("/LivroID/:id" + element.id);
-                                }}
-                              >
-                                +
-                              </button>
-                            </CardActions>
-                          </Card>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                );
-              })}
+                      <CardActions>
+                        <button
+                          onClick={() => {
+                            navigate("/livroID/" + element.id);
+                          }}
+                        >
+                          +
+                        </button>
+                      </CardActions>
+                    </Card>
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
           </Grid>
         </Paper>
       </Grid>

@@ -22,22 +22,7 @@ function App() {
   const [cliente, setCliente] = useState();
   const [funcionario, setFuncionario] = useState();
   const [shoppingCart, setShoppingCart] = useState([]);
-  let livros = [
-    {
-      titulo: "",
-      sinopse: "",
-      edicao: "",
-      dataLancamento: "",
-      preco: 0.0,
-      quantidadeStock: 0,
-      numeroPaginas: 0,
-      isbn: "",
-      editora: {
-        id: "",
-      },
-      autores: [],
-    },
-  ];
+  const [infoLivro, setInfoLivro] = useState();
 
   //Inicio das operações para fazer um shopping cart local
   function addQuantity(item) {
@@ -62,6 +47,10 @@ function App() {
     }
 
     setShoppingCart(oldShoppingCart);
+  }
+
+  function GetLivroInfo(item) {
+    return setInfoLivro(item);
   }
 
   function removeQuanitty(item) {
@@ -136,7 +125,7 @@ function App() {
             path="/homeFuncionario"
             element={
               <VerificaFuncionario funcionario={funcionario}>
-                <PaginaPrincipal livros={livros}></PaginaPrincipal>
+                <PaginaPrincipal livroinfo={infoLivro}></PaginaPrincipal>
               </VerificaFuncionario>
             }
           />
@@ -158,10 +147,14 @@ function App() {
           />
 
           <Route
-            path="/LivroID/:id"
+            path="/livroID/:id"
             element={
               <VerificaCliente cliente={cliente}>
-                <LivroById livros={livros}></LivroById>
+                <LivroById
+                  livroinfo={infoLivro}
+                  shoppingCart={shoppingCart}
+                  addItem={addQuantity}
+                ></LivroById>
               </VerificaCliente>
             }
           />
@@ -171,9 +164,9 @@ function App() {
             element={
               <VerificaCliente cliente={cliente}>
                 <PaginaPrincipal
-                  livros={livros}
-                  shoppingCart={shoppingCart}
-                  addItem={addQuantity}
+                  GetLivroInfo={GetLivroInfo}
+                  // shoppingCart={shoppingCart}
+                  //  addItem={addQuantity}
                 ></PaginaPrincipal>
               </VerificaCliente>
             }
