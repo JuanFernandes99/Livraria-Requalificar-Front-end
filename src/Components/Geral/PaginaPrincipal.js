@@ -21,10 +21,10 @@ export function PaginaPrincipal(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [livro, setLivro] = useState({});
   const [livroSelecionado, setLivroSelecionado] = useState({});
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -160,10 +160,25 @@ export function PaginaPrincipal(props) {
                             >
                               {livroSelecionado.titulo}
                               <br></br>
+
                               <Button
                                 onClick={() => {
-                                  props.cartControls.increaseQuantity(e.item);
-                                  console.log(carrinho);
+                                  props.shoppingCart.forEach((element) => {
+                                    if (
+                                      element.item.id === livroSelecionado.id
+                                    ) {
+                                      if (
+                                        livroSelecionado.quantidadeStock >
+                                        element.quantity
+                                      ) {
+                                        props.cartControls.increaseQuantity(
+                                          element
+                                        );
+                                      }
+                                    }
+                                  });
+                                  console.log(livroSelecionado);
+                                  console.log(props.shoppingCart);
                                 }}
                               >
                                 Adicionar ao carrinho

@@ -29,6 +29,8 @@ function App() {
     //verificar se um item já existe
     if (oldShoppingCart.some((e) => e.item.id === item.id)) {
       oldShoppingCart = oldShoppingCart.map((e) => {
+        console.log(e.item.quantidadeStock);
+        console.log(item.quantity);
         if (e.item.id === item.id) {
           e.quantity++;
         }
@@ -142,7 +144,10 @@ function App() {
             path="/homeCliente"
             element={
               <VerificaCliente cliente={cliente}>
-                <PaginaPrincipal shoppingCart={shoppingCart}></PaginaPrincipal>
+                <PaginaPrincipal
+                  shoppingCart={shoppingCart}
+                  addItem={addQuantity}
+                ></PaginaPrincipal>
               </VerificaCliente>
             }
           />

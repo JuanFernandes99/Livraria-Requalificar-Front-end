@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "@mui/material/Button";
 import {
   AppBar,
   Badge,
@@ -29,121 +30,37 @@ export function Carrinho(props) {
   }
 
   return (
-    <AppBar sx={{ minHeight: "4em" }} position="relative">
-      <Toolbar variant="dense" sx={{ minHeight: "4em" }}>
-        <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          VeggieShop
-        </Typography>
+    <table>
+      <tbody>
+        <tr>
+          <th>Livro</th>
+          <th>Preço</th>
+          <th>Quantity</th>
+          <th>Stock</th>
+        </tr>
 
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="shopping-cart"
-          onClick={(e) => {
-            setAnchor(e.currentTarget);
-          }}
-        >
-          <Badge
-            color="secondary"
-            badgeContent={props.shoppingCart.length}
-            showZero
-          >
-            <ShoppingCart />
-          </Badge>
-        </IconButton>
-        <Popover
-          id={"simple-popover"}
-          open={Boolean(anchor)}
-          anchorEl={anchor}
-          onClose={() => {
-            setAnchor(null);
-          }}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-        >
-          <Box
-            sx={{
-              width: "20em",
-              height: "20em",
-              overflowY: "scroll",
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            {props.shoppingCart.map((e, i) => {
-              return (
-                <Paper
-                  key={i}
-                  elevation={2}
-                  sx={{
-                    width: "18em",
-                    height: "5em",
-                    padding: "0.125em",
-                    boxSizing: "border-box",
-                    marginY: "0.250em",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
+        {props.shoppingCart.map((element) => {
+          return (
+            <tr key={element.id}>
+              <td>{element.item.titulo}</td>
+              <td>{element.item.preco}</td>
+              <td>{element.quantity}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    if (element.item.quantidadeStock > element.quantity) {
+                      props.cartControls.increaseQuantity(element.item);
+                    }
                   }}
                 >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-evenly",
-                    }}
-                  >
-                    <Typography variant="p">Name: {e.item.name}</Typography>
-                    <Typography variant="p">Quantity: {e.quantity}</Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-evenly",
-                    }}
-                  >
-                    <IconButton
-                      color="success"
-                      onClick={() => {
-                        props.cartControls.increaseQuantity(e.item);
-                      }}
-                    >
-                      <Add />
-                    </IconButton>
-                    <IconButton
-                      color="error"
-                      onClick={() => {
-                        props.cartControls.decreaseQuantity(e.item);
-                      }}
-                    >
-                      <Remove />
-                    </IconButton>
-                  </Box>
-                </Paper>
-              );
-            })}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <Typography>Total = {calculateSum()}€ </Typography>
-              <PaymentIcon
-                onClick={() => {
-                  alert("Pagar");
-                }}
-              />
-            </Box>
-          </Box>
-        </Popover>
-      </Toolbar>
-    </AppBar>
+                  +
+                </button>
+              </td>
+              <td>{element.item.quantidadeStock}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 }
