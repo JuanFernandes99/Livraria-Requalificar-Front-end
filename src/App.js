@@ -193,6 +193,7 @@ function App() {
             element={
               <VerificaCliente cliente={cliente}>
                 <Carrinho
+                  cliente={cliente}
                   shoppingCart={shoppingCart}
                   cartControls={{
                     increaseQuantity: addQuantity,
