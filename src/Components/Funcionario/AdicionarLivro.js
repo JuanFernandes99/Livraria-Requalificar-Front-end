@@ -18,14 +18,10 @@ export function NovoLivro() {
     titulo: "",
     sinopse: "",
     edicao: "",
-    //imagem
-    dataLancamento: "",
-    editora: "",
     dataLancamento: "",
     preco: 0.0,
     quantidadeStock: 0,
     numeroPaginas: 0,
-    dataLancamento: "",
     isbn: "",
     editora: {
       id: "",

@@ -16,11 +16,28 @@ import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import { LivroById } from "./Components/Geral/LivroID";
 
 function App() {
   const [cliente, setCliente] = useState();
   const [funcionario, setFuncionario] = useState();
   const [shoppingCart, setShoppingCart] = useState([]);
+  let livros = [
+    {
+      titulo: "",
+      sinopse: "",
+      edicao: "",
+      dataLancamento: "",
+      preco: 0.0,
+      quantidadeStock: 0,
+      numeroPaginas: 0,
+      isbn: "",
+      editora: {
+        id: "",
+      },
+      autores: [],
+    },
+  ];
 
   //Inicio das operações para fazer um shopping cart local
   function addQuantity(item) {
@@ -119,7 +136,7 @@ function App() {
             path="/homeFuncionario"
             element={
               <VerificaFuncionario funcionario={funcionario}>
-                <PaginaPrincipal></PaginaPrincipal>
+                <PaginaPrincipal livros={livros}></PaginaPrincipal>
               </VerificaFuncionario>
             }
           />
@@ -141,10 +158,20 @@ function App() {
           />
 
           <Route
+            path="/LivroID/:id"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <LivroById livros={livros}></LivroById>
+              </VerificaCliente>
+            }
+          />
+
+          <Route
             path="/homeCliente"
             element={
               <VerificaCliente cliente={cliente}>
                 <PaginaPrincipal
+                  livros={livros}
                   shoppingCart={shoppingCart}
                   addItem={addQuantity}
                 ></PaginaPrincipal>
