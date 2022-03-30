@@ -16,11 +16,10 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 const API_URL = "http://localhost:8080";
 
-export function PaginaPrincipal() {
+export function PaginaPrincipal(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [livro, setLivro] = useState({});
   const [livroSelecionado, setLivroSelecionado] = useState({});
-  const [carrinho, setCarrinho] = useState([]);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -161,7 +160,7 @@ export function PaginaPrincipal() {
                               <br></br>
                               <Button
                                 onClick={() => {
-                                  setCarrinho([...carrinho, livroSelecionado]);
+                                  props.cartControls.increaseQuantity(e.item);
                                   console.log(carrinho);
                                 }}
                               >
