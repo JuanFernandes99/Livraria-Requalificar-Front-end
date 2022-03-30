@@ -39,18 +39,18 @@ export function SelecaoUtilizador() {
             </Card>
 
             <Card sx={{ maxWidth: 345, margin: 2 }}>
-              <CardActionArea>
+              <CardActionArea
+                onClick={() => {
+                  navigate("/loginFuncionario");
+                }}
+              >
                 <CardMedia
                   component="img"
                   height="200"
                   image={funcionarioImg}
                   alt="funcionarioIMG"
                 />
-                <CardContent
-                  onClick={() => {
-                    navigate("/loginCliente");
-                  }}
-                >
+                <CardContent>
                   <Typography gutterBottom variant="h6" component="div">
                     Funcionário da Livraria
                   </Typography>

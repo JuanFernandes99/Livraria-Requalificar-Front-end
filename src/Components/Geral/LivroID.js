@@ -36,7 +36,7 @@ export function LivroById(props) {
               >
                 <CardMedia
                   component="img"
-                  height="300"
+                  height="250"
                   image={livroimg}
                   alt="clienteIMG"
                 />
@@ -52,36 +52,44 @@ export function LivroById(props) {
               <p>{"Número de Páginas: " + livro.numeroPaginas}</p>
               <p>{"Cópias Disponíveis: " + livro.quantidadeStock}</p>
             </Card>
+            <Card sx={{ width: 600, margin: 1 }}>
+              <CardActionArea>
+                <CardMedia />
+              </CardActionArea>
+
+              <p id="textoSobre"> - Sobre o livro -</p>
+              <p>{livro.sinopse}</p>
+
+              <Button
+                onClick={() => {
+                  console.log(livro);
+
+                  if (isLoading == true) {
+                    props.addItem(livro);
+
+                    setIsLoading(false);
+                  }
+                  props.shoppingCart.forEach((element) => {
+                    if (element.item.id === livro.id) {
+                      if (livro.quantidadeStock > element.quantity) {
+                        console.log(element.item.id);
+                        console.log(livro);
+                        props.addItem(livro);
+                        console.log(element);
+                      }
+                    }
+                  });
+                  console.log(isLoading);
+                  console.log(livro);
+                  console.log(props.shoppingCart);
+                }}
+              >
+                Adicionar ao carrinho
+              </Button>
+            </Card>
           </Grid>
         </Grid>
       </Grid>
-
-      <Button
-        onClick={() => {
-          console.log(livro);
-
-          if (isLoading == true) {
-            props.addItem(livro);
-
-            setIsLoading(false);
-          }
-          props.shoppingCart.forEach((element) => {
-            if (element.item.id === livro.id) {
-              if (livro.quantidadeStock > element.quantity) {
-                console.log(element.item.id);
-                console.log(livro);
-                props.addItem(livro);
-                console.log(element);
-              }
-            }
-          });
-          console.log(isLoading);
-          console.log(livro);
-          console.log(props.shoppingCart);
-        }}
-      >
-        Adicionar ao carrinho
-      </Button>
     </div>
   ) : (
     <Typography variant="h1">Livro não encontrado</Typography>

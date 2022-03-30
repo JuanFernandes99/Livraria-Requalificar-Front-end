@@ -51,6 +51,12 @@ tr:nth-child(even) {
   text-align: left;
 }
 
+#textoSobre {
+  font-size: 40px;
+  color: rgb(6, 83, 97);
+  font-style: italic;
+}
+
 #titulo {
   font-size: 28px;
 }
