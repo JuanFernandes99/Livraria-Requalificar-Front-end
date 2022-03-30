@@ -8,7 +8,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
 import { Carrinho } from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
@@ -90,16 +90,6 @@ export function PaginaPrincipal(props) {
                           </Typography>
                         </CardContent>
                       </CardActionArea>
-
-                      <CardActions>
-                        <button
-                          onClick={() => {
-                            navigate("/livroID/" + element.id);
-                          }}
-                        >
-                          +
-                        </button>
-                      </CardActions>
                     </Card>
                   ))}
                 </RadioGroup>

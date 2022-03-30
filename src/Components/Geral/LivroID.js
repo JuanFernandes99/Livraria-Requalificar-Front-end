@@ -2,6 +2,12 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import livroimg from "../Images/livro.jpeg";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { CardActionArea } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export function LivroById(props) {
   const params = useParams();
@@ -19,16 +25,45 @@ export function LivroById(props) {
 
   return livro !== {} ? (
     <div>
+      <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
+        <Grid container>
+          <Grid container justifyContent="center">
+            <Card sx={{ maxWidth: 400, margin: 1 }}>
+              <CardActionArea
+                onClick={() => {
+                  navigate("/loginCliente");
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="300"
+                  image={livroimg}
+                  alt="clienteIMG"
+                />
+              </CardActionArea>
+
+              <Typography> Informações gerais</Typography>
+              <p>{"Título: " + livro.titulo}</p>
+              <p>{"de " + livro.autores}</p>
+              <p>{"da " + livro.editora}</p>
+              <p>{"ISBN: " + livro.isbn}</p>
+              <p>{"Edição: " + livro.edicao}</p>
+              <p>{"Data de Lançamento: " + livro.dataLancamento}</p>
+              <p>{"Número de Páginas: " + livro.numeroPaginas}</p>
+              <p>{"Cópias Disponíveis: " + livro.quantidadeStock}</p>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+
       <Button
         onClick={() => {
           console.log(livro);
 
           if (isLoading == true) {
-            {
-              props.addItem(livro);
+            props.addItem(livro);
 
-              setIsLoading(false);
-            }
+            setIsLoading(false);
           }
           props.shoppingCart.forEach((element) => {
             if (element.item.id === livro.id) {
@@ -47,9 +82,8 @@ export function LivroById(props) {
       >
         Adicionar ao carrinho
       </Button>
-      <h1>{livro.titulo}</h1>
     </div>
   ) : (
-    <h1>adeus</h1>
+    <Typography variant="h1">Livro não encontrado</Typography>
   );
 }

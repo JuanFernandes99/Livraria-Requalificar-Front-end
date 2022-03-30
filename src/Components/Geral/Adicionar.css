@@ -36,3 +36,21 @@ tr:nth-child(even) {
 .MuiBackdrop-root {
   opacity: 40% !important;
 }
+
+#imagemiD {
+  width: 20%;
+  height: 40%;
+  float: left;
+  margin: 20px;
+}
+
+.texto {
+  float: left;
+  color: rgb(11, 76, 85);
+  font-size: large;
+  text-align: left;
+}
+
+#titulo {
+  font-size: 28px;
+}
