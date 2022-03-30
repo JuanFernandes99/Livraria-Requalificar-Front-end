@@ -43,6 +43,7 @@ export function LivroById(props) {
               </CardActionArea>
 
               <Typography> Informações gerais</Typography>
+
               <p>{"Título: " + livro.titulo}</p>
               <p>{"de " + livro.autores}</p>
               <p>{"da " + livro.editora}</p>

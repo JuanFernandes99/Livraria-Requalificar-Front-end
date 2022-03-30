@@ -17,6 +17,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { LivroById } from "./Components/Geral/LivroID";
+import { Perfil } from "./Components/Cliente/Perfil";
 
 function App() {
   const [cliente, setCliente] = useState();
@@ -73,7 +74,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {cliente && <NavBarCliente></NavBarCliente>}
+        {cliente && <NavBarCliente cliente={cliente}></NavBarCliente>}
         {funcionario && <NavBarFuncionario></NavBarFuncionario>}
         <Routes>
           <Route
@@ -176,6 +177,14 @@ function App() {
             element={
               <VerificaCliente cliente={cliente}>
                 <Contacts></Contacts>
+              </VerificaCliente>
+            }
+          />
+          <Route
+            path="/perfilCliente/:id"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <Perfil cliente={cliente}></Perfil>
               </VerificaCliente>
             }
           />

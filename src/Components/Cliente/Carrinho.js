@@ -23,10 +23,11 @@ export function Carrinho(props) {
     cliente: {
       id: props.cliente.id,
     },
-    livros: [props.shoppingCart.livros],
+    livros: [],
   });
 
   function AdicionarCompra() {
+    console.log(novaCompra);
     fetch(API_URL + "/addCompra", {
       method: "POST",
       headers: {
@@ -117,12 +118,17 @@ export function Carrinho(props) {
       </tbody>
       <button
         onClick={() => {
-          for (let element of props.shoppingCart) {
-            setLivrosComprados([...livrosComprados, element.item]);
-            console.log(element.item);
-          }
+          let livroAux = [];
 
-          console.log(livrosComprados);
+          for (let value of props.shoppingCart) {
+            livroAux.push({ id: value.item.id });
+          }
+          setNovaCompra({ ...novaCompra, livroAux });
+          console.log(novaCompra);
+          console.log(livroAux);
+          console.log(novaCompra.livros);
+          AdicionarCompra();
+          console.log(livroAux);
         }}
       >
         Comprar
