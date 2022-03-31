@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+
 import {
   AppBar,
   Badge,
@@ -14,7 +15,10 @@ import { ShoppingCart, Add, Remove } from "@mui/icons-material";
 import PaymentIcon from "@mui/icons-material/Payment";
 import { Box } from "@mui/system";
 
+import Modal from "@mui/material/Modal";
+
 const API_URL = "http://localhost:8080";
+
 export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
   const navigate = useNavigate();
@@ -22,10 +26,26 @@ export function Carrinho(props) {
   let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     cliente: {
-      id: props.cliente.id,
+      id: 1,
     },
-    livros: [],
+    livros: [{}],
   });
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   function AdicionarCompra() {
     console.log(novaCompra);
@@ -121,6 +141,7 @@ export function Carrinho(props) {
       </tbody>
       <button
         onClick={() => {
+          handleOpen();
           let livroAux = [];
 
           for (let value of props.shoppingCart) {
@@ -128,16 +149,36 @@ export function Carrinho(props) {
           }
 
           setNovaCompra({ ...novaCompra, livros: livroAux });
-
           console.log(novaCompra);
-          console.log(livroAux);
-          console.log(novaCompra.livros);
-          AdicionarCompra();
-          console.log(livroAux);
         }}
       >
         Comprar
       </button>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {livrosComprados.nome}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+          <Button
+            onClick={() => {
+              console.log(novaCompra);
+              console.log(novaCompra.livros);
+              AdicionarCompra();
+            }}
+          >
+            Finalizar Compra
+          </Button>
+        </Box>
+      </Modal>
     </table>
   );
 }
