@@ -10,12 +10,14 @@ const API_URL = "http://localhost:8080";
 
 export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
+  const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
+  let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     cliente: {
-      id: props.cliente.id,
+      id: 1,
     },
-    livros: [{}],
+    livros: [],
   });
 
   const [open, setOpen] = useState(false);
@@ -166,10 +168,7 @@ export function Carrinho(props) {
           let livroAux = [];
 
           for (let value of props.shoppingCart) {
-            livroAux.push({
-              id: value.item.id,
-              quantidadeStock: value.quantity,
-            });
+            livroAux.push({ id: value.item.id });
           }
           setNovaCompra({
             ...novaCompra,
@@ -181,6 +180,7 @@ export function Carrinho(props) {
       >
         Comprar
       </Button>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -192,7 +192,7 @@ export function Carrinho(props) {
             {livrosComprados.nome}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            Deseja efetuar a compra?
           </Typography>
           <Button
             onClick={() => {
