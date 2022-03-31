@@ -11,6 +11,7 @@ import { CardActionArea } from "@mui/material";
 import * as React from "react";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
+
 const API_URL = "http://localhost:8080";
 
 export function Perfil(props) {
@@ -18,6 +19,17 @@ export function Perfil(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [cliente, setCliente] = useState({});
+  const params = useParams();
+  useEffect(() => {
+    setCliente(props.cliente);
+    fetchCliente();
+  }, []);
+  const [atualizaCliente, setAtualizaCliente] = useState({
+    palavraPasse: "",
+    email: "",
+    morada: "",
+  });
   const style = {
     position: "absolute",
     top: "50%",
@@ -29,28 +41,73 @@ export function Perfil(props) {
     boxShadow: 24,
     p: 4,
   };
-  const [cliente, setCliente] = useState({});
-  const params = useParams();
 
-  useEffect(() => {
-    if (!params.id) {
-      alert("nao tem cliente ");
-      return;
-    }
-    setCliente(props.cliente);
-  }, []);
+  function updateCliente() {
+    let updatedCliente = {
+      id: cliente.id,
+      palavraPasse: atualizaCliente.palavraPasse,
+      email: atualizaCliente.email,
+      morada: atualizaCliente.morada,
+    };
+    fetch(API_URL + "/updateCliente", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updatedCliente),
+    })
+      .then((response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          return response.json().then((parsedResponse) => {
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
+          });
+        }
+
+        console.log(response);
+
+        return response.json();
+      })
+      .then((res) => {
+        setCliente(updateCliente);
+        console.log(res);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+  function fetchCliente() {
+    fetch(API_URL + "/getClienteById/" + props.cliente.id, {
+      // mode: "cors",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          throw new Error("There was an error finding pessoas");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
+        setCliente(parsedResponse);
+        //console.log(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   return cliente !== {} ? (
     <div>
       <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
         <Grid container>
           <Grid container justifyContent="center">
             <Card sx={{ maxWidth: 400, margin: 1 }}>
-              <CardActionArea
-                onClick={() => {
-                  navigate("/loginCliente");
-                }}
-              ></CardActionArea>
-
               <Typography> Dados do cliente</Typography>
 
               <p>{"Nome: " + cliente.nome}</p>
@@ -74,41 +131,15 @@ export function Perfil(props) {
             margin="normal"
             required
             fullWidth
-            type="text"
-            name="nome"
-            label="nome"
-            id="nome"
-            value={novoCliente.nome}
-            onChange={(e) => {
-              setnovoCliente({ ...novoCliente, nome: e.target.value });
-            }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
             name="morada"
             label="morada"
             type="text"
             id="morada"
-            value={novoCliente.morada}
+            value={atualizaCliente.morada}
             onChange={(e) => {
-              setnovoCliente({ ...novoCliente, morada: e.target.value });
-            }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="dataNascimento"
-            label="dataNascimento"
-            type="text"
-            id="dataNascimento"
-            value={novoCliente.dataNascimento}
-            onChange={(e) => {
-              setnovoCliente({
-                ...novoCliente,
-                dataNascimento: e.target.value,
+              setAtualizaCliente({
+                ...atualizaCliente,
+                morada: e.target.value,
               });
             }}
           />
@@ -120,10 +151,10 @@ export function Perfil(props) {
             label="email"
             type="text"
             id="email"
-            value={novoCliente.email}
+            value={atualizaCliente.email}
             onChange={(e) => {
-              setnovoCliente({
-                ...novoCliente,
+              setAtualizaCliente({
+                ...atualizaCliente,
                 email: e.target.value,
               });
             }}
@@ -136,24 +167,24 @@ export function Perfil(props) {
             label="Password"
             type="password"
             id="password"
-            value={novoCliente.palavraPasse}
+            value={atualizaCliente.palavraPasse}
             onChange={(e) => {
-              setnovoCliente({
-                ...novoCliente,
+              setAtualizaCliente({
+                ...atualizaCliente,
                 palavraPasse: e.target.value,
               });
             }}
           />
           <Button
-            id="ButtonLogin"
+            id="ButtonUpdateCliente"
             onClick={() => {
-              Registo();
+              updateCliente();
             }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Criar conta
+            update Cliente
           </Button>
         </Box>
       </Modal>
