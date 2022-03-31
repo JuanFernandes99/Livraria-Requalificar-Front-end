@@ -95,51 +95,59 @@ export function Carrinho(props) {
   }
 
   return (
-    <table>
-      <tbody>
-        <tr>
-          <th>Livro</th>
-          <th>Preço</th>
-          <th>Quantity</th>
-          <th>Aumentar/Diminuir</th>
-          <th>Stock</th>
-          <th>Total</th>
-        </tr>
+    <div>
+      <h5> - Itens adicionados ao carrinho -</h5>
+      <table>
+        <tbody>
+          <tr>
+            <th>Livro</th>
+            <th>Preço</th>
+            <th>Quantity</th>
+            <th>Aumentar/Diminuir</th>
+            <th>Stock</th>
+            <th>Total</th>
+          </tr>
+          {props.shoppingCart.map((element, index) => {
+            return (
+              <tr key={index}>
+                <td>{element.item.titulo}</td>
+                <td>{element.item.preco}</td>
+                <td>{element.quantity}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      if (element.item.quantidadeStock > element.quantity) {
+                        props.cartControls.increaseQuantity(element.item);
+                      }
+                    }}
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (element.item.quantidadeStock >= element.quantity) {
+                        props.cartControls.decreaseQuantity(element.item);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                </td>
 
-        {props.shoppingCart.map((element) => {
-          return (
-            <tr key={element.id}>
-              <td>{element.item.titulo}</td>
-              <td>{element.item.preco}</td>
-              <td>{element.quantity}</td>
-              <td>
-                <button
-                  onClick={() => {
-                    if (element.item.quantidadeStock > element.quantity) {
-                      props.cartControls.increaseQuantity(element.item);
-                    }
-                  }}
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => {
-                    if (element.item.quantidadeStock >= element.quantity) {
-                      props.cartControls.decreaseQuantity(element.item);
-                    }
-                  }}
-                >
-                  -
-                </button>
-              </td>
+                <td>{element.item.quantidadeStock}</td>
+                <td>Total = {calculateSum()}€</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
 
-              <td>{element.item.quantidadeStock}</td>
-              <td>Total = {calculateSum()}€</td>
-            </tr>
-          );
-        })}
-      </tbody>
-      <button
+      <Button
+        sx={{
+          marginTop: 8,
+
+          alignItems: "center",
+        }}
         onClick={() => {
           handleOpen();
           let livroAux = [];
@@ -153,8 +161,7 @@ export function Carrinho(props) {
         }}
       >
         Comprar
-      </button>
-
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -179,6 +186,6 @@ export function Carrinho(props) {
           </Button>
         </Box>
       </Modal>
-    </table>
+    </div>
   );
 }

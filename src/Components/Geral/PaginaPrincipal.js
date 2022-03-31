@@ -21,7 +21,6 @@ const API_URL = "http://localhost:8080";
 export function PaginaPrincipal(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [livro, setLivro] = useState({});
-  const [livroSelecionado, setLivroSelecionado] = useState({});
   const [carrinho, setCarrinho] = useState([]);
   const navigate = useNavigate();
 
@@ -37,12 +36,15 @@ export function PaginaPrincipal(props) {
         "Content-type": "application/json",
       },
     })
-      .then((response) => {
-        console.log(response);
-
+      .then(async (response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("There was an error finding livros");
+          const parsedResponse = await response.json();
+          console.log(parsedResponse.message);
+          throw new Error(parsedResponse.message);
         }
+
+        console.log(response);
 
         return response.json();
       })
