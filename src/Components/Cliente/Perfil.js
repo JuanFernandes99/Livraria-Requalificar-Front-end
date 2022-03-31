@@ -70,7 +70,7 @@ export function Perfil(props) {
         return response.json();
       })
       .then((res) => {
-        setCliente(updateCliente);
+        fetchCliente();
         console.log(res);
       })
       .catch((error) => {
