@@ -41,11 +41,11 @@ export function LivroById(props) {
                   alt="clienteIMG"
                 />
               </CardActionArea>
-
+              <br></br>
               <Typography> Informações gerais</Typography>
 
               <p>{"Título: " + livro.titulo}</p>
-              <p>{"de " + livro.autores}</p>
+
               <p>{"da " + livro.editora}</p>
               <p>{"ISBN: " + livro.isbn}</p>
               <p>{"Edição: " + livro.edicao}</p>
@@ -59,8 +59,9 @@ export function LivroById(props) {
               </CardActionArea>
 
               <p id="textoSobre"> - Sobre o livro -</p>
+              <p>{"de " + livro.autores}</p>
               <p>{livro.sinopse}</p>
-
+              <br></br>
               <Button
                 onClick={() => {
                   console.log(livro);
