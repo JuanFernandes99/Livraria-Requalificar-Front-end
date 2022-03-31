@@ -19,6 +19,7 @@ export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
   const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
+  let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     cliente: {
       id: props.cliente.id,
@@ -53,6 +54,8 @@ export function Carrinho(props) {
 
           return;
         }
+        console.log(parsedResponse.compras);
+        alert(parsedResponse.message);
       })
       .catch((error) => {
         alert(error);
@@ -123,7 +126,9 @@ export function Carrinho(props) {
           for (let value of props.shoppingCart) {
             livroAux.push({ id: value.item.id });
           }
-          setNovaCompra({ ...novaCompra, livroAux });
+
+          setNovaCompra({ ...novaCompra, livros: livroAux });
+
           console.log(novaCompra);
           console.log(livroAux);
           console.log(novaCompra.livros);
