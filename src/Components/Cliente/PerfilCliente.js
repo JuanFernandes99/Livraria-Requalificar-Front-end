@@ -12,6 +12,10 @@ import * as React from "react";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 import clienteImg from "../Images/cliente.jpeg";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const API_URL = "http://localhost:8080";
 
@@ -21,10 +25,12 @@ export function Perfil(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [cliente, setCliente] = useState({});
+  const [compras, setCompras] = useState([]);
   const params = useParams();
   useEffect(() => {
     setCliente(props.cliente);
     fetchCliente();
+    getCompras();
   }, []);
   const [atualizaCliente, setAtualizaCliente] = useState({
     palavraPasse: "",
@@ -102,13 +108,37 @@ export function Perfil(props) {
         alert(error);
       });
   }
+  function getCompras() {
+    fetch(API_URL + "/getComprasCliente/" + props.cliente.id, {
+      // mode: "cors",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          throw new Error("There was an error finding pessoas");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
+        setCompras(parsedResponse);
+        console.log(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
 
   return cliente !== {} ? (
     <div>
       <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
         <Grid container>
           <Grid container justifyContent="center">
-            <Card sx={{ width: 600, height: 400, margin: 1 }}>
+            <Card sx={{ width: 600, height: 1000, margin: 1 }}>
               <br></br>
               <Typography> Dados Pessoais</Typography>
 
@@ -116,10 +146,40 @@ export function Perfil(props) {
               <p>{"Morada: " + cliente.morada}</p>
               <p>{"Data de nascimento: " + cliente.dataNascimento}</p>
               <p>{"Email: " + cliente.email}</p>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Visualizar compras</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>valorCompra</th>
+                          <th>livros</th>
+                          <th>Data Nascimento</th>
+                          <th>Editora</th>
+                        </tr>
+                        {compras.map((element) => (
+                          <tr key={element.id}>
+                            <td>{element.valorCompra}</td>
+                            <td>
+                              {element.livros.map((element) => element.titulo)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
               <br></br>
 
               <br></br>
-              <Button onClick={handleOpen}>Visualizar Compras</Button>
             </Card>
             <Card sx={{ Width: 120, height: 200, margin: 2 }}>
               <CardActionArea

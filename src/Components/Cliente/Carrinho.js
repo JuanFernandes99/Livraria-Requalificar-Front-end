@@ -239,7 +239,7 @@ export function Carrinho(props) {
             {livrosComprados.nome}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            Duis molliss, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
           <Button
             onClick={() => {
