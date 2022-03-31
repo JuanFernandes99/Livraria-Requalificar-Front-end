@@ -1,18 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-
-import {
-  AppBar,
-  Badge,
-  IconButton,
-  Paper,
-  Popover,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import { ShoppingCart, Add, Remove } from "@mui/icons-material";
-import PaymentIcon from "@mui/icons-material/Payment";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 import Modal from "@mui/material/Modal";
@@ -45,40 +34,6 @@ export function Carrinho(props) {
     p: 4,
   };
 
-  function AdicionarCompra() {
-    console.log(novaCompra);
-    fetch(API_URL + "/addCompra", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(novaCompra),
-    })
-      .then(async (response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          const parsedResponse = await response.json();
-          console.log(parsedResponse.message);
-          throw new Error(parsedResponse.message);
-        }
-
-        console.log(response);
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        if (!parsedResponse.status) {
-          alert(parsedResponse.message);
-
-          return;
-        }
-        console.log(parsedResponse.compras);
-        alert(parsedResponse.message);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
   function AdicionarCompra() {
     console.log(novaCompra);
     fetch(API_URL + "/addCompra", {
@@ -163,7 +118,6 @@ export function Carrinho(props) {
             <th>Quantity</th>
             <th>Aumentar/Diminuir</th>
             <th>Stock</th>
-            <th>Total</th>
           </tr>
           {props.shoppingCart.map((element, index) => {
             return (
@@ -195,17 +149,16 @@ export function Carrinho(props) {
                 </td>
 
                 <td>{element.item.quantidadeStock}</td>
-                <td>Total = {calculateSum()}€</td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <p id="valorTotal">Total = {calculateSum()}€</p>
 
       <Button
         sx={{
           marginTop: 8,
-
           alignItems: "center",
         }}
         onClick={() => {
@@ -245,45 +198,6 @@ export function Carrinho(props) {
             onClick={() => {
               console.log(novaCompra);
               console.log(novaCompra.livros);
-              {
-                props.shoppingCart.map((element) => {
-                  return (
-                    <tr key={element.id}>
-                      <td>{element.item.titulo}</td>
-                      <td>{element.item.preco}</td>
-                      <td>{element.quantity}</td>
-                      <td>
-                        <button
-                          onClick={() => {
-                            if (
-                              element.item.quantidadeStock > element.quantity
-                            ) {
-                              props.cartControls.increaseQuantity(element.item);
-                            }
-                          }}
-                        >
-                          +
-                        </button>
-                        <button
-                          onClick={() => {
-                            if (
-                              element.item.quantidadeStock >= element.quantity
-                            ) {
-                              props.cartControls.decreaseQuantity(element.item);
-                            }
-                          }}
-                        >
-                          -
-                        </button>
-                      </td>
-
-                      <td>{element.item.quantidadeStock}</td>
-                      <td>Total = {calculateSum()}€</td>
-                    </tr>
-                  );
-                });
-              }
-
               AdicionarCompra();
             }}
           >
