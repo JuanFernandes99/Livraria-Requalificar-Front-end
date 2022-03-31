@@ -71,6 +71,9 @@ function App() {
       setShoppingCart(oldShoppingCart);
     }
   }
+  function limparCarro() {
+    setShoppingCart([]);
+  }
   return (
     <div className="App">
       <BrowserRouter>
@@ -202,6 +205,7 @@ function App() {
             element={
               <VerificaCliente cliente={cliente}>
                 <Carrinho
+                  limparCarro={limparCarro}
                   cliente={cliente}
                   shoppingCart={shoppingCart}
                   cartControls={{
