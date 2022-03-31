@@ -169,7 +169,10 @@ export function Carrinho(props) {
           let livroAux = [];
 
           for (let value of props.shoppingCart) {
-            livroAux.push({ id: value.item.id });
+            livroAux.push({
+              id: value.item.id,
+              quantidadeStock: value.quantity,
+            });
           }
           setNovaCompra({
             ...novaCompra,
