@@ -17,7 +17,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { LivroById } from "./Components/Geral/LivroID";
-import { Perfil } from "./Components/Cliente/Perfil";
+import { Perfil } from "./Components/Cliente/PerfilCliente";
 
 function App() {
   const [cliente, setCliente] = useState();

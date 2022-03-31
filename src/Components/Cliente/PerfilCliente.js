@@ -107,14 +107,18 @@ export function Perfil(props) {
       <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
         <Grid container>
           <Grid container justifyContent="center">
-            <Card sx={{ maxWidth: 400, margin: 1 }}>
-              <Typography> Dados do cliente</Typography>
+            <Card sx={{ width: 600, height: 400, margin: 1 }}>
+              <br></br>
+              <Typography> Dados Pessoais</Typography>
 
               <p>{"Nome: " + cliente.nome}</p>
               <p>{"Morada: " + cliente.morada}</p>
               <p>{"Data de nascimento: " + cliente.dataNascimento}</p>
-              <p>{"Email " + cliente.email}</p>
-              <Button onClick={handleOpen}>Alterar Dados do cliente</Button>
+              <p>{"Email: " + cliente.email}</p>
+              <br></br>
+
+              
+              <Button onClick={handleOpen}>Alterar dados</Button>
             </Card>
           </Grid>
         </Grid>

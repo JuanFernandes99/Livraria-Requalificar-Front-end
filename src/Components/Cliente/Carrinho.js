@@ -115,6 +115,7 @@ export function Carrinho(props) {
                 <td>{element.quantity}</td>
                 <td>
                   <button
+                    id="btn-carrinho"
                     onClick={() => {
                       if (element.item.quantidadeStock > element.quantity) {
                         props.cartControls.increaseQuantity(element.item);
@@ -124,6 +125,7 @@ export function Carrinho(props) {
                     +
                   </button>
                   <button
+                    id="btn-carrinho"
                     onClick={() => {
                       if (element.item.quantidadeStock >= element.quantity) {
                         props.cartControls.decreaseQuantity(element.item);
