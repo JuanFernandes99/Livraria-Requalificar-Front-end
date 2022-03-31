@@ -45,7 +45,7 @@ export function LivroById(props) {
               <Typography> Informações gerais</Typography>
 
               <p>{"Título: " + livro.titulo}</p>
-
+              <div></div>
               <p>{"da " + livro.editora}</p>
               <p>{"ISBN: " + livro.isbn}</p>
               <p>{"Edição: " + livro.edicao}</p>
