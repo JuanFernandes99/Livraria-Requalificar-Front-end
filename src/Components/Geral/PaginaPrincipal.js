@@ -75,18 +75,18 @@ export function PaginaPrincipal(props) {
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          height="140"
-                          image={element.imagem}
+                          height="180"
+                          image={livroimagem}
                           alt="livro"
                         />
 
                         <CardContent>
-                          <Typography gutterBottom variant="h5" component="div">
+                          <Typography gutterBottom variant="h6" component="div">
                             {element.titulo}
                           </Typography>
 
                           <Typography variant="body2" color="text.secondary">
-                            {element.preco + "€"}
+                            {"Preço: " + element.preco + "€"}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
