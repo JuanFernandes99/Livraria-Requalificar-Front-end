@@ -14,6 +14,7 @@ export function Carrinho(props) {
   const [livrosComprados, setLivrosComprados] = useState([]);
   let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
+    novaCompra: "",
     cliente: {
       id: 1,
     },
@@ -173,9 +174,8 @@ export function Carrinho(props) {
           setNovaCompra({
             ...novaCompra,
             valorCompra: calculateSum(),
+            livros: livroAux,
           });
-          setNovaCompra({ ...novaCompra, livros: livroAux });
-          console.log(novaCompra);
         }}
       >
         Comprar
