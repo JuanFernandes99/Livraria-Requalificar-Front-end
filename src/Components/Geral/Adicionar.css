@@ -60,3 +60,12 @@ tr:nth-child(even) {
 #titulo {
   font-size: 28px;
 }
+
+.MuiBackdrop-root {
+  background-color: black !important;
+  opacity: 90% !important;
+}
+
+.MuiBox-root {
+  background-color: white !important;
+}

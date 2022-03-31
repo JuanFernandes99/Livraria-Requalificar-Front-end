@@ -60,7 +60,7 @@ export function LivroById(props) {
 
               <p id="textoSobre"> - Sobre o livro -</p>
               <p>{"de " + livro.autores}</p>
-              <p>{livro.sinopse}</p>
+              <p>{"Sinopse: " + livro.sinopse}</p>
               <br></br>
               <Button
                 onClick={() => {
