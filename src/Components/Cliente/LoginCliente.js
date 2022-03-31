@@ -28,7 +28,7 @@ export function LoginCliente(props) {
       },
 
       body: JSON.stringify({
-        email: "joaozinho@gmail.com",
+        email: "joaozinhoo@gmail.com",
         palavraPasse: "1234palavra",
       }),
       //body: JSON.stringify(autenticacaoCliente),
