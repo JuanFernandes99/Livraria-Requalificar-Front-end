@@ -203,6 +203,7 @@ export function Carrinho(props) {
               console.log(novaCompra);
               console.log(novaCompra.livros);
               AdicionarCompra();
+              handleClose();
             }}
           >
             Finalizar Compra

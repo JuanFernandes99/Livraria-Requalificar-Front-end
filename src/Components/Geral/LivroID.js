@@ -76,7 +76,7 @@ export function LivroById(props) {
                 onClick={() => {
                   console.log(livro);
 
-                  if (isLoading == true) {
+                  if (isLoading == true && livro.quantidadeStock > 0) {
                     props.addItem(livro);
 
                     setIsLoading(false);
