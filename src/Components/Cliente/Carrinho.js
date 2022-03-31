@@ -21,12 +21,10 @@ const API_URL = "http://localhost:8080";
 
 export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
-  const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
-  let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     cliente: {
-      id: 1,
+      id: props.cliente.id,
     },
     livros: [{}],
   });
@@ -81,6 +79,66 @@ export function Carrinho(props) {
         alert(error);
       });
   }
+  function AdicionarCompra() {
+    console.log(novaCompra);
+    fetch(API_URL + "/addCompra", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(novaCompra),
+    })
+      .then(async (response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          const parsedResponse = await response.json();
+          console.log(parsedResponse.message);
+          throw new Error(parsedResponse.message);
+        }
+
+        console.log(response);
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        if (!parsedResponse.status) {
+          alert(parsedResponse.message);
+
+          return;
+        }
+        fetchLivro();
+        console.log(parsedResponse.compras);
+        alert(parsedResponse.message);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+  function fetchLivro() {
+    fetch(API_URL + "/getAllLivros", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("There was an error finding livros");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse.livros);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   function calculateSum() {
     let total = 0.0;
     if (!props.shoppingCart) {
@@ -155,9 +213,15 @@ export function Carrinho(props) {
           let livroAux = [];
 
           for (let value of props.shoppingCart) {
-            livroAux.push({ id: value.item.id });
+            livroAux.push({
+              id: value.item.id,
+              quantidadeStock: value.quantity,
+            });
           }
-
+          setNovaCompra({
+            ...novaCompra,
+            valorCompra: calculateSum(),
+          });
           setNovaCompra({ ...novaCompra, livros: livroAux });
           console.log(novaCompra);
         }}
@@ -181,6 +245,45 @@ export function Carrinho(props) {
             onClick={() => {
               console.log(novaCompra);
               console.log(novaCompra.livros);
+              {
+                props.shoppingCart.map((element) => {
+                  return (
+                    <tr key={element.id}>
+                      <td>{element.item.titulo}</td>
+                      <td>{element.item.preco}</td>
+                      <td>{element.quantity}</td>
+                      <td>
+                        <button
+                          onClick={() => {
+                            if (
+                              element.item.quantidadeStock > element.quantity
+                            ) {
+                              props.cartControls.increaseQuantity(element.item);
+                            }
+                          }}
+                        >
+                          +
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (
+                              element.item.quantidadeStock >= element.quantity
+                            ) {
+                              props.cartControls.decreaseQuantity(element.item);
+                            }
+                          }}
+                        >
+                          -
+                        </button>
+                      </td>
+
+                      <td>{element.item.quantidadeStock}</td>
+                      <td>Total = {calculateSum()}€</td>
+                    </tr>
+                  );
+                });
+              }
+
               AdicionarCompra();
             }}
           >

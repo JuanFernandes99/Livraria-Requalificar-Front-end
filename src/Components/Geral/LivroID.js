@@ -13,6 +13,7 @@ export function LivroById(props) {
   const params = useParams();
   const [livro, setLivro] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [autores, setListaAutores] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +22,10 @@ export function LivroById(props) {
       return;
     }
     setLivro(props.livroinfo);
+    setListaAutores(props.livroinfo.autores);
   }, []);
-
+  console.log(livro);
+  console.log(props.livroinfo.autores);
   return livro !== {} ? (
     <div>
       <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
@@ -46,20 +49,27 @@ export function LivroById(props) {
 
               <p>{"Título: " + livro.titulo}</p>
               <div></div>
-              <p>{"da " + livro.editora}</p>
+              <p>{"da " + props.livroinfo.editora.nome}</p>
               <p>{"ISBN: " + livro.isbn}</p>
               <p>{"Edição: " + livro.edicao}</p>
               <p>{"Data de Lançamento: " + livro.dataLancamento}</p>
               <p>{"Número de Páginas: " + livro.numeroPaginas}</p>
               <p>{"Cópias Disponíveis: " + livro.quantidadeStock}</p>
             </Card>
+
             <Card sx={{ width: 600, margin: 1 }}>
               <CardActionArea>
                 <CardMedia />
               </CardActionArea>
-
               <p id="textoSobre"> - Sobre o livro -</p>
-              <p>{"de " + livro.autores}</p>
+              <p> autores:</p>
+
+              <p>
+                {props.livroinfo.autores.map(function teste(element, index) {
+                  console.log(props.livroinfo.autores);
+                  return <p key={index}>{element.nome}</p>;
+                })}
+              </p>
               <p>{"Sinopse: " + livro.sinopse}</p>
               <br></br>
               <Button
@@ -74,16 +84,10 @@ export function LivroById(props) {
                   props.shoppingCart.forEach((element) => {
                     if (element.item.id === livro.id) {
                       if (livro.quantidadeStock > element.quantity) {
-                        console.log(element.item.id);
-                        console.log(livro);
                         props.addItem(livro);
-                        console.log(element);
                       }
                     }
                   });
-                  console.log(isLoading);
-                  console.log(livro);
-                  console.log(props.shoppingCart);
                 }}
               >
                 Adicionar ao carrinho
