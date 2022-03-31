@@ -11,6 +11,7 @@ import { CardActionArea } from "@mui/material";
 import * as React from "react";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
+import clienteImg from "../Images/cliente.jpeg";
 
 const API_URL = "http://localhost:8080";
 
@@ -117,8 +118,26 @@ export function Perfil(props) {
               <p>{"Email: " + cliente.email}</p>
               <br></br>
 
-              
-              <Button onClick={handleOpen}>Alterar dados</Button>
+              <br></br>
+              <Button onClick={handleOpen}>Visualizar Compras</Button>
+            </Card>
+            <Card sx={{ Width: 120, height: 200, margin: 2 }}>
+              <CardActionArea
+                onClick={() => {
+                  navigate("/loginCliente");
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="120"
+                  image={clienteImg}
+                  alt="clienteIMG"
+                />
+                <CardContent>
+                  <Typography>{cliente.nome}</Typography>
+                  <Button onClick={handleOpen}>Alterar dados</Button>
+                </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         </Grid>
