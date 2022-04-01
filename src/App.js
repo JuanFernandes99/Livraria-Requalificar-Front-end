@@ -1,6 +1,7 @@
 import { Contacts } from "./Components/Geral/Contacts";
 import { Info } from "./Components/Geral/Info";
 import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
+import { PaginaPrincipalFun } from "./Components/Geral/PaginaPrincipalFun";
 import { NavBarFuncionario } from "./Components/Funcionario/NavBarFuncionario";
 import { NavBarCliente } from "./Components/Cliente/NavBarCliente";
 import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
@@ -18,6 +19,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { LivroById } from "./Components/Geral/LivroID";
 import { Perfil } from "./Components/Cliente/PerfilCliente";
+import { CompraCliente } from "./Components/Cliente/ComprasCliente";
+import { LivroFuncionario } from "./Components/Geral/LivroIDFuncionario";
 
 function App() {
   const [cliente, setCliente] = useState();
@@ -129,7 +132,9 @@ function App() {
             path="/homeFuncionario"
             element={
               <VerificaFuncionario funcionario={funcionario}>
-                <PaginaPrincipal livroinfo={infoLivro}></PaginaPrincipal>
+                <PaginaPrincipalFun
+                  GetLivroInfo={GetLivroInfo}
+                ></PaginaPrincipalFun>
               </VerificaFuncionario>
             }
           />
@@ -164,6 +169,15 @@ function App() {
           />
 
           <Route
+            path="/livroFun/:id"
+            element={
+              <VerificaFuncionario funcionario={funcionario}>
+                <LivroFuncionario livroinfo={infoLivro}></LivroFuncionario>
+              </VerificaFuncionario>
+            }
+          />
+
+          <Route
             path="/homeCliente"
             element={
               <VerificaCliente cliente={cliente}>
@@ -180,6 +194,14 @@ function App() {
             element={
               <VerificaCliente cliente={cliente}>
                 <Contacts></Contacts>
+              </VerificaCliente>
+            }
+          />
+          <Route
+            path="/compraCliente"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <CompraCliente> </CompraCliente>
               </VerificaCliente>
             }
           />

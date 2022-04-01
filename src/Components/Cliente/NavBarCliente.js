@@ -21,7 +21,6 @@ export function NavBarCliente(props) {
       >
         Contacts
       </button>
-
       <button
         onClick={() => {
           navigate("/info");
