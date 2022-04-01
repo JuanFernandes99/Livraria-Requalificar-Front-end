@@ -14,7 +14,7 @@ import { Carrinho } from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../Geral/Adicionar.css";
 
 const API_URL = "http://localhost:8080";
