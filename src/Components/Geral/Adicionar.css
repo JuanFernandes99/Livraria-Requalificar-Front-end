@@ -84,3 +84,21 @@ tr:nth-child(even) {
   float: right;
   margin-right: 8%;
 }
+
+.css-1ehqt7t{
+  width:80% !important;
+
+}
+
+.MuiOutlinedInput-input{
+
+  width:40% !important;
+
+}
+
+
+.modal-body {
+  max-height: calc(140vh - 100px);
+  overflow-y: auto;
+}
+

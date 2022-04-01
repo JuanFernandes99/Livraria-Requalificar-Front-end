@@ -146,6 +146,14 @@ export function Perfil(props) {
               <p>{"Morada: " + cliente.morada}</p>
               <p>{"Data de nascimento: " + cliente.dataNascimento}</p>
               <p>{"Email: " + cliente.email}</p>
+
+              <Button
+                onClick={() => {
+                  navigate("/compraCliente");
+                }}
+              >
+                Visualizar Compras
+              </Button>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
