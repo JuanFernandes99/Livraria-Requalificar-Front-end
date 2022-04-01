@@ -173,7 +173,7 @@ export function LivroFuncionario(props) {
 
               <p>{"Título: " + livro.titulo}</p>
               <div></div>
-              <p>{"da " + props.livroinfo.editora}</p>
+              <p>{"da " + props.livroinfo.editora.nome}</p>
               <p>{"ISBN: " + livro.isbn}</p>
               <p>{"Edição: " + livro.edicao}</p>
               <p>{"Data de Lançamento: " + livro.dataLancamento}</p>
@@ -355,7 +355,13 @@ export function LivroFuncionario(props) {
                         }}
                       >
                         {listaEditoras.map((element) => (
-                          <MenuItem value={element} key={element.id}>
+                          <MenuItem
+                            sx={{
+                              "& > :not(style)": { m: 1, width: "80%" },
+                            }}
+                            value={element}
+                            key={element.id}
+                          >
                             {element.nome}
                           </MenuItem>
                         ))}
@@ -401,7 +407,7 @@ export function LivroFuncionario(props) {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                    Update Livro
+                    update Livro
                   </Button>
                 </Box>
               </Modal>

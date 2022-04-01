@@ -87,7 +87,7 @@ tr:nth-child(even) {
 
 .css-1ehqt7t{
   width:80% !important;
-
+margin-top: 10%;;
 }
 
 .MuiOutlinedInput-input{
@@ -98,7 +98,11 @@ tr:nth-child(even) {
 
 
 .modal-body {
-  max-height: calc(140vh - 100px);
+  max-height: calc(180vh - 210px);
   overflow-y: auto;
 }
 
+.MuiSelect-select {
+
+width: 100%!important;
+}
