@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-export function NavBarFuncionario() {
+export function NavBarFuncionario(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -27,13 +27,13 @@ export function NavBarFuncionario() {
       </button>
       <button
         onClick={() => {
-          navigate("/infoCliente");
+          navigate("estatisticas");
         }}
       >
-        InformacaoCliente
+        Estatisticas
       </button>
 
-      <Button
+      <button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
@@ -41,7 +41,14 @@ export function NavBarFuncionario() {
         onClick={handleClick}
       >
         Registar
-      </Button>
+      </button>
+      <button
+        onClick={() => {
+          props.doLogoutFuncionario("");
+        }}
+      >
+        Logout
+      </button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

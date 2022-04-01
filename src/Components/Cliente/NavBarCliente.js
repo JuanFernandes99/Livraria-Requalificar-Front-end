@@ -43,6 +43,13 @@ export function NavBarCliente(props) {
       >
         Perfil
       </button>
+      <button
+        onClick={() => {
+          props.doLogoutCliente("");
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 }

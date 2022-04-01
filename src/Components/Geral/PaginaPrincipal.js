@@ -10,6 +10,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Carrinho } from "../Cliente/Carrinho";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

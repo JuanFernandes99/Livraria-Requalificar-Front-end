@@ -18,6 +18,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { LivroById } from "./Components/Geral/LivroID";
 import { Perfil } from "./Components/Cliente/PerfilCliente";
+import { Estatisticas } from "./Components/Funcionario/Estatisticas";
 
 function App() {
   const [cliente, setCliente] = useState();
@@ -77,13 +78,23 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {cliente && <NavBarCliente cliente={cliente}></NavBarCliente>}
-        {funcionario && <NavBarFuncionario></NavBarFuncionario>}
+        {cliente && (
+          <NavBarCliente
+            cliente={cliente}
+            doLogoutCliente={setCliente}
+          ></NavBarCliente>
+        )}
+        {funcionario && (
+          <NavBarFuncionario
+            doLogoutFuncionario={setFuncionario}
+          ></NavBarFuncionario>
+        )}
         <Routes>
           <Route
             path="/registoCliente"
             element={<RegistoCliente></RegistoCliente>}
           />
+          <Route path="/estatisticas" element={<Estatisticas></Estatisticas>} />
           <Route
             path="/registoFuncionario"
             element={<RegistoFuncionario></RegistoFuncionario>}
