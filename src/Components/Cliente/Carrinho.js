@@ -234,7 +234,18 @@ export function Carrinho(props) {
       >
         Comprar
       </Button>
-
+      <Button
+        id="botaoCupao"
+        sx={{
+          marginTop: 8,
+          alignItems: "center",
+        }}
+        onClick={() => {
+          setNovaCompra({ ...novaCompra, voucher: null });
+        }}
+      >
+        Retirar cupao
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
