@@ -22,7 +22,7 @@ export function Carrinho(props) {
   const [novaCompra, setNovaCompra] = useState({
     novaCompra: "",
     cliente: {
-      id: 1,
+      id: props.cliente.id,
     },
     livros: [],
     voucher: {},

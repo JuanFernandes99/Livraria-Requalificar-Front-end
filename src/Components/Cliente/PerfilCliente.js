@@ -223,7 +223,7 @@ export function Perfil(props) {
                           <tr key={element.id}>
                             <td>{element.valorVoucher * 100 + "%"}</td>
                             <td>{element.id}</td>
-                            {element.isUtilizado ? (
+                            {element.utilizado ? (
                               <td>{"ola"}</td>
                             ) : (
                               <td>{"ola2"}</td>
