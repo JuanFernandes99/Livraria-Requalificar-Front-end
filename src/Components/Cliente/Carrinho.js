@@ -29,7 +29,6 @@ export function Carrinho(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const style = {
     position: "absolute",
     top: "50%",
