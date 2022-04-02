@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
+import FormControl from "@mui/material/FormControl";
 
 const API_URL = "http://localhost:8080";
 
@@ -15,6 +16,7 @@ export function Carrinho(props) {
   const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
   const [vouchersCliente, setVouchersCliente] = useState([]);
+  const [totalCarro, setTotalCarro] = useState();
   let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     novaCompra: "",
@@ -22,7 +24,7 @@ export function Carrinho(props) {
       id: props.cliente.id,
     },
     livros: [],
-    voucher: {},
+    voucher: { valorVoucher: 0 },
   });
 
   const [open, setOpen] = useState(false);
@@ -92,7 +94,7 @@ export function Carrinho(props) {
         console.log(response);
 
         if (response.status !== 200) {
-          throw new Error("O cliente ainda nao tem livros disponiveis");
+          throw new Error("There was an error finding livros");
         }
 
         return response.json();
@@ -191,39 +193,53 @@ export function Carrinho(props) {
         </tbody>
       </table>
       <p id="valorTotal">Total = {calculateSum()}€</p>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        label="Voucher"
-        value={novaCompra.voucher}
-        onChange={(e) => {
-          setNovaCompra({ ...novaCompra, voucher: e.target.value });
-        }}
-      >
-        {vouchersCliente.map((element) => (
-          <MenuItem id="menucupoes" value={element} key={element.id}>
-            {element.utilizado ? (
-              <td>
-                sx=
-                {{
-                  visibility: "hidden",
-                }}
-              </td>
-            ) : (
-              <td>
-                {"ID: " +
-                  element.id +
-                  ", Valor do cupao:" +
-                  element.valorVoucher * 100 +
-                  "%"}
-              </td>
-            )}
-          </MenuItem>
-        ))}
-      </Select>
+
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">
+          Voucher Disponíveis
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Voucher"
+          value={novaCompra.voucher}
+          onChange={(e) => {
+            setNovaCompra({ ...novaCompra, voucher: e.target.value });
+          }}
+        >
+          {vouchersCliente.map((element) => (
+            <MenuItem id="menucupoes" value={element} key={element.id}>
+              {!element.utilizado ? (
+                <>
+                  {"ID: " +
+                    element.id +
+                    ", Valor do cupao:" +
+                    element.valorVoucher * 100 +
+                    "%"}
+                </>
+              ) : null}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <Button
+        id="botaoCupao"
         sx={{
           marginTop: 8,
+          alignItems: "center",
+        }}
+        onClick={() => {
+          setNovaCompra({ ...novaCompra, voucher: "" });
+        }}
+      >
+        Retirar cupao
+      </Button>
+
+      <Button
+        sx={{
+          float: "right",
+          marginRight: 12,
           alignItems: "center",
         }}
         onClick={() => {
@@ -236,6 +252,7 @@ export function Carrinho(props) {
               quantidadeStock: value.quantity,
             });
           }
+          setTotalCarro(calculateSum());
           setNovaCompra({
             ...novaCompra,
             valorCompra: calculateSum(),
@@ -244,18 +261,6 @@ export function Carrinho(props) {
         }}
       >
         Comprar
-      </Button>
-      <Button
-        id="botaoCupao"
-        sx={{
-          marginTop: 8,
-          alignItems: "center",
-        }}
-        onClick={() => {
-          setNovaCompra({ ...novaCompra, voucher: null });
-        }}
-      >
-        Retirar cupao
       </Button>
       <Modal
         open={open}
@@ -268,7 +273,9 @@ export function Carrinho(props) {
             {livrosComprados.nome}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Deseja efetuar a compra?
+            Deseja efetuar a compra? sera descontado do total:
+            {novaCompra.voucher.valorVoucher * 100} % do total da compra, Novo
+            total: ({totalCarro - novaCompra.voucher.valorVoucher * totalCarro})
           </Typography>
           <Button
             onClick={() => {
@@ -276,9 +283,6 @@ export function Carrinho(props) {
               console.log(novaCompra.livros);
               fetchVouchers();
               AdicionarCompra();
-              alert(
-                " Obrigado pela compra, Ganhou um voucher para a sua próxima compra"
-              );
               handleClose();
             }}
           >
