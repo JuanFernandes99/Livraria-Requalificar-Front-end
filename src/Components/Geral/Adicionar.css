@@ -107,3 +107,25 @@ tr:nth-child(even) {
   width: 100% !important;
   float: left;
 }
+
+.MuiOutlinedInput-root {
+  width: 20%;
+  float: left;
+  
+  
+}
+
+.MuiButton-root {
+  float: center;
+}
+
+#botaoCompra{
+  float: right!important;
+}
+
+#botaoCupao{
+  float: left;
+  margin-top: 15px !important;
+}
+
+

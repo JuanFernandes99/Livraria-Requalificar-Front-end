@@ -193,8 +193,8 @@ export function Carrinho(props) {
         </tbody>
       </table>
       <p id="valorTotal">Total = {calculateSum()}€</p>
-
       <Button
+        id="botaoCompra"
         sx={{
           marginTop: 8,
           alignItems: "center",
@@ -218,6 +218,7 @@ export function Carrinho(props) {
       >
         Comprar
       </Button>
+
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -238,6 +239,7 @@ export function Carrinho(props) {
         ))}
       </Select>
       <Button
+        id="botaoCupao"
         sx={{
           marginTop: 8,
           alignItems: "center",
