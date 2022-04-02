@@ -58,16 +58,6 @@ export function LoginCliente(props) {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Button
-        id="ButtonLogin"
-        onClick={() => {
-          navigate("/loginFuncionario");
-        }}
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
-        Login Funcionario
-      </Button>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

@@ -50,6 +50,7 @@ export function LivroById(props) {
               <p>{"Título: " + livro.titulo}</p>
               <div></div>
               <p>{"da " + props.livroinfo.editora.nome}</p>
+              <p> {"Preço: " + livro.preco + "€"}</p>
               <p>{"ISBN: " + livro.isbn}</p>
               <p>{"Edição: " + livro.edicao}</p>
               <p>{"Data de Lançamento: " + livro.dataLancamento}</p>

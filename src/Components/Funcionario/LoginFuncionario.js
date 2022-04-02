@@ -28,7 +28,7 @@ export function LoginFuncionario(props) {
       },
 
       body: JSON.stringify({
-        nickName: "Frederica5",
+        nickName: "Frederica2",
         palavraPasse: "345passe",
       }),
       //body: JSON.stringify(autenticacaoFuncionario),
@@ -57,16 +57,6 @@ export function LoginFuncionario(props) {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Button
-        id="ButtonLogin"
-        onClick={() => {
-          navigate("/loginCliente");
-        }}
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
-        Login Cliente
-      </Button>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
