@@ -21,6 +21,7 @@ export function LivroSelecionadoFuncionario(props) {
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
   const [novoLivro, setNovoLivro] = useState({
+    id: props.livroinfo.id,
     titulo: "",
     isbn: "",
     sinopse: "",
@@ -52,6 +53,7 @@ export function LivroSelecionadoFuncionario(props) {
   useEffect(() => {
     GetAllEditoras();
     GetAllAutores();
+    fetchLivro();
     if (!params.id) {
       alert("nao tem livro ");
       return;
@@ -110,6 +112,28 @@ export function LivroSelecionadoFuncionario(props) {
         alert(error);
       });
   }
+  function fetchLivro() {
+    fetch(API_URL + "/getLivroById/" + props.livroinfo.id, {
+      // mode: "cors",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          throw new Error("There was an error finding pessoas");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        setNovoLivro(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
 
   function UpdateLivro() {
     let livroAtualizado = {
@@ -136,12 +160,19 @@ export function LivroSelecionadoFuncionario(props) {
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("erro ao encontrar livro");
+          return response.json().then((parsedResponse) => {
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
+          });
         }
+
+        console.log(response);
 
         return response.json();
       })
       .then((res) => {
+        fetchLivro();
+        alert(res.message);
         console.log(res);
       })
       .catch((error) => {
