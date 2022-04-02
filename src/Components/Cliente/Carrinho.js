@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
+import FormControl from "@mui/material/FormControl";
 
 const API_URL = "http://localhost:8080";
 
@@ -191,28 +192,49 @@ export function Carrinho(props) {
         </tbody>
       </table>
       <p id="valorTotal">Total = {calculateSum()}€</p>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        label="Voucher"
-        value={novaCompra.voucher}
-        onChange={(e) => {
-          setNovaCompra({ ...novaCompra, voucher: e.target.value });
-        }}
-      >
-        {vouchersCliente.map((element) => (
-          <MenuItem id="menucupoes" value={element} key={element.id}>
-            {"ID: " +
-              element.id +
-              ", Valor do cupao:" +
-              element.valorVoucher * 100 +
-              "%"}
-          </MenuItem>
-        ))}
-      </Select>
+
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">
+          Voucher Disponíveis
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Voucher"
+          value={novaCompra.voucher}
+          onChange={(e) => {
+            setNovaCompra({ ...novaCompra, voucher: e.target.value });
+          }}
+        >
+          {vouchersCliente.map((element) => (
+            <MenuItem id="menucupoes" value={element} key={element.id}>
+              {"ID: " +
+                element.id +
+                ", Valor do cupao:" +
+                element.valorVoucher * 100 +
+                "%"}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <Button
+        id="botaoCupao"
         sx={{
           marginTop: 8,
+          alignItems: "center",
+        }}
+        onClick={() => {
+          setNovaCompra({ ...novaCompra, voucher: null });
+        }}
+      >
+        Retirar cupao
+      </Button>
+
+      <Button
+        sx={{
+          float: "right",
+          marginRight: 12,
           alignItems: "center",
         }}
         onClick={() => {
@@ -233,18 +255,6 @@ export function Carrinho(props) {
         }}
       >
         Comprar
-      </Button>
-      <Button
-        id="botaoCupao"
-        sx={{
-          marginTop: 8,
-          alignItems: "center",
-        }}
-        onClick={() => {
-          setNovaCompra({ ...novaCompra, voucher: null });
-        }}
-      >
-        Retirar cupao
       </Button>
       <Modal
         open={open}
