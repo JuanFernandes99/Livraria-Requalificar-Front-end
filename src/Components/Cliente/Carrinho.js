@@ -14,7 +14,7 @@ export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
   const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
-  const [vouchers, setVoucher] = useState([]);
+  const [vouchersCliente, setVouchersCliente] = useState([]);
   let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     novaCompra: "",
@@ -98,7 +98,7 @@ export function Carrinho(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        setVoucher(parsedResponse);
+        setVouchersCliente(parsedResponse);
         console.log(parsedResponse);
       })
       .catch((error) => {
@@ -200,7 +200,7 @@ export function Carrinho(props) {
           setNovaCompra({ ...novaCompra, voucher: e.target.value });
         }}
       >
-        {vouchers.map((element) => (
+        {vouchersCliente.map((element) => (
           <MenuItem id="menucupoes" value={element} key={element.id}>
             {"ID: " +
               element.id +
