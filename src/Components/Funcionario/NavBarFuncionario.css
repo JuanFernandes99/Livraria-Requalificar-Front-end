@@ -1,0 +1,11 @@
+.menu {
+  background-color: rgb(3, 133, 150);
+  padding: 10px;
+  text-align: left;
+}
+.menu button {
+  border: none;
+  background-color: rgb(3, 133, 150);
+  color: white;
+  font-weight: bold;
+}

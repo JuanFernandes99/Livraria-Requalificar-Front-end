@@ -1,0 +1,139 @@
+.css-1xez8po-MuiPaper-root-MuiCard-root {
+  margin-left: 20%;
+  width: 50%;
+}
+.css-4m3qov-MuiPaper-root-MuiCard-root p {
+  text-align: left;
+  margin-left: 20px;
+}
+
+#basic-button-autor {
+  width: 50%;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#background {
+  background-image: url(../Images/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-position: center;
+}
+
+.MuiBackdrop-root {
+  opacity: 40% !important;
+}
+
+#imagemiD {
+  width: 20%;
+  height: 40%;
+  float: left;
+  margin: 20px;
+}
+
+.texto {
+  float: left;
+  color: rgb(11, 76, 85);
+  font-size: large;
+  text-align: left;
+}
+
+#textoSobre {
+  font-size: 40px;
+  color: rgb(6, 83, 97);
+  font-style: italic;
+}
+
+#titulo {
+  font-size: 28px;
+}
+
+.MuiBackdrop-root {
+  background-color: black !important;
+  opacity: 90% !important;
+}
+
+.MuiBox-root {
+  background-color: white !important;
+}
+
+#btn-carrinho {
+  margin: 1px;
+  margin-right: 3px;
+  text-align: center;
+  padding: 6px;
+}
+#valorTotal {
+  float: right;
+  margin-right: 8%;
+}
+
+.css-1ehqt7t{
+  width:80% !important;
+margin-top: 10%;;
+}
+
+.MuiOutlinedInput-input{
+
+  width:40% !important;
+
+}
+
+
+.modal-body {
+  max-height: calc(180vh - 210px);
+  overflow-y: auto;
+}
+
+.MuiSelect-select {
+
+width: 100%!important;
+}
+
+.MuiOutlinedInput-root {
+  width: 20%;
+  float: left;
+  margin: 10px;
+  
+}
+
+.MuiButton-root {
+  float: center;
+}
+
+#botaoCompra{
+  float: right!important;
+}
+
+#botaoCupao{
+  float: left;
+  margin-top: 15px !important;
+}
+
+.MuiFormControl-root {
+  width: 100%!important;
+}
+.MuiOutlinedInput-root {
+  width: 100% !important;
+}
+
+.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root{
+  margin-right: 0!important;
+}

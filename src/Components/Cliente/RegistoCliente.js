@@ -1,43 +1,34 @@
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import livraryimage from "./livraria.png";
+import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
-import "./Login.css";
-
+import "./LoginCliente.css";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
-export function Login(props) {
+export function RegistoCliente() {
   const navigate = useNavigate();
-  const [palavraPasse, setPalavraPasse] = useState("");
-  const [email, setEmail] = useState("");
-  function autenticarCliente() {
-    fetch(API_URL + "/autenticacaoCliente", {
+  const [novoCliente, setnovoCliente] = useState({
+    nome: "",
+    morada: "",
+    dataNascimento: "",
+    palavraPasse: "",
+    email: "",
+  });
+
+  function Registo() {
+    fetch(API_URL + "/addCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({
-        email:"joaozinho@gmail.com",
-        palavraPasse: "1234palavra",
-        /*
-        email: email,
-        palavraPasse: palavraPasse,
-        */
-      }),
+      body: JSON.stringify(novoCliente),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
@@ -53,9 +44,8 @@ export function Login(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        console.log(parsedResponse);
-        setPalavraPasse("");
-        setEmail("");
+        alert(parsedResponse.message);
+        navigate("/loginCliente");
       })
       .catch((error) => {
         alert(error);
@@ -76,7 +66,7 @@ export function Login(props) {
           <Typography component="h1" variant="h5">
             <img id="image" src={livraryimage} alt="Logo" />
             <br></br>
-            Iniciar sessão
+            Registo
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
@@ -84,12 +74,59 @@ export function Login(props) {
               required
               fullWidth
               type="text"
+              name="nome"
+              label="nome"
+              id="nome"
+              value={novoCliente.nome}
+              onChange={(e) => {
+                setnovoCliente({ ...novoCliente, nome: e.target.value });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="morada"
+              label="morada"
+              type="text"
+              id="morada"
+              value={novoCliente.morada}
+              onChange={(e) => {
+                setnovoCliente({ ...novoCliente, morada: e.target.value });
+              }}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="dataNascimento"
+              label="dataNascimento"
+              type="text"
+              id="dataNascimento"
+              value={novoCliente.dataNascimento}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  dataNascimento: e.target.value,
+                });
+              }}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               name="email"
-              label="Email"
+              label="email"
+              type="text"
               id="email"
-              value={email}
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
+              value={novoCliente.email}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  email: e.target.value,
+                });
+              }}
             />
             <TextField
               margin="normal"
@@ -99,33 +136,24 @@ export function Login(props) {
               label="Password"
               type="password"
               id="password"
-              value={palavraPasse}
-              onChange={(e) => setPalavraPasse(e.target.value)}
+              value={novoCliente.palavraPasse}
+              onChange={(e) => {
+                setnovoCliente({
+                  ...novoCliente,
+                  palavraPasse: e.target.value,
+                });
+              }}
             />
             <Button
               id="ButtonLogin"
               onClick={() => {
-                autenticarCliente();
-                /*   props.doLogin("David");*/
+                Registo();
               }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Iniciar sessão
-            </Button>
-            <h5 id="welcomeQuestion">É a sua primeira vez na livraria?</h5>
-            <br></br>
-            <Button
-              id="ButtonRegisto"
-              onClick={() => {
-                navigate("/home");
-              }}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Criar a conta da livraria
+              Criar conta
             </Button>
           </Box>
         </Box>
