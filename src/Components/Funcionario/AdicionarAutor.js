@@ -23,44 +23,38 @@ export function Autor() {
     },
   });
 
-  //necessito do useEffect por causa do botao adicionar editora estar já com as editoras presentes
   useEffect(() => {
     GetAllEditoras();
     GetAllAutores();
   }, []);
 
   function AdicionarAutor() {
-    if (
-      novoAutor.nome.trim().length !== 0 &&
-      novoAutor.email.trim().length !== 0
-    ) {
-      fetch(API_URL + "/addAutor", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(novoAutor),
+    fetch(API_URL + "/addAutor", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(novoAutor),
+    })
+      .then(async (response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          const parsedResponse = await response.json();
+          console.log(parsedResponse.message);
+          throw new Error(parsedResponse.message);
+        }
+
+        console.log(response);
+
+        return response.json();
       })
-        .then(async (response) => {
-          // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-          if (response.status !== 200) {
-            const parsedResponse = await response.json();
-            console.log(parsedResponse.message);
-            throw new Error(parsedResponse.message);
-          }
-
-          console.log(response);
-
-          return response.json();
-        })
-        .then((parsedResponse) => {
-          console.log(parsedResponse);
-          alert(parsedResponse.message);
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    }
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        alert(parsedResponse.message);
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   function GetAllEditoras() {

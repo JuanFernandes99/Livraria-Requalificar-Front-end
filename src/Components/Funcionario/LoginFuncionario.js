@@ -8,7 +8,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
-import "./LoginFuncionario.css";
 
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
@@ -28,7 +27,8 @@ export function LoginFuncionario(props) {
       },
 
       body: JSON.stringify({
-        nickName: "Frederica22",
+        //Facilitar os testes
+        nickName: "Frederica25",
         palavraPasse: "345passe",
       }),
       //body: JSON.stringify(autenticacaoFuncionario),

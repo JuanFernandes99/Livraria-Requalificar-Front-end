@@ -1,21 +1,18 @@
 import { Button, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import livroimg from "../Images/livro.jpeg";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-export function LivroById(props) {
-  const params = useParams();
+export function LivroSelecionadoCliente(props) {
   const [livro, setLivro] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [autores, setListaAutores] = useState({});
   const navigate = useNavigate();
-
+  const params = useParams();
   useEffect(() => {
     if (!params.id) {
       alert("nao tem livro ");
@@ -24,31 +21,23 @@ export function LivroById(props) {
     setLivro(props.livroinfo);
     setListaAutores(props.livroinfo.autores);
   }, []);
-  console.log(livro);
-  console.log(props.livroinfo.autores);
+
   return livro !== {} ? (
     <div>
       <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
         <Grid container>
           <Grid container justifyContent="center">
             <Card sx={{ maxWidth: 400, margin: 1 }}>
-              <CardActionArea
-                onClick={() => {
-                  navigate("/loginCliente");
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="250"
-                  image={livroimg}
-                  alt="clienteIMG"
-                />
-              </CardActionArea>
+              <CardMedia
+                component="img"
+                height="250"
+                image={livroimg}
+                alt="clienteIMG"
+              />
               <br></br>
               <Typography> Informações gerais</Typography>
 
               <p>{"Título: " + livro.titulo}</p>
-              <div></div>
               <p>{"da " + props.livroinfo.editora.nome}</p>
               <p> {"Preço: " + livro.preco + "€"}</p>
               <p>{"ISBN: " + livro.isbn}</p>
@@ -63,8 +52,7 @@ export function LivroById(props) {
                 <CardMedia />
               </CardActionArea>
               <p id="textoSobre"> - Sobre o livro -</p>
-              <p> autores:</p>
-
+              <p> Autores:</p>
               <p>
                 {props.livroinfo.autores.map(function teste(element, index) {
                   console.log(props.livroinfo.autores);

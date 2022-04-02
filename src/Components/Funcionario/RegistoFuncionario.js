@@ -44,8 +44,14 @@ export function RegistoFuncionario() {
         return response.json();
       })
       .then((parsedResponse) => {
-        alert(parsedResponse.message);
-        navigate("/home");
+        alert(
+          parsedResponse.message +
+            "Tem que ingresar com o seguinte nickname único: " +
+            parsedResponse.funcionario.nickName +
+            "e a sua respetiva palavra-passe"
+        );
+
+        navigate("/homeFuncionario");
       })
       .catch((error) => {
         alert(error);

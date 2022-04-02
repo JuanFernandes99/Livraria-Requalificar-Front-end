@@ -14,11 +14,11 @@ const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
 export function LoginCliente(props) {
-  const navigate = useNavigate();
   const [autenticacaoCliente, setAutenticacaoCliente] = useState({
     email: "",
     palavraPasse: "",
   });
+  const navigate = useNavigate();
 
   function autenticarCliente() {
     fetch(API_URL + "/autenticacaoCliente", {
@@ -28,6 +28,7 @@ export function LoginCliente(props) {
       },
 
       body: JSON.stringify({
+        //Facilitar os testes
         email: "joaozinhoo@gmail.com",
         palavraPasse: "1234palavra",
       }),

@@ -1,27 +1,24 @@
-import { Contacts } from "./Components/Geral/Contacts";
-import { Info } from "./Components/Geral/Info";
-import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
-import { PaginaPrincipalFun } from "./Components/Geral/PaginaPrincipalFun";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import { PaginaPrincipalCliente } from "./Components/Cliente/PaginaPrincipalCliente";
+import { PaginaPrincipalFun } from "./Components/Funcionario/PaginaPrincipalFun";
 import { NavBarFuncionario } from "./Components/Funcionario/NavBarFuncionario";
-import { NavBarCliente } from "./Components/Cliente/NavBarCliente";
-import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
-import { LoginCliente } from "./Components/Cliente/LoginCliente";
-import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
-import { Carrinho } from "./Components/Cliente/Carrinho";
 import { LoginFuncionario } from "./Components/Funcionario/LoginFuncionario";
 import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
 import { Editora } from "./Components/Funcionario/AdicionarEditora";
 import { Autor } from "./Components/Funcionario/AdicionarAutor";
 import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
-import { Navigate } from "react-router-dom";
-import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-import { LivroById } from "./Components/Geral/LivroID";
+import { NavBarCliente } from "./Components/Cliente/NavBarCliente";
+import { LoginCliente } from "./Components/Cliente/LoginCliente";
+import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
 import { Perfil } from "./Components/Cliente/PerfilCliente";
+import { Carrinho } from "./Components/Cliente/Carrinho";
+import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
+import { LivroSelecionadoCliente } from "./Components/Cliente/LivroIDCliente";
 import { Estatisticas } from "./Components/Funcionario/Estatisticas";
-import { CompraCliente } from "./Components/Cliente/ComprasCliente";
-import { LivroFuncionario } from "./Components/Geral/LivroIDFuncionario";
+import { LivroSelecionadoFuncionario } from "./Components/Funcionario/LivroIDFuncionario";
 
 function App() {
   const [cliente, setCliente] = useState();
@@ -29,7 +26,6 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [infoLivro, setInfoLivro] = useState();
 
-  //Inicio das operações para fazer um shopping cart local
   function addQuantity(item) {
     let oldShoppingCart = shoppingCart;
 
@@ -54,10 +50,6 @@ function App() {
     setShoppingCart(oldShoppingCart);
   }
 
-  function GetLivroInfo(item) {
-    return setInfoLivro(item);
-  }
-
   function removeQuanitty(item) {
     let oldShoppingCart = shoppingCart;
 
@@ -75,8 +67,13 @@ function App() {
       setShoppingCart(oldShoppingCart);
     }
   }
+  // Limpar carrinho de compras
   function limparCarro() {
     setShoppingCart([]);
+  }
+  // Função para obter a info do livro
+  function GetLivroInfo(item) {
+    return setInfoLivro(item);
   }
   return (
     <div className="App">
@@ -93,19 +90,12 @@ function App() {
           ></NavBarFuncionario>
         )}
         <Routes>
-          <Route
-            path="/registoCliente"
-            element={<RegistoCliente></RegistoCliente>}
-          />
           <Route path="/estatisticas" element={<Estatisticas></Estatisticas>} />
           <Route
             path="/registoFuncionario"
             element={<RegistoFuncionario></RegistoFuncionario>}
           />
-          <Route
-            path="/loginCliente"
-            element={<LoginCliente doLoginCliente={setCliente}></LoginCliente>}
-          />
+
           <Route
             path="/loginFuncionario"
             element={
@@ -149,42 +139,36 @@ function App() {
               </VerificaFuncionario>
             }
           />
-          <Route
-            path="/contactsFuncionario"
-            element={
-              <VerificaFuncionario funcionario={funcionario}>
-                <Contacts></Contacts>
-              </VerificaFuncionario>
-            }
-          />
-          <Route
-            path="/infoFuncionario"
-            element={
-              <VerificaFuncionario funcionario={funcionario}>
-                <Info></Info>
-              </VerificaFuncionario>
-            }
-          />
-
-          <Route
-            path="/livroID/:id"
-            element={
-              <VerificaCliente cliente={cliente}>
-                <LivroById
-                  livroinfo={infoLivro}
-                  shoppingCart={shoppingCart}
-                  addItem={addQuantity}
-                ></LivroById>
-              </VerificaCliente>
-            }
-          />
 
           <Route
             path="/livroFun/:id"
             element={
               <VerificaFuncionario funcionario={funcionario}>
-                <LivroFuncionario livroinfo={infoLivro}></LivroFuncionario>
+                <LivroSelecionadoFuncionario
+                  livroinfo={infoLivro}
+                ></LivroSelecionadoFuncionario>
               </VerificaFuncionario>
+            }
+          />
+
+          <Route
+            path="/registoCliente"
+            element={<RegistoCliente></RegistoCliente>}
+          />
+          <Route
+            path="/loginCliente"
+            element={<LoginCliente doLoginCliente={setCliente}></LoginCliente>}
+          />
+          <Route
+            path="/livroID/:id"
+            element={
+              <VerificaCliente cliente={cliente}>
+                <LivroSelecionadoCliente
+                  livroinfo={infoLivro}
+                  shoppingCart={shoppingCart}
+                  addItem={addQuantity}
+                ></LivroSelecionadoCliente>
+              </VerificaCliente>
             }
           />
 
@@ -192,43 +176,18 @@ function App() {
             path="/homeCliente"
             element={
               <VerificaCliente cliente={cliente}>
-                <PaginaPrincipal
+                <PaginaPrincipalCliente
                   GetLivroInfo={GetLivroInfo}
-                  // shoppingCart={shoppingCart}
-                  //  addItem={addQuantity}
-                ></PaginaPrincipal>
+                ></PaginaPrincipalCliente>
               </VerificaCliente>
             }
           />
-          <Route
-            path="/contactsCliente"
-            element={
-              <VerificaCliente cliente={cliente}>
-                <Contacts></Contacts>
-              </VerificaCliente>
-            }
-          />
-          <Route
-            path="/compraCliente"
-            element={
-              <VerificaCliente cliente={cliente}>
-                <CompraCliente> </CompraCliente>
-              </VerificaCliente>
-            }
-          />
+
           <Route
             path="/perfilCliente/:id"
             element={
               <VerificaCliente cliente={cliente}>
                 <Perfil cliente={cliente}></Perfil>
-              </VerificaCliente>
-            }
-          />
-          <Route
-            path="/infoCliente"
-            element={
-              <VerificaCliente cliente={cliente}>
-                <Info></Info>
               </VerificaCliente>
             }
           />

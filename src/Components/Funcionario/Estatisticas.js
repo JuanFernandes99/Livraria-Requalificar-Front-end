@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 
 const API_URL = "http://localhost:8080";
 
@@ -22,8 +20,13 @@ export function Estatisticas() {
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("There was an error finding pessoas");
+          return response.json().then((parsedResponse) => {
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
+          });
         }
+
+        console.log(response);
 
         return response.json();
       })

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -12,21 +11,19 @@ import FormControl from "@mui/material/FormControl";
 const API_URL = "http://localhost:8080";
 
 export function Carrinho(props) {
-  const [anchor, setAnchor] = useState(null);
-  const navigate = useNavigate();
-  const [livrosComprados, setLivrosComprados] = useState([]);
   const [vouchersCliente, setVouchersCliente] = useState([]);
   const [totalCarro, setTotalCarro] = useState();
-  let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     novaCompra: "",
     cliente: {
       id: props.cliente.id,
     },
     livros: [],
-    voucher: { valorVoucher: 0 },
+    voucher: { valorVoucher: 0 }, // igual a 0 para que quando seja retirado o voucher não fique em NaN
   });
-
+  useEffect(() => {
+    fetchVouchers();
+  }, []);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -43,9 +40,6 @@ export function Carrinho(props) {
     p: 4,
   };
 
-  useEffect(() => {
-    fetchVouchers();
-  }, []);
   function AdicionarCompra() {
     console.log(novaCompra);
     fetch(API_URL + "/addCompra", {
@@ -91,17 +85,14 @@ export function Carrinho(props) {
       },
     })
       .then((response) => {
-        console.log(response);
-
         if (response.status !== 200) {
-          throw new Error("There was an error finding livros");
+          throw new Error("There was an error finding Vouchers");
         }
 
         return response.json();
       })
       .then((parsedResponse) => {
         setVouchersCliente(parsedResponse);
-        console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -132,6 +123,7 @@ export function Carrinho(props) {
       });
   }
 
+  //Calcula o total de todos os livros que estão no carrinho de compras
   function calculateSum() {
     let total = 0.0;
     if (!props.shoppingCart) {
@@ -153,7 +145,7 @@ export function Carrinho(props) {
           <tr>
             <th>Livro</th>
             <th>Preço</th>
-            <th>Quantity</th>
+            <th>Quantidade</th>
             <th>Aumentar/Diminuir</th>
             <th>Stock</th>
           </tr>
@@ -269,9 +261,6 @@ export function Carrinho(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {livrosComprados.nome}
-          </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Deseja efetuar a compra? sera descontado do total:
             {novaCompra.voucher.valorVoucher * 100} % do total da compra, Novo

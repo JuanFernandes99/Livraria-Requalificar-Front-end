@@ -2,7 +2,6 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import livroimg from "../Images/livro.jpeg";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -20,25 +19,26 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const API_URL = "http://localhost:8080";
 
 export function Perfil(props) {
+  const [cliente, setCliente] = useState({});
+  const [vouchers, setVouchers] = useState([]);
+  const [compras, setCompras] = useState([]);
+  const [atualizaCliente, setAtualizaCliente] = useState({
+    palavraPasse: "",
+    email: "",
+    morada: "",
+  });
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [cliente, setCliente] = useState({});
-  const [vouchers, setVouchers] = useState([]);
-  const [compras, setCompras] = useState([]);
-  const params = useParams();
+
   useEffect(() => {
     setCliente(props.cliente);
     fetchCliente();
     getCompras();
     getVouchers();
   }, []);
-  const [atualizaCliente, setAtualizaCliente] = useState({
-    palavraPasse: "",
-    email: "",
-    morada: "",
-  });
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -67,7 +67,6 @@ export function Perfil(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
         setVouchers(parsedResponse);
         console.log(parsedResponse);
       })
@@ -103,6 +102,7 @@ export function Perfil(props) {
         return response.json();
       })
       .then((res) => {
+        alert(res.message);
         fetchCliente();
         console.log(res);
       })
@@ -126,9 +126,7 @@ export function Perfil(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
         setCliente(parsedResponse);
-        //console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -150,9 +148,7 @@ export function Perfil(props) {
         return response.json();
       })
       .then((parsedResponse) => {
-        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
         setCompras(parsedResponse);
-        console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -217,25 +213,25 @@ export function Perfil(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Visualizar cupoes</Typography>
+                  <Typography>Visualizar cupões</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
                     <table>
                       <tbody>
                         <tr>
-                          <th>cupoes</th>
-                          <th>Id do cupao</th>
-                          <th>Utilizado?</th>
+                          <th>Cupões</th>
+                          <th>Id do cupão</th>
+                          <th>Cupão utilizado?</th>
                         </tr>
                         {vouchers.map((element) => (
                           <tr key={element.id}>
                             <td>{element.valorVoucher * 100 + "%"}</td>
                             <td>{element.id}</td>
                             {element.utilizado ? (
-                              <td>{"ola"}</td>
+                              <td>{"Já foi utilizado"}</td>
                             ) : (
-                              <td>{"ola2"}</td>
+                              <td>{"Disponível"}</td>
                             )}
                           </tr>
                         ))}

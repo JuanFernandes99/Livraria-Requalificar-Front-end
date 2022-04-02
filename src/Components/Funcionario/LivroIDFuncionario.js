@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import livroimg from "../Images/livro.jpeg";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -17,15 +16,10 @@ import FormControl from "@mui/material/FormControl";
 
 const API_URL = "http://localhost:8080";
 
-export function LivroFuncionario(props) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const params = useParams();
+export function LivroSelecionadoFuncionario(props) {
   const [livro, setLivro] = useState({});
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
-
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     isbn: "",
@@ -38,7 +32,11 @@ export function LivroFuncionario(props) {
     editora: {},
     autores: [],
   });
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const params = useParams();
+
   const style = {
     position: "absolute",
     top: "50%",

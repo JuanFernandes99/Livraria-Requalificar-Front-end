@@ -10,18 +10,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import livroimagem from "../Images/livro.jpeg";
-import { Carrinho } from "../Cliente/Carrinho";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 
 const API_URL = "http://localhost:8080";
 
-export function PaginaPrincipal(props) {
+export function PaginaPrincipalCliente(props) {
   const [listaLivros, setListasLivros] = useState([]);
-  const [livro, setLivro] = useState({});
-  const [carrinho, setCarrinho] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
