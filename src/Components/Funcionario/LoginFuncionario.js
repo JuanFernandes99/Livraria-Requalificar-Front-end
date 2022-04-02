@@ -28,11 +28,7 @@ export function LoginFuncionario(props) {
       },
 
       body: JSON.stringify({
-<<<<<<< HEAD
         nickName: "Frederica22",
-=======
-        nickName: "Frederica2",
->>>>>>> parent of df12da5 (GOOD)
         palavraPasse: "345passe",
       }),
       //body: JSON.stringify(autenticacaoFuncionario),

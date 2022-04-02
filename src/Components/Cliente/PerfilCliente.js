@@ -25,12 +25,14 @@ export function Perfil(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [cliente, setCliente] = useState({});
+  const [vouchers, setVouchers] = useState([]);
   const [compras, setCompras] = useState([]);
   const params = useParams();
   useEffect(() => {
     setCliente(props.cliente);
     fetchCliente();
     getCompras();
+    getVouchers();
   }, []);
   const [atualizaCliente, setAtualizaCliente] = useState({
     palavraPasse: "",
@@ -49,6 +51,30 @@ export function Perfil(props) {
     p: 4,
   };
 
+  function getVouchers() {
+    fetch(API_URL + "/getVouchersCliente/" + props.cliente.id, {
+      // mode: "cors",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
+        if (response.status !== 200) {
+          throw new Error("There was an error finding pessoas");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
+        setVouchers(parsedResponse);
+        console.log(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
   function updateCliente() {
     let updatedCliente = {
       id: cliente.id,
@@ -185,7 +211,6 @@ export function Perfil(props) {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
-<<<<<<< HEAD
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -219,18 +244,12 @@ export function Perfil(props) {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
-=======
->>>>>>> parent of df12da5 (GOOD)
               <br></br>
 
               <br></br>
             </Card>
             <Card sx={{ Width: 120, height: 200, margin: 2 }}>
-              <CardActionArea
-                onClick={() => {
-                  navigate("/loginCliente");
-                }}
-              >
+              <CardActionArea>
                 <CardMedia
                   component="img"
                   height="120"

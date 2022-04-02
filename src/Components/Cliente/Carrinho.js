@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 
 const API_URL = "http://localhost:8080";
@@ -12,13 +14,15 @@ export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
   const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
+  const [vouchers, setVoucher] = useState([]);
   let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     novaCompra: "",
     cliente: {
-      id: 1,
+      id: props.cliente.id,
     },
     livros: [],
+    voucher: {},
   });
 
   const [open, setOpen] = useState(false);
@@ -37,6 +41,9 @@ export function Carrinho(props) {
     p: 4,
   };
 
+  useEffect(() => {
+    fetchVouchers();
+  }, []);
   function AdicionarCompra() {
     console.log(novaCompra);
     fetch(API_URL + "/addCompra", {
@@ -68,6 +75,31 @@ export function Carrinho(props) {
         fetchLivro();
         console.log(parsedResponse.compras);
         alert(parsedResponse.message);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+  function fetchVouchers() {
+    fetch(API_URL + "/getVouchersCliente/" + props.cliente.id, {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("There was an error finding livros");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        setVoucher(parsedResponse);
+        console.log(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -159,7 +191,25 @@ export function Carrinho(props) {
         </tbody>
       </table>
       <p id="valorTotal">Total = {calculateSum()}€</p>
-
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        label="Voucher"
+        value={novaCompra.voucher}
+        onChange={(e) => {
+          setNovaCompra({ ...novaCompra, voucher: e.target.value });
+        }}
+      >
+        {vouchers.map((element) => (
+          <MenuItem id="menucupoes" value={element} key={element.id}>
+            {"ID: " +
+              element.id +
+              ", Valor do cupao:" +
+              element.valorVoucher * 100 +
+              "%"}
+          </MenuItem>
+        ))}
+      </Select>
       <Button
         sx={{
           marginTop: 8,
@@ -202,6 +252,7 @@ export function Carrinho(props) {
             onClick={() => {
               console.log(novaCompra);
               console.log(novaCompra.livros);
+              fetchVouchers();
               AdicionarCompra();
               handleClose();
             }}
