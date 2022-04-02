@@ -182,10 +182,10 @@ export function Perfil(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Visualizar compras</Typography>
+                  <p>Visualizar compras</p>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
+                  <p>
                     <table>
                       <tbody>
                         <tr>
@@ -204,7 +204,7 @@ export function Perfil(props) {
                         ))}
                       </tbody>
                     </table>
-                  </Typography>
+                  </p>
                 </AccordionDetails>
               </Accordion>
               <Accordion>
@@ -216,7 +216,7 @@ export function Perfil(props) {
                   <Typography>Visualizar cupões</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
+                  <p>
                     <table>
                       <tbody>
                         <tr>
@@ -237,7 +237,7 @@ export function Perfil(props) {
                         ))}
                       </tbody>
                     </table>
-                  </Typography>
+                  </p>
                 </AccordionDetails>
               </Accordion>
               <br></br>

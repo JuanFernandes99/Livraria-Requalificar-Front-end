@@ -90,7 +90,14 @@ function App() {
           ></NavBarFuncionario>
         )}
         <Routes>
-          <Route path="/estatisticas" element={<Estatisticas></Estatisticas>} />
+          <Route
+            path="/estatisticas"
+            element={
+              <VerificaFuncionario funcionario={funcionario}>
+                <Estatisticas></Estatisticas>
+              </VerificaFuncionario>
+            }
+          />
           <Route
             path="/registoFuncionario"
             element={<RegistoFuncionario></RegistoFuncionario>}

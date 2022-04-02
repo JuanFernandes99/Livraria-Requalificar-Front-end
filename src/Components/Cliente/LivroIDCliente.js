@@ -31,12 +31,11 @@ export function LivroSelecionadoCliente(props) {
               <CardMedia
                 component="img"
                 height="250"
-                image={livroimg}
+                image={livro.imagem}
                 alt="clienteIMG"
               />
               <br></br>
-              <Typography> Informações gerais</Typography>
-
+              <p> Informações gerais</p>
               <p>{"Título: " + livro.titulo}</p>
               <p>{"da " + props.livroinfo.editora.nome}</p>
               <p> {"Preço: " + livro.preco + "€"}</p>
@@ -67,7 +66,9 @@ export function LivroSelecionadoCliente(props) {
                   if (livro.quantidadeStock <= 0) {
                     alert("sem stock");
                   }
+
                   if (isLoading == true && livro.quantidadeStock > 0) {
+                    alert("livro adicionado ao carrinho com sucesso");
                     props.addItem(livro);
 
                     setIsLoading(false);

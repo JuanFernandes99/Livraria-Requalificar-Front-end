@@ -42,10 +42,24 @@ export function Estatisticas() {
 
   return (
     <div>
-      {listaCompras.map(function teste(element) {
-        console.log(listaCompras);
-        return <p key={element.id}>{element.valorCompra + " editora: "}</p>;
-      })}
+      <p>Estatisticas do total das compras</p>
+      <table>
+        <tbody>
+          <tr>
+            <th>Id da compra</th>
+            <th>Valor da compra</th>
+            <th>Nome do cliente</th>
+          </tr>
+
+          {listaCompras.map((element) => (
+            <tr key={element.id}>
+              <td>{element.id}</td>
+              <td>{element.valorCompra}</td>
+              <td>{element.cliente.nome}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
