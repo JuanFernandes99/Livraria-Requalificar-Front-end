@@ -26,13 +26,11 @@ export function Perfil(props) {
   const handleClose = () => setOpen(false);
   const [cliente, setCliente] = useState({});
   const [compras, setCompras] = useState([]);
-  const [vouchers, setVouchers] = useState([]);
   const params = useParams();
   useEffect(() => {
     setCliente(props.cliente);
     fetchCliente();
     getCompras();
-    getVouchers();
   }, []);
   const [atualizaCliente, setAtualizaCliente] = useState({
     palavraPasse: "",
@@ -134,30 +132,6 @@ export function Perfil(props) {
         alert(error);
       });
   }
-  function getVouchers() {
-    fetch(API_URL + "/getVouchersCliente/" + props.cliente.id, {
-      // mode: "cors",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
-        if (response.status !== 200) {
-          throw new Error("There was an error finding pessoas");
-        }
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
-        setVouchers(parsedResponse);
-        console.log(parsedResponse);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
 
   return cliente !== {} ? (
     <div>
@@ -173,6 +147,13 @@ export function Perfil(props) {
               <p>{"Data de nascimento: " + cliente.dataNascimento}</p>
               <p>{"Email: " + cliente.email}</p>
 
+              <Button
+                onClick={() => {
+                  navigate("/compraCliente");
+                }}
+              >
+                Visualizar Compras
+              </Button>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -188,6 +169,8 @@ export function Perfil(props) {
                         <tr>
                           <th>valorCompra</th>
                           <th>livros</th>
+                          <th>Data Nascimento</th>
+                          <th>Editora</th>
                         </tr>
                         {compras.map((element) => (
                           <tr key={element.id}>
@@ -202,6 +185,7 @@ export function Perfil(props) {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
+<<<<<<< HEAD
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -235,12 +219,18 @@ export function Perfil(props) {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
+=======
+>>>>>>> parent of df12da5 (GOOD)
               <br></br>
 
               <br></br>
             </Card>
             <Card sx={{ Width: 120, height: 200, margin: 2 }}>
-              <CardActionArea>
+              <CardActionArea
+                onClick={() => {
+                  navigate("/loginCliente");
+                }}
+              >
                 <CardMedia
                   component="img"
                   height="120"

@@ -39,18 +39,9 @@ export function Estatisticas() {
 
   return (
     <div>
-      Gasto total dos utilizadores:
       {listaCompras.map(function teste(element) {
         console.log(listaCompras);
-        return (
-          <p key={element.id}>
-            {"Cliente: " +
-              element.cliente.nome +
-              ",Valor da compra" +
-              element.valorCompra +
-              " editora: "}
-          </p>
-        );
+        return <p key={element.id}>{element.valorCompra + " editora: "}</p>;
       })}
     </div>
   );
