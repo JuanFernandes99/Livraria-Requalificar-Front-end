@@ -9,7 +9,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
 import "./LoginCliente.css";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import TimePicker from "@mui/lab/TimePicker";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import MobileDatePicker from "@mui/lab/MobileDatePicker";
 
+import DatePicker from "@mui/lab/DatePicker";
+import "react-datepicker/dist/react-datepicker.css";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
@@ -96,6 +104,19 @@ export function RegistoCliente() {
                 setnovoCliente({ ...novoCliente, morada: e.target.value });
               }}
             />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Data nascimento"
+                value={novoCliente.dataNascimento}
+                onChange={(e) => {
+                  setnovoCliente({
+                    ...novoCliente,
+                    dataNascimento: e.target.value,
+                  });
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
             <TextField
               margin="normal"
               required
