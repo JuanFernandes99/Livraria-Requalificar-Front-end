@@ -92,7 +92,7 @@ export function Carrinho(props) {
         console.log(response);
 
         if (response.status !== 200) {
-          throw new Error("There was an error finding livros");
+          throw new Error("O cliente ainda nao tem livros disponiveis");
         }
 
         return response.json();
@@ -202,11 +202,22 @@ export function Carrinho(props) {
       >
         {vouchersCliente.map((element) => (
           <MenuItem id="menucupoes" value={element} key={element.id}>
-            {"ID: " +
-              element.id +
-              ", Valor do cupao:" +
-              element.valorVoucher * 100 +
-              "%"}
+            {element.utilizado ? (
+              <td>
+                sx=
+                {{
+                  visibility: "hidden",
+                }}
+              </td>
+            ) : (
+              <td>
+                {"ID: " +
+                  element.id +
+                  ", Valor do cupao:" +
+                  element.valorVoucher * 100 +
+                  "%"}
+              </td>
+            )}
           </MenuItem>
         ))}
       </Select>
@@ -265,6 +276,9 @@ export function Carrinho(props) {
               console.log(novaCompra.livros);
               fetchVouchers();
               AdicionarCompra();
+              alert(
+                " Obrigado pela compra, Ganhou um voucher para a sua próxima compra"
+              );
               handleClose();
             }}
           >
