@@ -48,6 +48,7 @@ export function LoginCliente(props) {
       })
       .then((parsedResponse) => {
         props.doLoginCliente(parsedResponse.cliente);
+
         navigate("/homeCliente");
         console.log(parsedResponse.cliente);
       })

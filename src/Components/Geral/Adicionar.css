@@ -85,17 +85,14 @@ tr:nth-child(even) {
   margin-right: 8%;
 }
 
-.css-1ehqt7t{
-  width:80% !important;
-margin-top: 10%;;
+.css-1ehqt7t {
+  width: 80% !important;
+  margin-top: 10%;
 }
 
-.MuiOutlinedInput-input{
-
-  width:40% !important;
-
+.MuiOutlinedInput-input {
+  width: 40% !important;
 }
-
 
 .modal-body {
   max-height: calc(180vh - 210px);
@@ -103,6 +100,10 @@ margin-top: 10%;;
 }
 
 .MuiSelect-select {
+  width: 100% !important;
+}
 
-width: 100%!important;
+#menucupoes {
+  width: 100% !important;
+  float: left;
 }

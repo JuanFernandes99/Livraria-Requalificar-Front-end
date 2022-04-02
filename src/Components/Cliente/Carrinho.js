@@ -1,17 +1,23 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
-
+import "../Geral/Adicionar.css";
+import { useEffect, useState } from "react";
 const API_URL = "http://localhost:8080";
 
 export function Carrinho(props) {
   const [anchor, setAnchor] = useState(null);
   const navigate = useNavigate();
   const [livrosComprados, setLivrosComprados] = useState([]);
+  const [vouchers, setVoucher] = useState([]);
   let livroAux = [];
   const [novaCompra, setNovaCompra] = useState({
     novaCompra: "",
@@ -19,8 +25,11 @@ export function Carrinho(props) {
       id: 1,
     },
     livros: [],
+    voucher: [],
   });
-
+  useEffect(() => {
+    fetchVouchers();
+  }, []);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -92,6 +101,31 @@ export function Carrinho(props) {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse.livros);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  function fetchVouchers() {
+    fetch(API_URL + "/getVouchersCliente/" + props.cliente.id, {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("There was an error finding livros");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        setVoucher(parsedResponse);
       })
       .catch((error) => {
         alert(error);
@@ -183,6 +217,36 @@ export function Carrinho(props) {
         }}
       >
         Comprar
+      </Button>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        label="Editora"
+        value={novaCompra.voucher}
+        onChange={(e) => {
+          setNovaCompra({ ...novaCompra, voucher: e.target.value });
+        }}
+      >
+        {vouchers.map((element) => (
+          <MenuItem id="menucupoes" value={element} key={element.id}>
+            {"ID: " +
+              element.id +
+              ", Valor do cupao:" +
+              element.valorVoucher * 100 +
+              "%"}
+          </MenuItem>
+        ))}
+      </Select>
+      <Button
+        sx={{
+          marginTop: 8,
+          alignItems: "center",
+        }}
+        onClick={() => {
+          setNovaCompra({ ...novaCompra, voucher: null });
+        }}
+      >
+        Retirar cupao
       </Button>
 
       <Modal

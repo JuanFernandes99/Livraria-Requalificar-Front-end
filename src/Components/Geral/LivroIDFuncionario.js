@@ -14,7 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-
+import "../Geral/Adicionar.css";
 const API_URL = "http://localhost:8080";
 
 export function LivroFuncionario(props) {
@@ -138,8 +138,13 @@ export function LivroFuncionario(props) {
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299
         if (response.status !== 200) {
-          throw new Error("erro ao encontrar livro");
+          return response.json().then((parsedResponse) => {
+            console.log(parsedResponse.message);
+            throw new Error(parsedResponse.message);
+          });
         }
+
+        console.log(response);
 
         return response.json();
       })
@@ -213,7 +218,7 @@ export function LivroFuncionario(props) {
                     label="titulo"
                     type="text"
                     id="titulolivro"
-                    value={novoLivro.titulo}
+                    value={novoLivro.e}
                     onChange={(e) => {
                       setNovoLivro({
                         ...novoLivro,
