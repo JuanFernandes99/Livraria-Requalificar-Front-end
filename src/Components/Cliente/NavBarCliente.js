@@ -13,20 +13,7 @@ export function NavBarCliente(props) {
       >
         Home
       </button>
-      <button
-        onClick={() => {
-          navigate("/contacts");
-        }}
-      >
-        Contacts
-      </button>
-      <button
-        onClick={() => {
-          navigate("/info");
-        }}
-      >
-        Info
-      </button>
+
       <button
         onClick={() => {
           navigate("/carrinho");

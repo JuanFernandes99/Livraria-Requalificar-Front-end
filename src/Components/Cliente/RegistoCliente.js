@@ -46,7 +46,7 @@ export function RegistoCliente() {
       })
       .then((parsedResponse) => {
         alert(parsedResponse.message);
-        navigate("/home");
+        navigate("/homeCliente");
       })
       .catch((error) => {
         alert(error);
