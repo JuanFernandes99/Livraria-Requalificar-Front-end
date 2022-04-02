@@ -127,4 +127,13 @@ width: 100%!important;
   margin-top: 15px !important;
 }
 
+.MuiFormControl-root {
+  width: 100%!important;
+}
+.MuiOutlinedInput-root {
+  width: 100% !important;
+}
 
+.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root{
+  margin-right: 0!important;
+}
