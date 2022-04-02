@@ -43,7 +43,6 @@ export function LoginCliente(props) {
             throw new Error(parsedResponse.message);
           });
         }
-
         console.log(response);
 
         return response.json();

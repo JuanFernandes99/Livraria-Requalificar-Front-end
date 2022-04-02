@@ -76,7 +76,7 @@ export function Perfil(props) {
   }
   function updateCliente() {
     let updatedCliente = {
-      id: cliente.id,
+      id: props.cliente.id,
       palavraPasse: atualizaCliente.palavraPasse,
       email: atualizaCliente.email,
       morada: atualizaCliente.morada,
@@ -169,30 +169,21 @@ export function Perfil(props) {
               <p>{"Data de nascimento: " + cliente.dataNascimento}</p>
               <p>{"Email: " + cliente.email}</p>
 
-              <Button
-                onClick={() => {
-                  navigate("/compraCliente");
-                }}
-              >
-                Visualizar Compras
-              </Button>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <p>Visualizar compras</p>
+                  <Typography>Visualizar compras</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <p>
+                  <Typography>
                     <table>
                       <tbody>
                         <tr>
                           <th>valorCompra</th>
                           <th>livros</th>
-                          <th>Data Nascimento</th>
-                          <th>Editora</th>
                         </tr>
                         {compras.map((element) => (
                           <tr key={element.id}>
@@ -204,7 +195,7 @@ export function Perfil(props) {
                         ))}
                       </tbody>
                     </table>
-                  </p>
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
               <Accordion>
@@ -216,7 +207,7 @@ export function Perfil(props) {
                   <Typography>Visualizar cupões</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <p>
+                  <Typography>
                     <table>
                       <tbody>
                         <tr>
@@ -237,7 +228,7 @@ export function Perfil(props) {
                         ))}
                       </tbody>
                     </table>
-                  </p>
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
               <br></br>
@@ -319,9 +310,7 @@ export function Perfil(props) {
           />
           <Button
             id="ButtonUpdateCliente"
-            onClick={() => {
-              updateCliente();
-            }}
+            onClick={updateCliente}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

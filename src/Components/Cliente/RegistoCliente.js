@@ -9,6 +9,16 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
 import "./LoginCliente.css";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import * as React from "react";
+import TimePicker from "@mui/lab/TimePicker";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import MobileDatePicker from "@mui/lab/MobileDatePicker";
+
+import DatePicker from "@mui/lab/DatePicker";
+import "react-datepicker/dist/react-datepicker.css";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
