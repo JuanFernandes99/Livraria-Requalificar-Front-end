@@ -25,7 +25,7 @@ export function Carrinho(props) {
       id: 1,
     },
     livros: [],
-    voucher: [],
+    voucher: {},
   });
   useEffect(() => {
     fetchVouchers();
