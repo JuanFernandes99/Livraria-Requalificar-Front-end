@@ -169,13 +169,6 @@ export function Perfil(props) {
               <p>{"Data de nascimento: " + cliente.dataNascimento}</p>
               <p>{"Email: " + cliente.email}</p>
 
-              <Button
-                onClick={() => {
-                  navigate("/compraCliente");
-                }}
-              >
-                Visualizar Compras
-              </Button>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -191,8 +184,6 @@ export function Perfil(props) {
                         <tr>
                           <th>valorCompra</th>
                           <th>livros</th>
-                          <th>Data Nascimento</th>
-                          <th>Editora</th>
                         </tr>
                         {compras.map((element) => (
                           <tr key={element.id}>

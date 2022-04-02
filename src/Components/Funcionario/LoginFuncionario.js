@@ -28,7 +28,7 @@ export function LoginFuncionario(props) {
 
       body: JSON.stringify({
         //Facilitar os testes
-        nickName: "Frederica23",
+        nickName: "Frederica24",
         palavraPasse: "345passe",
       }),
       //body: JSON.stringify(autenticacaoFuncionario),
