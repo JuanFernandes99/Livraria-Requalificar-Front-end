@@ -208,11 +208,15 @@ export function Carrinho(props) {
         >
           {vouchersCliente.map((element) => (
             <MenuItem id="menucupoes" value={element} key={element.id}>
-              {"ID: " +
-                element.id +
-                ", Valor do cupao:" +
-                element.valorVoucher * 100 +
-                "%"}
+              {!element.utilizado ? (
+                <>
+                  {"ID: " +
+                    element.id +
+                    ", Valor do cupao:" +
+                    element.valorVoucher * 100 +
+                    "%"}
+                </>
+              ) : null}
             </MenuItem>
           ))}
         </Select>
