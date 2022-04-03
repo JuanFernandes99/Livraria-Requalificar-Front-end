@@ -243,7 +243,7 @@ export function LivroSelecionadoFuncionario(props) {
                     label="titulo"
                     type="text"
                     id="titulolivro"
-                    value={novoLivro.titulo}
+                    value={novoLivro.e}
                     onChange={(e) => {
                       setNovoLivro({
                         ...novoLivro,

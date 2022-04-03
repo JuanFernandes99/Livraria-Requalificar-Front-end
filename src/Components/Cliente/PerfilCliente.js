@@ -74,8 +74,6 @@ export function Perfil(props) {
   function UpdateCliente() {
     let updatedCliente = {
       id: props.cliente.id,
-      nome: props.cliente.nome,
-      dataNascimento: props.cliente.dataNascimento,
       palavraPasse: atualizaCliente.palavraPasse,
       email: atualizaCliente.email,
       morada: atualizaCliente.morada,
@@ -103,6 +101,7 @@ export function Perfil(props) {
       })
       .then((res) => {
         alert(res.message);
+        setCliente(res.cliente);
         fetchCliente();
         console.log(res);
       })
@@ -311,7 +310,7 @@ export function Perfil(props) {
           <Button
             id="ButtonUpdateCliente"
             onClick={() => {
-              setCliente(atualizaCliente);
+              UpdateCliente();
             }}
             fullWidth
             variant="contained"
