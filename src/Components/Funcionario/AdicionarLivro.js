@@ -258,14 +258,9 @@ export function NovoLivro() {
           type="file"
           value={novoLivro.image}
           onChange={(e) => {
-            setNovoLivro({ ...novoLivro, image: e.target.value });
+            setNovoLivro({ ...novoLivro, image: e.target.files[0] });
           }}
         />
-        <label htmlFor="contained-button-file">
-          <button variant="contained" component="span">
-            Upload
-          </button>
-        </label>
         <br></br>
         <TextField
           id="filled-basic"

@@ -10,11 +10,10 @@ import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
 import "./LoginFuncionario";
 import "../Geral/Adicionar.css";
-import * as React from "react";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-
+import * as React from "react";
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
@@ -80,6 +79,21 @@ export function RegistoFuncionario() {
             Registo Funcionario
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Data Nascimento"
+                inputFormat="dd/MM/yyyy"
+                value={value}
+                onChange={(newValue) => {
+                  setValue(newValue);
+                  setnovoFuncionario({
+                    ...novoFuncionario,
+                    dataNascimento: newValue,
+                  });
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
             <TextField
               margin="normal"
               required
