@@ -73,7 +73,7 @@ export function PaginaPrincipalFun(props) {
                         <CardMedia
                           component="img"
                           height="180"
-                          image={livroimagem}
+                          image={element.image}
                           alt="livro"
                         />
 

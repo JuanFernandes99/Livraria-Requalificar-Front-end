@@ -95,23 +95,6 @@ export function RegistoFuncionario() {
               margin="normal"
               required
               fullWidth
-              name="dataNascimento"
-              label="dataNascimento"
-              type="text"
-              id="dataNascimento"
-              value={novoFuncionario.dataNascimento}
-              onChange={(e) => {
-                setnovoFuncionario({
-                  ...novoFuncionario,
-                  dataNascimento: e.target.value,
-                });
-              }}
-            />
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
               name="password"
               label="Password"
               type="password"

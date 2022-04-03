@@ -17,6 +17,7 @@ export function NovoLivro() {
     titulo: "",
     sinopse: "",
     edicao: "",
+    image: "",
     dataLancamento: "",
     preco: 0.0,
     quantidadeStock: 0,
@@ -241,6 +242,21 @@ export function NovoLivro() {
             setNovoLivro({ ...novoLivro, numeroPaginas: e.target.value });
           }}
         />
+        <input
+          accept="image/*"
+          id="contained-button-file"
+          multiple
+          type="file"
+          value={novoLivro.image}
+          onChange={(e) => {
+            setNovoLivro({ ...novoLivro, image: e.target.value });
+          }}
+        />
+        <label htmlFor="contained-button-file">
+          <button variant="contained" component="span">
+            Upload
+          </button>
+        </label>
         <br></br>
         <TextField
           id="filled-basic"

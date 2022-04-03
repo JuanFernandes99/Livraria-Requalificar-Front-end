@@ -222,7 +222,7 @@ export function Carrinho(props) {
           alignItems: "center",
         }}
         onClick={() => {
-          setNovaCompra({ ...novaCompra, voucher: "" });
+          setNovaCompra({ ...novaCompra, voucher: 0 });
         }}
       >
         Retirar cupao
