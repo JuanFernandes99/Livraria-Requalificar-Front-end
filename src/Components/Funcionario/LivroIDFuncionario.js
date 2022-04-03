@@ -13,10 +13,15 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import * as React from "react";
 
 const API_URL = "http://localhost:8080";
 
 export function LivroSelecionadoFuncionario(props) {
+  const [value, setValue] = React.useState(null);
   const [livro, setLivro] = useState({});
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
@@ -347,22 +352,21 @@ export function LivroSelecionadoFuncionario(props) {
                       });
                     }}
                   />
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="dataLancamento"
-                    label="dataLancamento"
-                    type="text"
-                    id="dataLancamento"
-                    value={novoLivro.e}
-                    onChange={(e) => {
-                      setNovoLivro({
-                        ...novoLivro,
-                        dataLancamento: e.target.value,
-                      });
-                    }}
-                  />
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label="Data Lancamento"
+                      inputFormat="dd/MM/yyyy"
+                      value={value}
+                      onChange={(newValue) => {
+                        setValue(newValue);
+                        setNovoLivro({
+                          ...novoLivro,
+                          dataLancamento: newValue,
+                        });
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
                   <Box
                     sx={{
                       "& > :not(style)": { m: 1, width: "80%" },

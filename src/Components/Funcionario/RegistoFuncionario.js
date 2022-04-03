@@ -79,21 +79,6 @@ export function RegistoFuncionario() {
             Registo Funcionario
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="Data Nascimento"
-                inputFormat="dd/MM/yyyy"
-                value={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                  setnovoFuncionario({
-                    ...novoFuncionario,
-                    dataNascimento: newValue,
-                  });
-                }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
             <TextField
               margin="normal"
               required

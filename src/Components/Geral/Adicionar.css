@@ -107,8 +107,15 @@ width: 100%!important;
 .MuiOutlinedInput-root {
   width: 20%;
   float: left;
-  margin: 10px;
+
   
+}
+
+
+
+.MuiFilledInput-root {
+  width: 80%;
+  text-align: center;
 }
 
 .MuiButton-root {
@@ -128,13 +135,21 @@ width: 100%!important;
   width: 100%!important;
 }
 .MuiOutlinedInput-root {
-  width: 100% !important;
+  width: 80% !important;
+  float: center;
 }
 
 .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root{
   margin-right: 0!important;
 }
 
-.MuiOutlinedInput-input {
-  
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
+  width: 100%!important;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+  width: 100% !important;
+}
+
+.MuiInputBase-formControl .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+  width: 100% !important;
 }
