@@ -61,9 +61,6 @@ tr:nth-child(even) {
   font-style: italic;
 }
 
-#titulo {
-  font-size: 28px;
-}
 
 .MuiBackdrop-root {
   background-color: black !important;
