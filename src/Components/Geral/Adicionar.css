@@ -83,7 +83,7 @@ tr:nth-child(even) {
 }
 
 .css-1ehqt7t{
-  width:80% !important;
+  width:95% !important;
 margin-top: 10%!important;
 }
 
@@ -114,7 +114,7 @@ width: 100%!important;
 
 
 .MuiFilledInput-root {
-  width: 80%;
+  width: 100%;
   text-align: center;
 }
 
@@ -132,12 +132,17 @@ width: 100%!important;
 }
 
 .MuiFormControl-root {
-  width: 100%!important;
+  width: 95%!important;
+  margin: 5px;
+ 
 }
 .MuiOutlinedInput-root {
-  width: 80% !important;
-  float: center;
+  width: 100% !important;
+
+
 }
+
+
 
 .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root{
   margin-right: 0!important;
