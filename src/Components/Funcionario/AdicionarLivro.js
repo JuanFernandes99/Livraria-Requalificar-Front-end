@@ -202,14 +202,14 @@ export function NovoLivro() {
         <br></br>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            label="Data Nascimento"
+            label="Data Lancamento"
             inputFormat="dd/MM/yyyy"
             value={value}
             onChange={(newValue) => {
               setValue(newValue);
               setNovoLivro({
                 ...novoLivro,
-                dataNascimento: newValue,
+                dataLancamento: newValue,
               });
             }}
             renderInput={(params) => <TextField {...params} />}
