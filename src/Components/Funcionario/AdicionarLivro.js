@@ -7,9 +7,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+
 const API_URL = "http://localhost:8080";
 
 export function NovoLivro() {
+  const [value, setValue] = React.useState(null);
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
   const [listaLivros, setListaLivros] = useState([]);
@@ -195,17 +200,21 @@ export function NovoLivro() {
           }}
         />
         <br></br>
-        <TextField
-          id="filled-basic"
-          label="Data de lançamento "
-          required
-          variant="filled"
-          type="text"
-          value={novoLivro.dataLancamento}
-          onChange={(e) => {
-            setNovoLivro({ ...novoLivro, dataLancamento: e.target.value });
-          }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Data Nascimento"
+            inputFormat="dd/MM/yyyy"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+              setNovoLivro({
+                ...novoLivro,
+                dataNascimento: newValue,
+              });
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
         <br></br>
         <TextField
           id="filled-basic"

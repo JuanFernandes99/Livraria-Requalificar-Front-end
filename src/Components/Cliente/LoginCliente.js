@@ -28,12 +28,12 @@ export function LoginCliente(props) {
         "Content-type": "application/json",
       },
 
-      body: JSON.stringify({
+      /*body: JSON.stringify({
         //Facilitar os testes
-        /*
+        
         email: "joaozinhoo@gmail.com",
-        palavraPasse: "1234palavra",*/
-      }),
+        palavraPasse: "1234palavra",
+      }),*/
       body: JSON.stringify(autenticacaoCliente),
     })
       .then((response) => {

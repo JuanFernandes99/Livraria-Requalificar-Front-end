@@ -22,11 +22,7 @@ export function Perfil(props) {
   const [cliente, setCliente] = useState({});
   const [vouchers, setVouchers] = useState([]);
   const [compras, setCompras] = useState([]);
-  const [atualizaCliente, setAtualizaCliente] = useState({
-    palavraPasse: "",
-    email: "",
-    morada: "",
-  });
+  const [atualizaCliente, setAtualizaCliente] = useState([]);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -74,13 +70,17 @@ export function Perfil(props) {
         alert(error);
       });
   }
-  function updateCliente() {
+
+  function UpdateCliente() {
     let updatedCliente = {
       id: props.cliente.id,
+      nome: props.cliente.nome,
+      dataNascimento: props.cliente.dataNascimento,
       palavraPasse: atualizaCliente.palavraPasse,
       email: atualizaCliente.email,
       morada: atualizaCliente.morada,
     };
+
     fetch(API_URL + "/updateCliente", {
       method: "PUT",
       headers: {
@@ -310,7 +310,9 @@ export function Perfil(props) {
           />
           <Button
             id="ButtonUpdateCliente"
-            onClick={updateCliente}
+            onClick={() => {
+              setCliente(atualizaCliente);
+            }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

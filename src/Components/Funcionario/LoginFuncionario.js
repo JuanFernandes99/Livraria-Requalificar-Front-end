@@ -26,11 +26,11 @@ export function LoginFuncionario(props) {
         "Content-type": "application/json",
       },
 
-      body: JSON.stringify({
-        /*//Facilitar os testes
+      /* body: JSON.stringify({
+        Facilitar os testes
         nickName: "Frederica22",
-        palavraPasse: "345passe",*/
-      }),
+        palavraPasse: "345passe",
+      }),*/
       body: JSON.stringify(autenticacaoFuncionario),
     })
       .then((response) => {

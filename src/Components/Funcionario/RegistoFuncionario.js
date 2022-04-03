@@ -10,11 +10,16 @@ import livraryimage from "../Images/livraria.png";
 import { useState } from "react";
 import "./LoginFuncionario";
 import "../Geral/Adicionar.css";
+import * as React from "react";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 const theme = createTheme();
 const API_URL = "http://localhost:8080";
 
 export function RegistoFuncionario() {
+  const [value, setValue] = React.useState(null);
   const navigate = useNavigate();
   const [novoFuncionario, setnovoFuncionario] = useState({
     nome: "",
@@ -107,6 +112,21 @@ export function RegistoFuncionario() {
                 });
               }}
             />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Data Nascimento"
+                inputFormat="dd/MM/yyyy"
+                value={value}
+                onChange={(newValue) => {
+                  setValue(newValue);
+                  setnovoFuncionario({
+                    ...novoFuncionario,
+                    dataNascimento: newValue,
+                  });
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
             <Button
               id="ButtonLogin"
               onClick={() => {

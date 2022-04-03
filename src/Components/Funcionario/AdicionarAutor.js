@@ -9,9 +9,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+
 const API_URL = "http://localhost:8080";
 
 export function Autor() {
+  const [value, setValue] = React.useState(null);
   const [listaEditoras, setListasEditora] = useState([]);
   const [listaAutores, setListasAutor] = useState([]);
   const [novoAutor, setNovoAutor] = useState({
@@ -140,16 +145,21 @@ export function Autor() {
             setNovoAutor({ ...novoAutor, email: e.target.value });
           }}
         />
-        <TextField
-          id="filled-basic"
-          label="Data de Nascimento "
-          variant="filled"
-          type="text"
-          value={novoAutor.dataNascimento}
-          onChange={(e) => {
-            setNovoAutor({ ...novoAutor, dataNascimento: e.target.value });
-          }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Data Nascimento"
+            inputFormat="dd/MM/yyyy"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+              setNovoAutor({
+                ...novoAutor,
+                dataNascimento: newValue,
+              });
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
         <FormControl>
           <InputLabel id="demo-simple-select-label">Editora</InputLabel>
           <Select
