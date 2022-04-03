@@ -177,6 +177,7 @@ export function LivroSelecionadoFuncionario(props) {
       })
       .then((res) => {
         fetchLivro();
+        setLivro(res.livro);
         alert(res.message);
         console.log(res);
       })
