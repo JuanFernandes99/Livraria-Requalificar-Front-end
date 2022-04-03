@@ -6,14 +6,16 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-
+import { useNavigate } from "react-router-dom";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
+import { Navigate } from "react-router-dom";
 
 const API_URL = "http://localhost:8080";
 
 export function NovoLivro() {
+  const navigate = useNavigate();
   const [value, setValue] = React.useState(null);
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
@@ -144,7 +146,8 @@ export function NovoLivro() {
 
           return;
         }
-
+        alert(parsedResponse.message);
+        navigate("/homeFuncionario");
         GetAllLivros();
       })
       .catch((error) => {
