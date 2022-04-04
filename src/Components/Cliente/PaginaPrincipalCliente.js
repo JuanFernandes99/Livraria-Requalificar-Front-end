@@ -66,7 +66,7 @@ export function PaginaPrincipalCliente(props) {
                         navigate("/livroID/" + element.id);
                       }}
                       key={element.id}
-                      sx={{ margin: 1.5, maxWidth: 180, maxHeight: 300 }}
+                      sx={{ margin: 1.5, maxWidth: 180, maxHeight: 340 }}
                     >
                       <CardActionArea>
                         <CardMedia
@@ -83,6 +83,9 @@ export function PaginaPrincipalCliente(props) {
 
                           <Typography variant="body2" color="text.secondary">
                             {"Preço: " + element.preco + "€"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {"Preço: " + element.dataLancamento + "€"}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
