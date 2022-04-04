@@ -18,27 +18,11 @@ export function PaginaPrincipalCliente(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [filtros, setFiltros] = useState([]);
   const [sortType, setSortType] = useState("preco");
-  const types = {
-    preco: "preco",
-    titulo: "titulo",
-  };
   const navigate = useNavigate();
 
   useEffect(() => {
-    const sortArray = (type) => {
-      const types = {
-        preco: "preco",
-        titulo: "titulo",
-      };
-      const sortProperty = types[type];
-      const sorted = [...listaLivros].sort(
-        (a, b) => b[sortProperty] - a[sortProperty]
-      );
-      setFiltros(sorted);
-    };
-
-    sortArray(sortType);
-  }, [sortType]);
+    fetchLivro();
+  }, []);
 
   function fetchLivro() {
     fetch(API_URL + "/getAllLivros", {
@@ -62,32 +46,48 @@ export function PaginaPrincipalCliente(props) {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse.livros);
-        setFiltros(
-          parsedResponse.livros.sort((a, b) => (a.preco < b.preco ? 1 : -1))
-        );
+        setFiltros(parsedResponse.livros);
         setListasLivros(parsedResponse.livros);
       })
       .catch((error) => {
         alert(error);
       });
   }
-  var A = listaLivros.sort((a, b) => (a.preco < b.preco ? 1 : -1));
-  var B = listaLivros.sort((a, b) => (a.titulo > b.titulo ? 1 : -1));
 
-  function showA() {
+  function showPrecoCrescente() {
+    var A = [...listaLivros].sort((a, b) => {
+      return a.preco > b.preco ? 1 : -1;
+    });
     setFiltros(A);
   }
 
-  function showB() {
+  function showData() {
+    var B = [...listaLivros].sort((a, b) => {
+      return a.dataLancamento > b.dataLancamento ? 1 : -1;
+    });
     setFiltros(B);
+  }
+  function showPrecoDecrescente() {
+    var C = [...listaLivros].sort((a, b) => {
+      return a.preco < b.preco ? 1 : -1;
+    });
+    setFiltros(C);
+  }
+  function showEditora() {
+    var D = [...listaLivros].sort((a, b) => {
+      return a.editora.nome > b.editora.nome ? 1 : -1;
+    });
+    setFiltros(D);
   }
 
   return (
     <div>
-      <select onChange={(e) => setSortType(e.target.value)}>
-        <option value="titulo">titulo</option>
-        <option value="preco">preco</option>
-      </select>
+      <>
+        <button onClick={showPrecoCrescente}>Preço crescente</button>
+        <button onClick={showPrecoDecrescente}>Preco decrescente</button>
+        <button onClick={showData}>Por data de Lançamento</button>
+        <button onClick={showEditora}>Por Editora</button>
+      </>
 
       <Grid item xs={12}>
         <Paper sx={{ p: 2 }}>
@@ -95,7 +95,7 @@ export function PaginaPrincipalCliente(props) {
             <Grid item>
               <FormControl component="fieldset">
                 <RadioGroup titulo="spacing" aria-label="spacing" row>
-                  {listaLivros.map((element) => (
+                  {filtros.map((element) => (
                     <Card
                       onClick={() => {
                         props.GetLivroInfo(element);
@@ -119,9 +119,6 @@ export function PaginaPrincipalCliente(props) {
 
                           <Typography variant="body2" color="text.secondary">
                             {"Preço: " + element.preco + "€"}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {"Preço: " + element.dataLancamento + "€"}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
