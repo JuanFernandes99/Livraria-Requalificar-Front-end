@@ -17,6 +17,7 @@ const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipalFun(props) {
   const [listaLivros, setListasLivros] = useState([]);
+  const [filtros, setFiltros] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,35 +46,67 @@ export function PaginaPrincipalFun(props) {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse.livros);
+        setFiltros(parsedResponse.livros);
         setListasLivros(parsedResponse.livros);
       })
       .catch((error) => {
         alert(error);
       });
   }
+  function showPrecoCrescente() {
+    var A = [...listaLivros].sort((a, b) => {
+      return a.preco > b.preco ? 1 : -1;
+    });
+    setFiltros(A);
+  }
 
+  function showData() {
+    var B = [...listaLivros].sort((a, b) => {
+      return a.dataLancamento > b.dataLancamento ? 1 : -1;
+    });
+    setFiltros(B);
+  }
+  function showPrecoDecrescente() {
+    var C = [...listaLivros].sort((a, b) => {
+      return a.preco < b.preco ? 1 : -1;
+    });
+    setFiltros(C);
+  }
+  function showEditora() {
+    var D = [...listaLivros].sort((a, b) => {
+      return a.editora.nome > b.editora.nome ? 1 : -1;
+    });
+    setFiltros(D);
+  }
   return (
     <div>
+      <>
+        <button onClick={showPrecoCrescente}>Preço crescente</button>
+        <button onClick={showPrecoDecrescente}>Preco decrescente</button>
+        <button onClick={showData}>Por data de Lançamento</button>
+        <button onClick={showEditora}>Por Editora</button>
+      </>
+
       <Grid item xs={12}>
         <Paper sx={{ p: 2 }}>
           <Grid container>
             <Grid item>
               <FormControl component="fieldset">
                 <RadioGroup titulo="spacing" aria-label="spacing" row>
-                  {listaLivros.map((element) => (
+                  {filtros.map((element) => (
                     <Card
                       onClick={() => {
                         props.GetLivroInfo(element);
                         navigate("/livroFun/" + element.id);
                       }}
                       key={element.id}
-                      sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
+                      sx={{ margin: 1.5, maxWidth: 180, maxHeight: 340 }}
                     >
                       <CardActionArea>
                         <CardMedia
                           component="img"
                           height="180"
-                          image={element.image}
+                          image={livroimagem}
                           alt="livro"
                         />
 

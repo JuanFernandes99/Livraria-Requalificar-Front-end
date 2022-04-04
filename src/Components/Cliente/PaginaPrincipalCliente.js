@@ -17,7 +17,6 @@ const API_URL = "http://localhost:8080";
 export function PaginaPrincipalCliente(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [filtros, setFiltros] = useState([]);
-  const [sortType, setSortType] = useState("preco");
   const navigate = useNavigate();
 
   useEffect(() => {
