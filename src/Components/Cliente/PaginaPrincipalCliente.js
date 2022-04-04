@@ -16,11 +16,29 @@ const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipalCliente(props) {
   const [listaLivros, setListasLivros] = useState([]);
+  const [filtros, setFiltros] = useState([]);
+  const [sortType, setSortType] = useState("preco");
+  const types = {
+    preco: "preco",
+    titulo: "titulo",
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchLivro();
-  }, []);
+    const sortArray = (type) => {
+      const types = {
+        preco: "preco",
+        titulo: "titulo",
+      };
+      const sortProperty = types[type];
+      const sorted = [...listaLivros].sort(
+        (a, b) => b[sortProperty] - a[sortProperty]
+      );
+      setFiltros(sorted);
+    };
+
+    sortArray(sortType);
+  }, [sortType]);
 
   function fetchLivro() {
     fetch(API_URL + "/getAllLivros", {
@@ -44,15 +62,33 @@ export function PaginaPrincipalCliente(props) {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse.livros);
+        setFiltros(
+          parsedResponse.livros.sort((a, b) => (a.preco < b.preco ? 1 : -1))
+        );
         setListasLivros(parsedResponse.livros);
       })
       .catch((error) => {
         alert(error);
       });
   }
+  var A = listaLivros.sort((a, b) => (a.preco < b.preco ? 1 : -1));
+  var B = listaLivros.sort((a, b) => (a.titulo > b.titulo ? 1 : -1));
+
+  function showA() {
+    setFiltros(A);
+  }
+
+  function showB() {
+    setFiltros(B);
+  }
 
   return (
     <div>
+      <select onChange={(e) => setSortType(e.target.value)}>
+        <option value="titulo">titulo</option>
+        <option value="preco">preco</option>
+      </select>
+
       <Grid item xs={12}>
         <Paper sx={{ p: 2 }}>
           <Grid container>
