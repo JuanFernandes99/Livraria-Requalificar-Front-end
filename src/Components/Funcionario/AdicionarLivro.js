@@ -24,7 +24,7 @@ export function NovoLivro() {
     titulo: "",
     sinopse: "",
     edicao: "",
-    image: "",
+    imagem: "",
     dataLancamento: "",
     preco: 0.0,
     quantidadeStock: 0,
@@ -205,7 +205,7 @@ export function NovoLivro() {
         <br></br>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            label="Data Lancamento"
+            label="Data Lançamento"
             inputFormat="dd/MM/yyyy"
             value={value}
             onChange={(newValue) => {
@@ -252,16 +252,6 @@ export function NovoLivro() {
           value={novoLivro.numeroPaginas}
           onChange={(e) => {
             setNovoLivro({ ...novoLivro, numeroPaginas: e.target.value });
-          }}
-        />
-        <input
-          accept="image/*"
-          id="contained-button-file"
-          multiple
-          type="file"
-          value={novoLivro.image}
-          onChange={(e) => {
-            setNovoLivro({ ...novoLivro, image: e.target.files[0] });
           }}
         />
         <br></br>

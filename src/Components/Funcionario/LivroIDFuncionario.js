@@ -212,6 +212,7 @@ export function LivroSelecionadoFuncionario(props) {
               <p> {"Preço: " + livro.preco + "€"}</p>
               <p>{"ISBN: " + livro.isbn}</p>
               <p>{"Edição: " + livro.edicao}</p>
+
               <p>{"Data de Lançamento: " + livro.dataLancamento}</p>
               <p>{"Número de Páginas: " + livro.numeroPaginas}</p>
               <p>{"Cópias Disponíveis: " + livro.quantidadeStock}</p>
