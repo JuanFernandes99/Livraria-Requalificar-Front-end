@@ -66,7 +66,7 @@ export function PaginaPrincipalCliente(props) {
                         navigate("/livroID/" + element.id);
                       }}
                       key={element.id}
-                      sx={{ margin: 1.5, maxWidth: 250, maxHeight: 300 }}
+                      sx={{ margin: 1.5, maxWidth: 180, maxHeight: 300 }}
                     >
                       <CardActionArea>
                         <CardMedia
