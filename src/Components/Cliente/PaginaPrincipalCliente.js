@@ -82,12 +82,12 @@ export function PaginaPrincipalCliente(props) {
 
   return (
     <div>
-      <>
+      <div id="btn-filtros">
         <button onClick={showPrecoCrescente}>Preço crescente</button>
         <button onClick={showPrecoDecrescente}>Preco decrescente</button>
         <button onClick={showData}>Por data de Lançamento</button>
         <button onClick={showEditora}>Por Editora</button>
-      </>
+      </div>
 
       <Grid item xs={12}>
         <Paper sx={{ p: 2 }}>

@@ -158,3 +158,21 @@ width: 100%!important;
 .MuiInputBase-formControl .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
   width: 100% !important;
 }
+
+#btn-filtros button{
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  opacity: 50%;
+
+}
+
+#btn-filtros button:hover {
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  background-color: rgb(24, 124, 142);
+  color: white;
+  opacity: 100%;
+
+}
