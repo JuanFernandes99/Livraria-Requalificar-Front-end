@@ -16,7 +16,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import "react-datepicker/dist/react-datepicker.css";
 const theme = createTheme();
-const API_URL = "http://localhost:8080";
+const API_URL = "https://livrariabackend22.herokuapp.com";
 
 export function RegistoCliente() {
   const [value, setValue] = React.useState(null);
