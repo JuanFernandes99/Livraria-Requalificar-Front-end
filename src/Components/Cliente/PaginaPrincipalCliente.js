@@ -9,7 +9,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import livroimagem from "../Images/livro.jpeg";
 import { useNavigate, useParams } from "react-router-dom";
 
 const API_URL = "http://localhost:8080";
@@ -79,6 +78,15 @@ export function PaginaPrincipalCliente(props) {
     setFiltros(D);
   }
 
+  function showAutores() {
+    var E = [...listaLivros];
+    E.sort((a, b) => {
+      return a.autores.nome > b.autores.nome ? 1 : -1;
+    });
+    setFiltros(E);
+    console.log(filtros);
+  }
+
   return (
     <div>
       <div id="btn-filtros">
@@ -86,6 +94,7 @@ export function PaginaPrincipalCliente(props) {
         <button onClick={showPrecoDecrescente}>Preco decrescente</button>
         <button onClick={showData}>Por data de Lançamento</button>
         <button onClick={showEditora}>Por Editora</button>
+        <button onClick={showAutores}>Por autores</button>
       </div>
 
       <Grid item xs={12}>
@@ -107,7 +116,7 @@ export function PaginaPrincipalCliente(props) {
                         <CardMedia
                           component="img"
                           height="180"
-                          image={livroimagem}
+                          image={element.imagem}
                           alt="livro"
                         />
 
@@ -115,9 +124,15 @@ export function PaginaPrincipalCliente(props) {
                           <Typography gutterBottom variant="h6" component="div">
                             {element.titulo}
                           </Typography>
-
                           <Typography variant="body2" color="text.secondary">
                             {"Preço: " + element.preco + "€"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {"Editora: " + element.editora.nome}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {"Autores: " +
+                              element.autores.map((element) => element.nome)}
                           </Typography>
                         </CardContent>
                       </CardActionArea>

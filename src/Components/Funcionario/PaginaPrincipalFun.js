@@ -9,7 +9,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import livroimagem from "../Images/livro.jpeg";
 import { useNavigate } from "react-router-dom";
 import "../Geral/Adicionar.css";
 
@@ -105,8 +104,8 @@ export function PaginaPrincipalFun(props) {
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          height="180"
-                          image={livroimagem}
+                          // image={element.imagem}
+                          height="200px"
                           alt="livro"
                         />
 
@@ -118,9 +117,19 @@ export function PaginaPrincipalFun(props) {
                           <Typography variant="body2" color="text.secondary">
                             {"Preço: " + element.preco + "€"}
                           </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {"Editora: " + element.editora.nome}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {"Autores: " +
+                              element.autores.map((element) => element.nome)}
+                          </Typography>
                         </CardContent>
                       </CardActionArea>
                     </Card>
+                  ))}
+                  {filtros.map((element) => (
+                    <img src={element.imagem} height="200px" />
                   ))}
                 </RadioGroup>
               </FormControl>

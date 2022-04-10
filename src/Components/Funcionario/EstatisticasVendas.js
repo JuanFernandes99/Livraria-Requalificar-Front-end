@@ -3,9 +3,9 @@ import * as React from "react";
 
 const API_URL = "http://localhost:8080";
 
-export function Estatisticas() {
+export function EstatisticasVendas() {
   const [listaCompras, setListaCompras] = useState([]);
-
+  const [filtros, setFiltros] = useState([]);
   useEffect(() => {
     getCompras();
   }, []);
@@ -32,6 +32,7 @@ export function Estatisticas() {
       })
       .then((parsedResponse) => {
         //Como ele só chega aqui se tiver sucesso basta atualizar a variavel Pessoas
+        setFiltros(parsedResponse.compras);
         setListaCompras(parsedResponse.compras);
         console.log(parsedResponse.compras);
       })
@@ -40,22 +41,58 @@ export function Estatisticas() {
       });
   }
 
+  function showValorCompraCrescente() {
+    var A = [...listaCompras].sort((a, b) => {
+      return a.valorCompra > b.valorCompra ? 1 : -1;
+    });
+    setFiltros(A);
+  }
+
+  function showValorCompraDecrescente() {
+    var C = [...listaCompras].sort((a, b) => {
+      return a.valorCompra < b.valorCompra ? 1 : -1;
+    });
+    setFiltros(C);
+  }
+
   return (
     <div>
+      <div id="btn-filtros">
+        <button onClick={showValorCompraCrescente}>
+          valorCompra crescente
+        </button>
+        <button onClick={showValorCompraDecrescente}>
+          valorCompra decrescente
+        </button>
+      </div>
       <p>Estatisticas do total das compras</p>
       <table>
         <tbody>
           <tr>
             <th>Id da compra</th>
             <th>Valor da compra</th>
+            <th>id do cliente</th>
             <th>Nome do cliente</th>
+            <th>Voucher </th>
           </tr>
 
-          {listaCompras.map((element) => (
+          {filtros.map((element) => (
             <tr key={element.id}>
               <td>{element.id}</td>
               <td>{element.valorCompra}</td>
+              <td>{element.cliente.id}</td>
               <td>{element.cliente.nome}</td>
+              {element.voucher != null ? (
+                <td>
+                  {"ID do voucher: " +
+                    element.voucher.id +
+                    ", Valor do voucher: " +
+                    element.voucher.valorVoucher * 100 +
+                    "%"}
+                </td>
+              ) : (
+                <td>{"Não  foi utilizado cupom"}</td>
+              )}
             </tr>
           ))}
         </tbody>

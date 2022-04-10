@@ -120,12 +120,34 @@ export function NovoLivro() {
       });
   }
 
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    //setBaseImage(base64);
+    setNovoLivro({ ...novoLivro, imagem: base64 });
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
   function AdicionarLivro() {
     fetch(API_URL + "/addLivro", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
+
       body: JSON.stringify(novoLivro),
     })
       .then(async (response) => {
@@ -200,6 +222,12 @@ export function NovoLivro() {
           value={novoLivro.edicao}
           onChange={(e) => {
             setNovoLivro({ ...novoLivro, edicao: e.target.value });
+          }}
+        />
+        <input
+          type="file"
+          onChange={(e) => {
+            uploadImage(e);
           }}
         />
         <br></br>

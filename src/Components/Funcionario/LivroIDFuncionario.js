@@ -2,7 +2,6 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import livroimg from "../Images/livro.jpeg";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
@@ -39,7 +38,10 @@ export function LivroSelecionadoFuncionario(props) {
     autores: [],
   });
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const handleOpen = () => setOpen(true);
+  const handleOpen2 = () => setOpen2(true);
+  const handleClose2 = () => setOpen2(false);
   const handleClose = () => setOpen(false);
   const params = useParams();
 
@@ -199,23 +201,23 @@ export function LivroSelecionadoFuncionario(props) {
                 <CardMedia
                   component="img"
                   height="250"
-                  image={livroimg}
+                  image={novoLivro.imagem}
                   alt="clienteIMG"
                 />
               </CardActionArea>
               <br></br>
               <Typography> Informações gerais</Typography>
 
-              <p>{"Título: " + livro.titulo}</p>
-              <div></div>
+              <p>{"Título: " + novoLivro.titulo}</p>
               <p>{"da " + props.livroinfo.editora.nome}</p>
-              <p> {"Preço: " + livro.preco + "€"}</p>
-              <p>{"ISBN: " + livro.isbn}</p>
-              <p>{"Edição: " + livro.edicao}</p>
+              <p> {"Preço: " + novoLivro.preco + "€"}</p>
+              <p>{"ISBN: " + novoLivro.isbn}</p>
+              <p>{"Edição: " + novoLivro.edicao}</p>
 
-              <p>{"Data de Lançamento: " + livro.dataLancamento}</p>
-              <p>{"Número de Páginas: " + livro.numeroPaginas}</p>
-              <p>{"Cópias Disponíveis: " + livro.quantidadeStock}</p>
+              <p>{"Data de Lançamento: " + novoLivro.dataLancamento}</p>
+              <p>{"Número de Páginas: " + novoLivro.numeroPaginas}</p>
+              <p>{"Cópias Disponíveis: " + novoLivro.quantidadeStock}</p>
+              <p>{"Cópias Vendidas: " + novoLivro.quantidadeComprada}</p>
             </Card>
 
             <Card sx={{ width: 600, margin: 1 }}>
@@ -231,9 +233,48 @@ export function LivroSelecionadoFuncionario(props) {
                   return <p key={index}>{element.nome}</p>;
                 })}
               </p>
-              <p>{"Sinopse: " + livro.sinopse}</p>
+              <p>{"Sinopse: " + novoLivro.sinopse}</p>
               <br></br>
               <Button onClick={handleOpen}>Atualizar dados</Button>
+              <Button onClick={handleOpen2}>Aumentar stock</Button>
+              <Modal
+                className="modal-body "
+                open={open2}
+                onClose={handleClose2}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="quantidadeStock"
+                    label="quantidadeStock"
+                    type="text"
+                    id="quantidadeStock"
+                    value={novoLivro.e}
+                    onChange={(e) => {
+                      setNovoLivro({
+                        ...novoLivro,
+                        quantidadeStock: e.target.value,
+                      });
+                    }}
+                  />
+
+                  <Button
+                    id="ButtonUpdateCliente"
+                    onClick={() => {
+                      UpdateLivro();
+                    }}
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    update Stock
+                  </Button>
+                </Box>
+              </Modal>
               <Modal
                 className="modal-body "
                 open={open}

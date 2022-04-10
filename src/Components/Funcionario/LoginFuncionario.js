@@ -26,12 +26,12 @@ export function LoginFuncionario(props) {
         "Content-type": "application/json",
       },
 
-      /* body: JSON.stringify({
-        Facilitar os testes
-        nickName: "Frederica22",
-        palavraPasse: "345passe",
-      }),*/
-      body: JSON.stringify(autenticacaoFuncionario),
+      body: JSON.stringify({
+        //Facilitar os testes
+        nickName: "juan1",
+        palavraPasse: "123456",
+      }),
+      //body: JSON.stringify(autenticacaoFuncionario),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299

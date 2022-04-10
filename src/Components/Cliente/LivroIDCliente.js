@@ -1,7 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import livroimg from "../Images/livro.jpeg";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
@@ -44,6 +43,7 @@ export function LivroSelecionadoCliente(props) {
               <p>{"Data de Lançamento: " + livro.dataLancamento}</p>
               <p>{"Número de Páginas: " + livro.numeroPaginas}</p>
               <p>{"Cópias Disponíveis: " + livro.quantidadeStock}</p>
+              <p>{"Cópias Vendidas: " + livro.quantidadeComprada}</p>
             </Card>
 
             <Card sx={{ width: 600, margin: 1 }}>

@@ -61,7 +61,6 @@ tr:nth-child(even) {
   font-style: italic;
 }
 
-
 .MuiBackdrop-root {
   background-color: black !important;
   opacity: 90% !important;
@@ -82,17 +81,14 @@ tr:nth-child(even) {
   margin-right: 8%;
 }
 
-.css-1ehqt7t{
-  width:95% !important;
-margin-top: 10%!important;
+.css-1ehqt7t {
+  width: 30% !important;
+  margin-top: 10% !important;
 }
 
-.MuiOutlinedInput-input{
-
-  width:40% !important;
-
+.MuiOutlinedInput-input {
+  width: 40% !important;
 }
-
 
 .modal-body {
   max-height: calc(180vh - 210px);
@@ -100,18 +96,13 @@ margin-top: 10%!important;
 }
 
 .MuiSelect-select {
-
-width: 100%!important;
+  width: 100% !important;
 }
 
 .MuiOutlinedInput-root {
   width: 20%;
   float: left;
-
-  
 }
-
-
 
 .MuiFilledInput-root {
   width: 100%;
@@ -122,49 +113,44 @@ width: 100%!important;
   float: center;
 }
 
-#botaoCompra{
-  float: right!important;
+#botaoCompra {
+  float: right !important;
 }
 
-#botaoCupao{
+#botaoCupao {
   float: left;
   margin-top: 15px !important;
 }
 
 .MuiFormControl-root {
-  width: 95%!important;
+  width: 95% !important;
   margin: 5px;
- 
 }
 .MuiOutlinedInput-root {
   width: 100% !important;
-
-
 }
 
-
-
-.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root{
-  margin-right: 0!important;
+.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {
+  margin-right: 0 !important;
 }
 
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input:-webkit-autofill {
-  width: 100%!important;
+  width: 100% !important;
 }
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   width: 100% !important;
 }
 
-.MuiInputBase-formControl .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+.MuiInputBase-formControl
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   width: 100% !important;
 }
 
-#btn-filtros button{
+#btn-filtros button {
   padding: 10px;
   margin: 5px;
   border: none;
   opacity: 50%;
-
 }
 
 #btn-filtros button:hover {
@@ -174,5 +160,4 @@ width: 100%!important;
   background-color: rgb(24, 124, 142);
   color: white;
   opacity: 100%;
-
 }

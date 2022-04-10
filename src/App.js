@@ -17,8 +17,9 @@ import { Perfil } from "./Components/Cliente/PerfilCliente";
 import { Carrinho } from "./Components/Cliente/Carrinho";
 import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import { LivroSelecionadoCliente } from "./Components/Cliente/LivroIDCliente";
-import { Estatisticas } from "./Components/Funcionario/Estatisticas";
+import { EstatisticasLivros } from "./Components/Funcionario/EstatisticasLivros";
 import { LivroSelecionadoFuncionario } from "./Components/Funcionario/LivroIDFuncionario";
+import { EstatisticasVendas } from "./Components/Funcionario/EstatisticasVendas";
 
 function App() {
   const [cliente, setCliente] = useState();
@@ -91,10 +92,18 @@ function App() {
         )}
         <Routes>
           <Route
-            path="/estatisticas"
+            path="/estatisticasVendas"
             element={
               <VerificaFuncionario funcionario={funcionario}>
-                <Estatisticas></Estatisticas>
+                <EstatisticasVendas></EstatisticasVendas>
+              </VerificaFuncionario>
+            }
+          />
+          <Route
+            path="/estatisticasLivros"
+            element={
+              <VerificaFuncionario funcionario={funcionario}>
+                <EstatisticasLivros></EstatisticasLivros>
               </VerificaFuncionario>
             }
           />
