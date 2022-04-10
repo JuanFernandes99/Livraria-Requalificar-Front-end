@@ -209,7 +209,7 @@ export function LivroSelecionadoFuncionario(props) {
               <Typography> Informações gerais</Typography>
 
               <p>{"Título: " + novoLivro.titulo}</p>
-              <p>{"da " + props.livroinfo.editora.nome}</p>
+              <p>{"da editora: " + props.livroinfo.editora.nome}</p>
               <p> {"Preço: " + novoLivro.preco + "€"}</p>
               <p>{"ISBN: " + novoLivro.isbn}</p>
               <p>{"Edição: " + novoLivro.edicao}</p>
@@ -225,7 +225,7 @@ export function LivroSelecionadoFuncionario(props) {
                 <CardMedia />
               </CardActionArea>
               <p id="textoSobre"> - Sobre o livro -</p>
-              <p> autores:</p>
+              <p> Autores:</p>
 
               <p>
                 {props.livroinfo.autores.map(function teste(element, index) {
@@ -233,7 +233,8 @@ export function LivroSelecionadoFuncionario(props) {
                   return <p key={index}>{element.nome}</p>;
                 })}
               </p>
-              <p>{"Sinopse: " + novoLivro.sinopse}</p>
+              <p> Sinopse</p>
+              <p>{novoLivro.sinopse}</p>
               <br></br>
               <Button onClick={handleOpen}>Atualizar dados</Button>
               <Button onClick={handleOpen2}>Aumentar stock</Button>

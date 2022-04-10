@@ -19,22 +19,14 @@ export function LoginCliente(props) {
     palavraPasse: "",
   });
   const navigate = useNavigate();
-  const [palavraPasse, setPalavraPasse] = useState("");
-  const [email, setEmail] = useState("");
+
   function autenticarCliente() {
     fetch(API_URL + "/autenticacaoCliente", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-
-      body: JSON.stringify({
-        //Facilitar os testes
-
-        email: "joaozinhoo@gmail.com",
-        palavraPasse: "1234palavra",
-      }),
-      // body: JSON.stringify(autenticacaoCliente),
+      body: JSON.stringify(autenticacaoCliente),
     })
       .then((response) => {
         // Validar se o pedido foi feito com sucesso. Pedidos são feitos com sucesso normalmente quando o status é entre 200 e 299

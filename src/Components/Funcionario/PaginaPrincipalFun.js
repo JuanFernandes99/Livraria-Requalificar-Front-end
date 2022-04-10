@@ -10,6 +10,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
+
 import "../Geral/Adicionar.css";
 
 const API_URL = "http://localhost:8080";
@@ -104,7 +106,7 @@ export function PaginaPrincipalFun(props) {
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          // image={element.imagem}
+                          image={element.imagem}
                           height="200px"
                           alt="livro"
                         />
@@ -127,9 +129,6 @@ export function PaginaPrincipalFun(props) {
                         </CardContent>
                       </CardActionArea>
                     </Card>
-                  ))}
-                  {filtros.map((element) => (
-                    <img src={element.imagem} height="200px" />
                   ))}
                 </RadioGroup>
               </FormControl>

@@ -16,6 +16,7 @@ const API_URL = "http://localhost:8080";
 
 export function NovoLivro() {
   const navigate = useNavigate();
+  const [baseImage, setBaseImage] = useState("");
   const [value, setValue] = React.useState(null);
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
@@ -37,9 +38,8 @@ export function NovoLivro() {
   });
 
   useEffect(() => {
-    GetAllEditoras();
     GetAllAutores();
-    GetAllLivros();
+    GetAllEditoras();
   }, []);
 
   function GetAllEditoras() {
@@ -54,7 +54,7 @@ export function NovoLivro() {
         console.log(response);
 
         if (response.status !== 200) {
-          throw new Error("Ocorreu um erro, nenhum Autor disponível");
+          throw new Error("Ocorreu um erro, nenhuma editora disponível");
         }
 
         return response.json();
@@ -94,37 +94,15 @@ export function NovoLivro() {
       });
   }
 
-  function GetAllLivros() {
-    fetch(API_URL + "/getAllLivros", {
-      mode: "cors",
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log(response);
-
-        if (response.status !== 200) {
-          throw new Error("Ocorreu um erro, nenhum Autor disponível");
-        }
-
-        return response.json();
-      })
-      .then((parsedResponse) => {
-        console.log(parsedResponse.livros);
-        setListaLivros(parsedResponse.livros);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-
   const uploadImage = async (e) => {
     const file = e.target.files[0];
+    console.log(file);
     const base64 = await convertBase64(file);
-    //setBaseImage(base64);
-    setNovoLivro({ ...novoLivro, imagem: base64 });
+    let aux = base64;
+    console.log(base64);
+    console.log(aux);
+    setNovoLivro({ ...novoLivro, imagem: aux });
+    console.log(aux);
   };
 
   const convertBase64 = (file) => {
@@ -142,6 +120,9 @@ export function NovoLivro() {
     });
   };
   function AdicionarLivro() {
+    var data = new FormData();
+    var imagedata = document.querySelector('input[type="file"]').files[0];
+    data.append(novoLivro, imagedata);
     fetch(API_URL + "/addLivro", {
       method: "POST",
       headers: {
@@ -170,7 +151,6 @@ export function NovoLivro() {
         }
         alert(parsedResponse.message);
         navigate("/homeFuncionario");
-        GetAllLivros();
       })
       .catch((error) => {
         alert(error);

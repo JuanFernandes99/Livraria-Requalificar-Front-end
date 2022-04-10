@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { PaginaPrincipalCliente } from "./Components/Cliente/PaginaPrincipalCliente";
@@ -20,7 +19,7 @@ import { LivroSelecionadoCliente } from "./Components/Cliente/LivroIDCliente";
 import { EstatisticasLivros } from "./Components/Funcionario/EstatisticasLivros";
 import { LivroSelecionadoFuncionario } from "./Components/Funcionario/LivroIDFuncionario";
 import { EstatisticasVendas } from "./Components/Funcionario/EstatisticasVendas";
-
+import React, { useState, useEffect } from "react";
 function App() {
   const [cliente, setCliente] = useState();
   const [funcionario, setFuncionario] = useState();
