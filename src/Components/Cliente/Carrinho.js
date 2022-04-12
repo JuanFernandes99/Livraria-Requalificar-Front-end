@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
+import { Hidden, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
@@ -199,9 +199,9 @@ export function Carrinho(props) {
             setNovaCompra({ ...novaCompra, voucher: e.target.value });
           }}
         >
-          {vouchersCliente.map((element) => (
-            <MenuItem id="menucupoes" value={element} key={element.id}>
-              {!element.utilizado ? (
+          {vouchersCliente.map((element) =>
+            !element.utilizado ? (
+              <MenuItem id="menucupoes" value={element} key={element.id}>
                 <>
                   {"ID: " +
                     element.id +
@@ -209,9 +209,9 @@ export function Carrinho(props) {
                     element.valorVoucher * 100 +
                     "%"}
                 </>
-              ) : null}
-            </MenuItem>
-          ))}
+              </MenuItem>
+            ) : null
+          )}
         </Select>
       </FormControl>
 
