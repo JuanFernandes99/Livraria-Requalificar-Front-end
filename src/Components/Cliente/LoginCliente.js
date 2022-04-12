@@ -42,7 +42,7 @@ export function LoginCliente(props) {
       })
       .then((parsedResponse) => {
         props.doLoginCliente(parsedResponse.cliente);
-        navigate("/homeCliente");
+        navigate("/home");
         console.log(parsedResponse.cliente);
       })
       .catch((error) => {

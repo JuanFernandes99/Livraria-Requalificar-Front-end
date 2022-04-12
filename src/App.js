@@ -1,28 +1,24 @@
 import { Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { PaginaPrincipalCliente } from "./Components/Cliente/PaginaPrincipalCliente";
-import { PaginaPrincipalFun } from "./Components/Funcionario/PaginaPrincipalFun";
-import { NavBarFuncionario } from "./Components/Funcionario/NavBarFuncionario";
+import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
 import { LoginFuncionario } from "./Components/Funcionario/LoginFuncionario";
 import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
 import { Editora } from "./Components/Funcionario/AdicionarEditora";
 import { Autor } from "./Components/Funcionario/AdicionarAutor";
 import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
-import { NavBarCliente } from "./Components/Cliente/NavBarCliente";
+import { NavBar } from "./Components/Geral/NavBar";
 import { LoginCliente } from "./Components/Cliente/LoginCliente";
 import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
 import { Perfil } from "./Components/Cliente/PerfilCliente";
 import { Carrinho } from "./Components/Cliente/Carrinho";
 import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
-import { LivroSelecionadoCliente } from "./Components/Cliente/LivroIDCliente";
 import { EstatisticasLivros } from "./Components/Funcionario/EstatisticasLivros";
-import { LivroSelecionadoFuncionario } from "./Components/Funcionario/LivroIDFuncionario";
+import { LivroSelecionado } from "./Components/Geral/LivroSelecionado";
 import { EstatisticasVendas } from "./Components/Funcionario/EstatisticasVendas";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 function App() {
-  const [cliente, setCliente] = useState();
-  const [funcionario, setFuncionario] = useState();
+  const [user, setUser] = useState();
   const [shoppingCart, setShoppingCart] = useState([]);
   const [infoLivro, setInfoLivro] = useState();
 
@@ -78,22 +74,13 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {cliente && (
-          <NavBarCliente
-            cliente={cliente}
-            doLogoutCliente={setCliente}
-          ></NavBarCliente>
-        )}
-        {funcionario && (
-          <NavBarFuncionario
-            doLogoutFuncionario={setFuncionario}
-          ></NavBarFuncionario>
-        )}
+        {user && <NavBar user={user} doLogout={setUser}></NavBar>}
+
         <Routes>
           <Route
             path="/estatisticasVendas"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
+              <VerificaFuncionario user={user}>
                 <EstatisticasVendas></EstatisticasVendas>
               </VerificaFuncionario>
             }
@@ -101,7 +88,7 @@ function App() {
           <Route
             path="/estatisticasLivros"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
+              <VerificaFuncionario user={user}>
                 <EstatisticasLivros></EstatisticasLivros>
               </VerificaFuncionario>
             }
@@ -114,16 +101,14 @@ function App() {
           <Route
             path="/loginFuncionario"
             element={
-              <LoginFuncionario
-                doLoginFuncionario={setFuncionario}
-              ></LoginFuncionario>
+              <LoginFuncionario doLoginFuncionario={setUser}></LoginFuncionario>
             }
           />
 
           <Route
             path="/registarEditora"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
+              <VerificaFuncionario user={user}>
                 <Editora></Editora>
               </VerificaFuncionario>
             }
@@ -131,7 +116,7 @@ function App() {
           <Route
             path="/registarAutor"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
+              <VerificaFuncionario user={user}>
                 <Autor></Autor>
               </VerificaFuncionario>
             }
@@ -139,30 +124,28 @@ function App() {
           <Route
             path="/registarLivro"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
+              <VerificaFuncionario user={user}>
                 <NovoLivro></NovoLivro>
               </VerificaFuncionario>
             }
           />
           <Route
-            path="/homeFuncionario"
+            path="/home"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
-                <PaginaPrincipalFun
-                  GetLivroInfo={GetLivroInfo}
-                ></PaginaPrincipalFun>
-              </VerificaFuncionario>
+              <VerificaUser user={user}>
+                <PaginaPrincipal GetLivroInfo={GetLivroInfo}></PaginaPrincipal>
+              </VerificaUser>
             }
           />
 
           <Route
-            path="/livroFun/:id"
+            path="/livroSelecionado/:id"
             element={
-              <VerificaFuncionario funcionario={funcionario}>
-                <LivroSelecionadoFuncionario
-                  livroinfo={infoLivro}
-                ></LivroSelecionadoFuncionario>
-              </VerificaFuncionario>
+              <LivroSelecionado
+                livroinfo={infoLivro}
+                shoppingCart={shoppingCart}
+                addItem={addQuantity}
+              ></LivroSelecionado>
             }
           />
 
@@ -172,37 +155,14 @@ function App() {
           />
           <Route
             path="/loginCliente"
-            element={<LoginCliente doLoginCliente={setCliente}></LoginCliente>}
-          />
-          <Route
-            path="/livroID/:id"
-            element={
-              <VerificaCliente cliente={cliente}>
-                <LivroSelecionadoCliente
-                  livroinfo={infoLivro}
-                  shoppingCart={shoppingCart}
-                  addItem={addQuantity}
-                ></LivroSelecionadoCliente>
-              </VerificaCliente>
-            }
-          />
-
-          <Route
-            path="/homeCliente"
-            element={
-              <VerificaCliente cliente={cliente}>
-                <PaginaPrincipalCliente
-                  GetLivroInfo={GetLivroInfo}
-                ></PaginaPrincipalCliente>
-              </VerificaCliente>
-            }
+            element={<LoginCliente doLoginCliente={setUser}></LoginCliente>}
           />
 
           <Route
             path="/perfilCliente/:id"
             element={
-              <VerificaCliente cliente={cliente}>
-                <Perfil cliente={cliente}></Perfil>
+              <VerificaCliente user={user}>
+                <Perfil cliente={user}></Perfil>
               </VerificaCliente>
             }
           />
@@ -210,10 +170,10 @@ function App() {
           <Route
             path="/carrinho"
             element={
-              <VerificaCliente cliente={cliente}>
+              <VerificaCliente user={user}>
                 <Carrinho
                   limparCarro={limparCarro}
-                  cliente={cliente}
+                  cliente={user}
                   shoppingCart={shoppingCart}
                   cartControls={{
                     increaseQuantity: addQuantity,
@@ -231,15 +191,22 @@ function App() {
 }
 
 // Forma + correta em vez de passar o utilizador para cada componente
-function VerificaCliente({ cliente, children }) {
-  if (!cliente) {
+function VerificaCliente({ user, children }) {
+  if (!user || user.type !== "cliente") {
     return <Navigate to="/" replace={true} />;
   }
   return children;
 }
 
-function VerificaFuncionario({ funcionario, children }) {
-  if (!funcionario) {
+function VerificaUser({ user, children }) {
+  if (!user) {
+    return <Navigate to="/" replace={true} />;
+  }
+  return children;
+}
+
+function VerificaFuncionario({ user, children }) {
+  if (!user || user.type !== "funcionario") {
     return <Navigate to="/" replace={true} />;
   }
   return children;

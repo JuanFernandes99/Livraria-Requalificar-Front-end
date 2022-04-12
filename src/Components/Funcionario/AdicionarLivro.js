@@ -10,17 +10,13 @@ import { useNavigate } from "react-router-dom";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-import { Navigate } from "react-router-dom";
-
 const API_URL = "http://localhost:8080";
 
 export function NovoLivro() {
   const navigate = useNavigate();
-  const [baseImage, setBaseImage] = useState("");
   const [value, setValue] = React.useState(null);
   const [listaEditoras, setListaEditoras] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
-  const [listaLivros, setListaLivros] = useState([]);
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
     sinopse: "",
@@ -204,6 +200,7 @@ export function NovoLivro() {
             setNovoLivro({ ...novoLivro, edicao: e.target.value });
           }}
         />
+
         <input
           type="file"
           onChange={(e) => {
@@ -328,20 +325,6 @@ export function NovoLivro() {
         <button className="btn-Livro" onClick={AdicionarLivro}>
           Adicionar Livro
         </button>
-      </div>
-      <div>
-        {listaLivros.map(function teste(element) {
-          console.log(element.autores);
-          return (
-            <p key={element.id}>
-              {element.titulo +
-                " editora: " +
-                element.editora.nome +
-                " autores: " +
-                element.autores.map((element) => element.nome)}
-            </p>
-          );
-        })}
       </div>
     </>
   );

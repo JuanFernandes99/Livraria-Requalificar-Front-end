@@ -9,11 +9,11 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
 const API_URL = "http://localhost:8080";
 
-export function PaginaPrincipalCliente(props) {
+export function PaginaPrincipal(props) {
   const [listaLivros, setListasLivros] = useState([]);
   const [filtros, setFiltros] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -128,7 +128,7 @@ export function PaginaPrincipalCliente(props) {
                         <Card
                           onClick={() => {
                             props.GetLivroInfo(element);
-                            navigate("/livroID/" + element.id);
+                            navigate("/livroSelecionado/" + element.id);
                           }}
                           key={element.id}
                           sx={{ margin: 1.5, maxWidth: 180, maxHeight: 340 }}

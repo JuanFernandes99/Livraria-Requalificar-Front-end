@@ -43,7 +43,7 @@ export function LoginFuncionario(props) {
       })
       .then((parsedResponse) => {
         props.doLoginFuncionario(parsedResponse.funcionario);
-        navigate("/homeFuncionario");
+        navigate("/home");
         console.log(parsedResponse);
       })
       .catch((error) => {

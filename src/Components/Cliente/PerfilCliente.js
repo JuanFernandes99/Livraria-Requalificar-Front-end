@@ -1,7 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -23,7 +22,6 @@ export function Perfil(props) {
   const [vouchers, setVouchers] = useState([]);
   const [compras, setCompras] = useState([]);
   const [atualizaCliente, setAtualizaCliente] = useState([]);
-  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
