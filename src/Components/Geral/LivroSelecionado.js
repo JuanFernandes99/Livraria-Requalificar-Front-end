@@ -242,9 +242,7 @@ export function LivroSelecionado(props) {
                     console.log(livro);
                     if (props.livroinfo.quantidadeStock <= 0) {
                       alert("sem stock");
-                    }
-
-                    if (props.livroinfo.quantidadeStock > 0) {
+                    } else {
                       alert("livro adicionado ao carrinho com sucesso");
                       props.addItem(props.livroinfo);
                     }
