@@ -16,6 +16,7 @@ export function NovoLivro() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(null);
   const [listaEditoras, setListaEditoras] = useState([]);
+  const [listaLivros, setListaLivros] = useState([]);
   const [listaAutores, setListaAutores] = useState([]);
   const [novoLivro, setNovoLivro] = useState({
     titulo: "",
@@ -38,6 +39,31 @@ export function NovoLivro() {
     GetAllEditoras();
   }, []);
 
+  function GetAllEditoras() {
+    fetch(API_URL + "/getAllEditoras", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("Ocorreu um erro, nenhuma editora disponível");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        setListaEditoras(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
   function GetAllEditoras() {
     fetch(API_URL + "/getAllEditoras", {
       mode: "cors",
@@ -146,7 +172,7 @@ export function NovoLivro() {
           return;
         }
         alert(parsedResponse.message);
-        navigate("/homeFuncionario");
+        navigate("/home");
       })
       .catch((error) => {
         alert(error);
@@ -325,6 +351,20 @@ export function NovoLivro() {
         <button className="btn-Livro" onClick={AdicionarLivro}>
           Adicionar Livro
         </button>
+      </div>
+      <div>
+        {listaLivros.map(function teste(element) {
+          console.log(element.autores);
+          return (
+            <p key={element.id}>
+              {element.titulo +
+                " editora: " +
+                element.editora.nome +
+                " autores: " +
+                element.autores.map((element) => element.nome)}
+            </p>
+          );
+        })}
       </div>
     </>
   );

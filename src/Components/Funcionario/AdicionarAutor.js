@@ -54,6 +54,7 @@ export function Autor() {
         return response.json();
       })
       .then((parsedResponse) => {
+        GetAllAutores();
         console.log(parsedResponse);
         alert(parsedResponse.message);
       })
