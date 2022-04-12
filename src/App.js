@@ -1,24 +1,24 @@
 import { Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
 import "./App.css";
 import { PaginaPrincipal } from "./Components/Geral/PaginaPrincipal";
-import { LoginFuncionario } from "./Components/Funcionario/LoginFuncionario";
-import { RegistoFuncionario } from "./Components/Funcionario/RegistoFuncionario";
+import { Registo } from "./Components/Geral/Registo";
+import { NavBar } from "./Components/Geral/NavBar";
+import { Login } from "./Components/Geral/Login";
+import { LivroSelecionado } from "./Components/Geral/LivroSelecionado";
+import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
 import { Editora } from "./Components/Funcionario/AdicionarEditora";
 import { Autor } from "./Components/Funcionario/AdicionarAutor";
 import { NovoLivro } from "./Components/Funcionario/AdicionarLivro";
-import { NavBar } from "./Components/Geral/NavBar";
-import { LoginCliente } from "./Components/Cliente/LoginCliente";
-import { RegistoCliente } from "./Components/Cliente/RegistoCliente";
+import { EstatisticasLivros } from "./Components/Funcionario/EstatisticasLivros";
+import { EstatisticasVendas } from "./Components/Funcionario/EstatisticasVendas";
 import { Perfil } from "./Components/Cliente/PerfilCliente";
 import { Carrinho } from "./Components/Cliente/Carrinho";
-import { SelecaoUtilizador } from "./Components/Geral/SelecaoUtilizador";
-import { EstatisticasLivros } from "./Components/Funcionario/EstatisticasLivros";
-import { LivroSelecionado } from "./Components/Geral/LivroSelecionado";
-import { EstatisticasVendas } from "./Components/Funcionario/EstatisticasVendas";
-import React, { useState } from "react";
+
 function App() {
   const [user, setUser] = useState();
+  const [cliente, isCliente] = useState();
   const [shoppingCart, setShoppingCart] = useState([]);
   const [infoLivro, setInfoLivro] = useState();
 
@@ -63,46 +63,20 @@ function App() {
       setShoppingCart(oldShoppingCart);
     }
   }
-  // Limpar carrinho de compras
-  function limparCarro() {
-    setShoppingCart([]);
-  }
-  // Função para obter a info do livro
-  function GetLivroInfo(item) {
-    return setInfoLivro(item);
-  }
+
   return (
     <div className="App">
       <BrowserRouter>
         {user && <NavBar user={user} doLogout={setUser}></NavBar>}
-
         <Routes>
           <Route
-            path="/estatisticasVendas"
-            element={
-              <VerificaFuncionario user={user}>
-                <EstatisticasVendas></EstatisticasVendas>
-              </VerificaFuncionario>
-            }
-          />
-          <Route
-            path="/estatisticasLivros"
-            element={
-              <VerificaFuncionario user={user}>
-                <EstatisticasLivros></EstatisticasLivros>
-              </VerificaFuncionario>
-            }
-          />
-          <Route
-            path="/registoFuncionario"
-            element={<RegistoFuncionario></RegistoFuncionario>}
+            path="/registo"
+            element={<Registo iscliente={cliente}></Registo>}
           />
 
           <Route
-            path="/loginFuncionario"
-            element={
-              <LoginFuncionario doLoginFuncionario={setUser}></LoginFuncionario>
-            }
+            path="/login"
+            element={<Login iscliente={cliente} doLogin={setUser}></Login>}
           />
 
           <Route
@@ -130,10 +104,52 @@ function App() {
             }
           />
           <Route
+            path="/estatisticasVendas"
+            element={
+              <VerificaFuncionario user={user}>
+                <EstatisticasVendas></EstatisticasVendas>
+              </VerificaFuncionario>
+            }
+          />
+          <Route
+            path="/estatisticasLivros"
+            element={
+              <VerificaFuncionario user={user}>
+                <EstatisticasLivros></EstatisticasLivros>
+              </VerificaFuncionario>
+            }
+          />
+
+          <Route
+            path="/perfilCliente/:id"
+            element={
+              <VerificaCliente user={user}>
+                <Perfil cliente={user}></Perfil>
+              </VerificaCliente>
+            }
+          />
+
+          <Route
+            path="/carrinho"
+            element={
+              <VerificaCliente user={user}>
+                <Carrinho
+                  setShoppingCart={setShoppingCart}
+                  cliente={user}
+                  shoppingCart={shoppingCart}
+                  cartControls={{
+                    increaseQuantity: addQuantity,
+                    decreaseQuantity: removeQuanitty,
+                  }}
+                ></Carrinho>
+              </VerificaCliente>
+            }
+          />
+          <Route
             path="/home"
             element={
               <VerificaUser user={user}>
-                <PaginaPrincipal GetLivroInfo={GetLivroInfo}></PaginaPrincipal>
+                <PaginaPrincipal setInfoLivro={setInfoLivro}></PaginaPrincipal>
               </VerificaUser>
             }
           />
@@ -153,40 +169,11 @@ function App() {
           />
 
           <Route
-            path="/registoCliente"
-            element={<RegistoCliente></RegistoCliente>}
-          />
-          <Route
-            path="/loginCliente"
-            element={<LoginCliente doLoginCliente={setUser}></LoginCliente>}
-          />
-
-          <Route
-            path="/perfilCliente/:id"
+            path="/"
             element={
-              <VerificaCliente user={user}>
-                <Perfil cliente={user}></Perfil>
-              </VerificaCliente>
+              <SelecaoUtilizador iscliente={isCliente}></SelecaoUtilizador>
             }
           />
-
-          <Route
-            path="/carrinho"
-            element={
-              <VerificaCliente user={user}>
-                <Carrinho
-                  limparCarro={limparCarro}
-                  cliente={user}
-                  shoppingCart={shoppingCart}
-                  cartControls={{
-                    increaseQuantity: addQuantity,
-                    decreaseQuantity: removeQuanitty,
-                  }}
-                ></Carrinho>
-              </VerificaCliente>
-            }
-          />
-          <Route path="/" element={<SelecaoUtilizador></SelecaoUtilizador>} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -10,8 +10,8 @@ import clienteImg from "../Images/cliente.jpeg";
 import funcionarioImg from "../Images/funcionario.jpeg";
 import "../Geral/Adicionar.css";
 
-export function SelecaoUtilizador() {
-  const [spacing, setSpacing] = React.useState(2);
+export function SelecaoUtilizador(props) {
+  const [spacing] = React.useState(2);
   const navigate = useNavigate();
   return (
     <div id="background">
@@ -21,7 +21,8 @@ export function SelecaoUtilizador() {
             <Card sx={{ maxWidth: 345, margin: 2 }}>
               <CardActionArea
                 onClick={() => {
-                  navigate("/loginCliente");
+                  props.iscliente(true);
+                  navigate("/login");
                 }}
               >
                 <CardMedia
@@ -41,7 +42,8 @@ export function SelecaoUtilizador() {
             <Card sx={{ maxWidth: 345, margin: 2 }}>
               <CardActionArea
                 onClick={() => {
-                  navigate("/loginFuncionario");
+                  props.iscliente(false);
+                  navigate("/login");
                 }}
               >
                 <CardMedia

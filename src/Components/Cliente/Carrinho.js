@@ -67,7 +67,7 @@ export function Carrinho(props) {
 
           return;
         }
-        props.limparCarro();
+        props.setShoppingCart([]);
         fetchLivro();
         console.log(parsedResponse.compras);
         alert(parsedResponse.message);

@@ -37,6 +37,7 @@ export function NovoLivro() {
   useEffect(() => {
     GetAllAutores();
     GetAllEditoras();
+    getAllLivros();
   }, []);
 
   function GetAllEditoras() {
@@ -64,8 +65,9 @@ export function NovoLivro() {
         alert(error);
       });
   }
-  function GetAllEditoras() {
-    fetch(API_URL + "/getAllEditoras", {
+
+  function getAllLivros() {
+    fetch(API_URL + "/getAllLivros", {
       mode: "cors",
       method: "GET",
       headers: {
@@ -83,7 +85,7 @@ export function NovoLivro() {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse);
-        setListaEditoras(parsedResponse);
+        setListaLivros(parsedResponse);
       })
       .catch((error) => {
         alert(error);

@@ -127,7 +127,7 @@ export function PaginaPrincipal(props) {
                       {filtros.map((element) => (
                         <Card
                           onClick={() => {
-                            props.GetLivroInfo(element);
+                            props.setInfoLivro(element);
                             navigate("/livroSelecionado/" + element.id);
                           }}
                           key={element.id}
