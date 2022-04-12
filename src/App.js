@@ -141,11 +141,14 @@ function App() {
           <Route
             path="/livroSelecionado/:id"
             element={
-              <LivroSelecionado
-                livroinfo={infoLivro}
-                shoppingCart={shoppingCart}
-                addItem={addQuantity}
-              ></LivroSelecionado>
+              <VerificaUser user={user}>
+                <LivroSelecionado
+                  user={user}
+                  livroinfo={infoLivro}
+                  shoppingCart={shoppingCart}
+                  addItem={addQuantity}
+                ></LivroSelecionado>
+              </VerificaUser>
             }
           />
 

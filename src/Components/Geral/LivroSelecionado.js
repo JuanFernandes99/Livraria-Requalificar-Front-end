@@ -58,9 +58,11 @@ export function LivroSelecionado(props) {
   };
 
   useEffect(() => {
+    console.log(props.user);
     GetAllEditoras();
     GetAllAutores();
     fetchLivro();
+
     if (!params.id) {
       alert("nao tem livro ");
       return;
