@@ -10,14 +10,28 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import PropagateLoader from "react-spinners/PropagateLoader";
 const API_URL = "http://localhost:8080";
 
 export function PaginaPrincipal(props) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const [listaLivros, setListasLivros] = useState([]);
+  const [listaEditoras, setListaEditoras] = useState([]);
   const [filtros, setFiltros] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [listaAutores, setListaAutores] = useState([]);
   const navigate = useNavigate();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   // Position loading indicator in the center of the screen
   const style = {
@@ -28,6 +42,8 @@ export function PaginaPrincipal(props) {
   };
 
   useEffect(() => {
+    GetAllEditoras();
+    GetAllAutores();
     fetchLivro();
   }, []);
 
@@ -63,6 +79,58 @@ export function PaginaPrincipal(props) {
       });
   }
 
+  function GetAllEditoras() {
+    fetch(API_URL + "/getAllEditoras", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("Ocorreu um erro, nenhuma editora disponível");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        setListaEditoras(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  function GetAllAutores() {
+    fetch(API_URL + "/getAllAutores", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response);
+
+        if (response.status !== 200) {
+          throw new Error("Ocorreu um erro, nenhum Autor disponível");
+        }
+
+        return response.json();
+      })
+      .then((parsedResponse) => {
+        console.log(parsedResponse);
+        setListaAutores(parsedResponse);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   function showPrecoCrescente() {
     var A = [...listaLivros].sort((a, b) => {
       return a.preco > b.preco ? 1 : -1;
@@ -92,10 +160,27 @@ export function PaginaPrincipal(props) {
   function showAutores() {
     var E = [...listaLivros];
     E.sort((a, b) => {
-      return a.autores.nome > b.autores.nome ? 1 : -1;
+      return a.autores[0].nome > b.autores[0].nome ? 1 : -1;
     });
     setFiltros(E);
     console.log(filtros);
+  }
+
+  function showLivroPorEditora(idEditora) {
+    var D = [...listaLivros].filter(
+      (editora) => editora.editora.id === idEditora
+    );
+    setFiltros(D);
+    console.log(D);
+  }
+
+  function showLivroPorAutor(idAutor) {
+    var D = [...listaLivros].filter((livro) =>
+      livro.autores.some((autor) => autor.id === idAutor)
+    );
+
+    setFiltros(D);
+    console.log(D);
   }
 
   return (
@@ -117,6 +202,42 @@ export function PaginaPrincipal(props) {
             <button onClick={showData}>Por data de Lançamento</button>
             <button onClick={showEditora}>Por Editora</button>
             <button onClick={showAutores}>Por autores</button>
+            <button onClick={showLivroPorEditora}>showLivroPorEditora</button>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Editora</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Editora"
+                onChange={(e) => {
+                  showLivroPorEditora(e.target.value.id);
+                }}
+              >
+                {listaEditoras.map((element) => (
+                  <MenuItem value={element} key={element.id}>
+                    {element.nome}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Autor</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Autor"
+                onChange={(e) => {
+                  showLivroPorAutor(e.target.value.id);
+                }}
+              >
+                {listaAutores.map((element) => (
+                  <MenuItem value={element} key={element.id}>
+                    {element.nome}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <Grid item xs={12}>
             <Paper sx={{ p: 2 }}>

@@ -85,7 +85,7 @@ export function NovoLivro() {
       })
       .then((parsedResponse) => {
         console.log(parsedResponse);
-        setListaLivros(parsedResponse);
+        setListaLivros(parsedResponse.livros);
       })
       .catch((error) => {
         alert(error);
@@ -317,7 +317,7 @@ export function NovoLivro() {
             }}
           >
             {listaEditoras.map((element) => (
-              <MenuItem value={element} key={element.id}>
+              <MenuItem value={element.id} key={element.id}>
                 {element.nome}
               </MenuItem>
             ))}
@@ -355,18 +355,15 @@ export function NovoLivro() {
         </button>
       </div>
       <div>
-        {listaLivros.map(function teste(element) {
-          console.log(element.autores);
-          return (
-            <p key={element.id}>
-              {element.titulo +
-                " editora: " +
-                element.editora.nome +
-                " autores: " +
-                element.autores.map((element) => element.nome)}
-            </p>
-          );
-        })}
+        {listaLivros.map((element) => (
+          <p key={element.id}>
+            {element.titulo +
+              " editora: " +
+              element.editora.nome +
+              " autores: " +
+              element.autores.map((element) => element.nome)}
+          </p>
+        ))}
       </div>
     </>
   );
