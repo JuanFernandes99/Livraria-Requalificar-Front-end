@@ -84,128 +84,132 @@ export function Login(props) {
       });
   }
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            <img id="image" src={livraryimage} alt="Logo" />
-            <br></br>
-            Iniciar sessão
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            {props.iscliente ? (
-              <>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  type="text"
-                  name="email"
-                  label="Email"
-                  id="email"
-                  autoComplete="email"
-                  value={autenticacaoCliente.email}
-                  placeholder="Email"
-                  onChange={(e) => {
-                    setAutenticacaoCliente({
-                      ...autenticacaoCliente,
-                      email: e.target.value,
-                    });
-                  }}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={autenticacaoCliente.palavraPasse}
-                  onChange={(e) => {
-                    setAutenticacaoCliente({
-                      ...autenticacaoCliente,
-                      palavraPasse: e.target.value,
-                    });
-                  }}
-                />
-              </>
-            ) : (
-              <>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  type="text"
-                  name="nickName"
-                  label="Nick name"
-                  id="nickName"
-                  autoComplete="nickName"
-                  value={autenticacaoFuncionario.nickName}
-                  placeholder="Nickname"
-                  onChange={(e) => {
-                    setAutenticacaoFuncionario({
-                      ...autenticacaoFuncionario,
-                      nickName: e.target.value,
-                    });
-                  }}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={autenticacaoFuncionario.palavraPasse}
-                  onChange={(e) => {
-                    setAutenticacaoFuncionario({
-                      ...autenticacaoFuncionario,
-                      palavraPasse: e.target.value,
-                    });
-                  }}
-                />
-              </>
-            )}
-
-            <Button
-              id="ButtonLogin"
-              onClick={() => {
-                props.iscliente ? autenticarCliente() : autenticarFuncionario();
-              }}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+    <div id="backgroundPP">
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5">
+              <img id="image" src={livraryimage} alt="Logo" />
+              <br></br>
               Iniciar sessão
-            </Button>
-            <h5 id="welcomeQuestion">É a sua primeira vez na livraria ?</h5>
-            <br></br>
-            <Button
-              id="ButtonRegisto"
-              onClick={() => {
-                navigate("/registo");
-              }}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Criar conta da livraria
-            </Button>
+            </Typography>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              {props.iscliente ? (
+                <>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    type="text"
+                    name="email"
+                    label="Email"
+                    id="email"
+                    autoComplete="email"
+                    value={autenticacaoCliente.email}
+                    placeholder="Email"
+                    onChange={(e) => {
+                      setAutenticacaoCliente({
+                        ...autenticacaoCliente,
+                        email: e.target.value,
+                      });
+                    }}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={autenticacaoCliente.palavraPasse}
+                    onChange={(e) => {
+                      setAutenticacaoCliente({
+                        ...autenticacaoCliente,
+                        palavraPasse: e.target.value,
+                      });
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    type="text"
+                    name="nickName"
+                    label="Nick name"
+                    id="nickName"
+                    autoComplete="nickName"
+                    value={autenticacaoFuncionario.nickName}
+                    placeholder="Nickname"
+                    onChange={(e) => {
+                      setAutenticacaoFuncionario({
+                        ...autenticacaoFuncionario,
+                        nickName: e.target.value,
+                      });
+                    }}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={autenticacaoFuncionario.palavraPasse}
+                    onChange={(e) => {
+                      setAutenticacaoFuncionario({
+                        ...autenticacaoFuncionario,
+                        palavraPasse: e.target.value,
+                      });
+                    }}
+                  />
+                </>
+              )}
+
+              <Button
+                id="ButtonLogin"
+                onClick={() => {
+                  props.iscliente
+                    ? autenticarCliente()
+                    : autenticarFuncionario();
+                }}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Iniciar sessão
+              </Button>
+              <h5 id="welcomeQuestion">É a sua primeira vez na livraria ?</h5>
+              <br></br>
+              <Button
+                id="ButtonRegisto"
+                onClick={() => {
+                  navigate("/registo");
+                }}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Criar conta da livraria
+              </Button>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </Container>
+      </ThemeProvider>
+    </div>
   );
 }

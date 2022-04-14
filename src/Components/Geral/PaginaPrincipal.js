@@ -239,7 +239,7 @@ export function PaginaPrincipal(props) {
               </Select>
             </FormControl>
           </div>
-          <Grid item xs={12}>
+          <Grid id="backgroundPP" item xs={12}>
             <Paper sx={{ p: 2 }}>
               <Grid container>
                 <Grid item>
@@ -247,12 +247,13 @@ export function PaginaPrincipal(props) {
                     <RadioGroup titulo="spacing" aria-label="spacing" row>
                       {filtros.map((element) => (
                         <Card
+                          className="livros"
                           onClick={() => {
                             props.setInfoLivro(element);
                             navigate("/livroSelecionado/" + element.id);
                           }}
                           key={element.id}
-                          sx={{ margin: 1.5, maxWidth: 180, maxHeight: 340 }}
+                          sx={{ margin: 1.5, maxWidth: 150, maxHeight: 300 }}
                         >
                           <CardActionArea>
                             <CardMedia

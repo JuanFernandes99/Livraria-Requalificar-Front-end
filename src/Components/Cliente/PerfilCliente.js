@@ -14,6 +14,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import "../Geral/Adicionar.css";
 
 const API_URL = "http://localhost:8080";
 
@@ -157,9 +158,9 @@ export function Perfil(props) {
       <Grid sx={{ flexGrow: 1, marginTop: 5 }} container spacing={2}>
         <Grid container>
           <Grid container justifyContent="center">
-            <Card sx={{ width: 600, height: 1000, margin: 1 }}>
+            <Card sx={{ width: 600, maxheight: 800, margin: 1 }}>
               <br></br>
-              <Typography> Dados Pessoais</Typography>
+              <Typography id="subtitulos"> Dados Pessoais</Typography>
 
               <p>{"Nome: " + cliente.nome}</p>
               <p>{"Morada: " + cliente.morada}</p>
@@ -172,7 +173,7 @@ export function Perfil(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Visualizar compras</Typography>
+                  <Typography id="subtitulos">Visualizar compras</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
@@ -201,7 +202,7 @@ export function Perfil(props) {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Visualizar cupões</Typography>
+                  <Typography id="subtitulos">Visualizar cupões</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
@@ -241,7 +242,7 @@ export function Perfil(props) {
                   alt="clienteIMG"
                 />
                 <CardContent>
-                  <Typography>{cliente.nome}</Typography>
+                  <Typography id="subtitulos">{cliente.nome}</Typography>
                   <Button onClick={handleOpen}>Alterar dados</Button>
                 </CardContent>
               </CardActionArea>
@@ -320,6 +321,6 @@ export function Perfil(props) {
       </Modal>
     </div>
   ) : (
-    <Typography variant="h1">Livro não encontrado</Typography>
+    <Typography variant="h1">Cliente não encontrado</Typography>
   );
 }

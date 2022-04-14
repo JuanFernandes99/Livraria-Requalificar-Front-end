@@ -123,7 +123,7 @@ tr:nth-child(even) {
 }
 
 .MuiFormControl-root {
-  width: 95% !important;
+  width: 100% !important;
   margin: 5px;
 }
 .MuiOutlinedInput-root {
@@ -157,7 +157,46 @@ tr:nth-child(even) {
   padding: 10px;
   margin: 5px;
   border: none;
-  background-color: rgb(24, 124, 142);
+  background-color: #0f84a6;
   color: white;
   opacity: 100%;
+}
+
+
+.livros{
+  opacity:85%;
+}
+
+.livros:hover{
+opacity: 100%;
+
+
+}
+
+
+#subtitulos{
+  font-weight: bold;
+  font-style: italic;
+  color:#0f84a6;
+}
+
+#barras{
+  width: 40%;
+margin-left:2%;
+margin-right: 2%;
+}
+
+.row {
+  display: flex;
+  margin: 0px;
+  width: 100%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+#imagemLateral{
+  width: 115%;
+
 }

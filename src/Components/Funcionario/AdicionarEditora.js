@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import imagemLateral from "../Images/imagemLateral.jpg";
 
 const API_URL = "http://localhost:8080";
 
@@ -71,53 +72,60 @@ export function Editora() {
   }
 
   return (
-    <>
-      <Box
-        component="form"
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          margin="normal"
-          required
-          //falta o width
-          id="filled-basic"
-          label="Nome da Editora"
-          variant="filled"
-          type="text"
-          value={novaEditora.nome}
-          onChange={(e) => {
-            setNovaEditora({ ...novaEditora, nome: e.target.value });
-          }}
-        />
-        <br></br>
-        <TextField
-          margin="normal"
-          required
-          id="filled-basic"
-          label="Morada da Editora"
-          variant="filled"
-          type="text"
-          value={novaEditora.morada}
-          onChange={(e) => {
-            setNovaEditora({ ...novaEditora, morada: e.target.value });
-          }}
-        />
-      </Box>
-      <div>
-        <button className="btn-editora" onClick={AdicionarEditora}>
-          Adicionar Editora
-        </button>
+    <div className="container">
+      <div className="row">
+        <div class="col-6" id="barras">
+          <Box
+            component="form"
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              margin="normal"
+              required
+              //falta o width
+              id="filled-basic"
+              label="Nome da Editora"
+              variant="filled"
+              type="text"
+              value={novaEditora.nome}
+              onChange={(e) => {
+                setNovaEditora({ ...novaEditora, nome: e.target.value });
+              }}
+            />
+            <br></br>
+            <TextField
+              margin="normal"
+              required
+              id="filled-basic"
+              label="Morada da Editora"
+              variant="filled"
+              type="text"
+              value={novaEditora.morada}
+              onChange={(e) => {
+                setNovaEditora({ ...novaEditora, morada: e.target.value });
+              }}
+            />
+          </Box>
+          <div>
+            <button className="btn-editora" onClick={AdicionarEditora}>
+              Adicionar Editora
+            </button>
+          </div>
+          {listaEditoras.map((element) => (
+            <p key={element.id}>{element.nome}</p>
+          ))}
+        </div>
+        <div class="col-6">
+          <img id="imagemLateral" src={imagemLateral} alt="imagem" />
+        </div>
       </div>
-      {listaEditoras.map((element) => (
-        <p key={element.id}>{element.nome}</p>
-      ))}
-    </>
+    </div>
   );
 }
