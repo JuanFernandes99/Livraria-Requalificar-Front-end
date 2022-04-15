@@ -216,7 +216,10 @@ export function LivroSelecionado(props) {
               <p>{"ISBN: " + novoLivro.isbn}</p>
               <p>{"Edição: " + novoLivro.edicao}</p>
 
-              <p>{"Data de Lançamento: " + novoLivro.dataLancamento}</p>
+              <p>
+                {"Data de Lançamento: " +
+                  novoLivro.dataLancamento.split("-").reverse().join("/")}
+              </p>
               <p>{"Número de Páginas: " + novoLivro.numeroPaginas}</p>
               <p>{"Cópias Disponíveis: " + novoLivro.quantidadeStock}</p>
               <p>{"Cópias Vendidas: " + novoLivro.quantidadeComprada}</p>

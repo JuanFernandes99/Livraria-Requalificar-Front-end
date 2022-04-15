@@ -138,18 +138,27 @@ export function PaginaPrincipal(props) {
     setFiltros(A);
   }
 
-  function showData() {
-    var B = [...listaLivros].sort((a, b) => {
-      return a.dataLancamento > b.dataLancamento ? 1 : -1;
-    });
-    setFiltros(B);
-  }
   function showPrecoDecrescente() {
     var C = [...listaLivros].sort((a, b) => {
       return a.preco < b.preco ? 1 : -1;
     });
     setFiltros(C);
   }
+
+  function showDataCrescente() {
+    var B = [...listaLivros].sort((a, b) => {
+      return a.dataLancamento > b.dataLancamento ? 1 : -1;
+    });
+    setFiltros(B);
+  }
+
+  function showDataDecrescente() {
+    var B = [...listaLivros].sort((a, b) => {
+      return a.dataLancamento < b.dataLancamento ? 1 : -1;
+    });
+    setFiltros(B);
+  }
+
   function showEditora() {
     var D = [...listaLivros].sort((a, b) => {
       return a.editora.nome > b.editora.nome ? 1 : -1;
@@ -197,14 +206,22 @@ export function PaginaPrincipal(props) {
       ) : (
         <>
           <div id="btn-filtros">
-            <button onClick={showPrecoCrescente}>Preço crescente</button>
-            <button onClick={showPrecoDecrescente}>Preco decrescente</button>
-            <button onClick={showData}>Por data de Lançamento</button>
-            <button onClick={showEditora}>Por Editora</button>
+            <p>Filtros</p>
+            <button onClick={showPrecoCrescente}>Por preço crescente</button>
+            <button onClick={showPrecoDecrescente}>
+              Por preco decrescente
+            </button>
+            <button onClick={showDataCrescente}>
+              Por data de Lançamento mais recente
+            </button>
+            <button onClick={showDataDecrescente}>
+              Por data de Lançamento mais antiga
+            </button>
+            <button onClick={showEditora}>Por Editoras</button>
             <button onClick={showAutores}>Por autores</button>
-            <button onClick={showLivroPorEditora}>showLivroPorEditora</button>
+
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Editora</InputLabel>
+              <InputLabel id="demo-simple-select-label">Por Editora</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -222,7 +239,7 @@ export function PaginaPrincipal(props) {
             </FormControl>
 
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Autor</InputLabel>
+              <InputLabel id="demo-simple-select-label">Por Autor</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -253,7 +270,7 @@ export function PaginaPrincipal(props) {
                             navigate("/livroSelecionado/" + element.id);
                           }}
                           key={element.id}
-                          sx={{ margin: 1.5, maxWidth: 150, maxHeight: 300 }}
+                          sx={{ margin: 1.5, maxWidth: 150, maxHeight: 400 }}
                         >
                           <CardActionArea>
                             <CardMedia
@@ -282,6 +299,16 @@ export function PaginaPrincipal(props) {
                                 color="text.secondary"
                               >
                                 {"Editora: " + element.editora.nome}
+                              </Typography>
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                {"Data de lançamento: " +
+                                  element.dataLancamento
+                                    .split("-")
+                                    .reverse()
+                                    .join("/")}
                               </Typography>
                               <Typography
                                 variant="body2"

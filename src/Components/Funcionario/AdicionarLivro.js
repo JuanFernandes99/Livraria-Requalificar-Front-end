@@ -84,7 +84,7 @@ export function NovoLivro() {
         return response.json();
       })
       .then((parsedResponse) => {
-        console.log(parsedResponse);
+        console.log(parsedResponse.message);
         setListaLivros(parsedResponse.livros);
       })
       .catch((error) => {
@@ -239,6 +239,7 @@ export function NovoLivro() {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Data Lançamento"
+            dateFormat="dd/MM/yyyy"
             inputFormat="dd/MM/yyyy"
             value={value}
             onChange={(newValue) => {
@@ -317,7 +318,7 @@ export function NovoLivro() {
             }}
           >
             {listaEditoras.map((element) => (
-              <MenuItem value={element.id} key={element.id}>
+              <MenuItem value={element} key={element.id}>
                 {element.nome}
               </MenuItem>
             ))}
